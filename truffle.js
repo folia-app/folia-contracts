@@ -58,15 +58,18 @@ module.exports = {
       // gas: 5561260
     },
     rinkeby: {
+      skipDryRun: true,
       provider() {
         return new HDWalletProvider(
           process.env.TESTNET_MNEMONIC,
-          'https://rinkeby.infura.io/v3/' + process.env.INFURA_API_KEY
+          'https://rinkeby.infura.io/v3/' + process.env.INFURA_API_KEY,
+          0,
+          10
         )
       },
       network_id: 4,
       // gas: 4700000,
-      gasPrice: 200000000000 // 200 GWEI
+      gasPrice: 100000000000 // 200 GWEI
     },
     ropsten: {
       provider() {

@@ -1,3 +1,5 @@
+// File: contracts/Migrations.sol
+
 pragma solidity ^0.5.0;
 
 contract Migrations {
@@ -21,6 +23,3 @@ contract Migrations {
         upgraded.setCompleted(last_completed_migration);
     }
 }
-
-
-

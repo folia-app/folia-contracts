@@ -13,5 +13,5 @@ rm -f flat/**/*.sol
 find contracts -name "*.sol" -print0 | while read -d $'\0' file
 do
   printf " \n%s\n" $file
-  npx poa-solidity-flattener "$file"
+  npx truffle-flattener "$file" > flat/"$file"
 done

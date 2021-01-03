@@ -1,3 +1,5 @@
+// File: contracts/helpers/strings.sol
+
 /*
  * @title String & slice utility library for Solidity contracts.
  * @author Nick Johnson <arachnid@notdot.net>
@@ -62,17 +64,19 @@ library strings {
     }
 }
 
+// File: contracts/Metadata.sol
+
+pragma solidity ^0.5.0;
 /**
 * Metadata contract is upgradeable and returns metadata about Token
 */
-
 
 
 contract Metadata {
     using strings for *;
 
     function tokenURI(uint _tokenId) public pure returns (string memory _infoUrl) {
-        string memory base = "https://folia.app/metadata/";
+        string memory base = "https://folia.app/v1/metadata/";
         string memory id = uint2str(_tokenId);
         return base.toSlice().concat(id.toSlice());
     }
@@ -98,6 +102,3 @@ contract Metadata {
         assembly { mstore(add(b, 32), x) }
     }
 }
-
-
-

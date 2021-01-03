@@ -1,3 +1,5 @@
+// File: openzeppelin-solidity/contracts/introspection/IERC165.sol
+
 pragma solidity ^0.5.0;
 
 /**
@@ -14,188 +16,9 @@ interface IERC165 {
     function supportsInterface(bytes4 interfaceId) external view returns (bool);
 }
 
+// File: openzeppelin-solidity/contracts/token/ERC721/IERC721.sol
 
-
-
-/**
- * @title ERC165
- * @author Matt Condon (@shrugs)
- * @dev Implements ERC165 using a lookup table.
- */
-contract ERC165 is IERC165 {
-    bytes4 private constant _INTERFACE_ID_ERC165 = 0x01ffc9a7;
-    /**
-     * 0x01ffc9a7 ===
-     *     bytes4(keccak256('supportsInterface(bytes4)'))
-     */
-
-    /**
-     * @dev a mapping of interface id to whether or not it's supported
-     */
-    mapping(bytes4 => bool) private _supportedInterfaces;
-
-    /**
-     * @dev A contract implementing SupportsInterfaceWithLookup
-     * implement ERC165 itself
-     */
-    constructor () internal {
-        _registerInterface(_INTERFACE_ID_ERC165);
-    }
-
-    /**
-     * @dev implement supportsInterface(bytes4) using a lookup table
-     */
-    function supportsInterface(bytes4 interfaceId) external view returns (bool) {
-        return _supportedInterfaces[interfaceId];
-    }
-
-    /**
-     * @dev internal method for registering an interface
-     */
-    function _registerInterface(bytes4 interfaceId) internal {
-        require(interfaceId != 0xffffffff);
-        _supportedInterfaces[interfaceId] = true;
-    }
-}
-/*
- * @title String & slice utility library for Solidity contracts.
- * @author Nick Johnson <arachnid@notdot.net>
- */
-
-
-
-library strings {
-    struct slice {
-        uint _len;
-        uint _ptr;
-    }
-
-    function memcpy(uint dest, uint src, uint len) private pure {
-        // Copy word-length chunks while possible
-        for (; len >= 32; len -= 32) {
-            assembly {
-                mstore(dest, mload(src))
-            }
-            dest += 32;
-            src += 32;
-        }
-
-        // Copy remaining bytes
-        uint mask = 256 ** (32 - len) - 1;
-        assembly {
-            let srcpart := and(mload(src), not(mask))
-            let destpart := and(mload(dest), mask)
-            mstore(dest, or(destpart, srcpart))
-        }
-    }
-
-    /*
-     * @dev Returns a slice containing the entire string.
-     * @param self The string to make a slice from.
-     * @return A newly allocated slice containing the entire string.
-     */
-    function toSlice(string memory self) internal pure returns (slice memory) {
-        uint ptr;
-        assembly {
-            ptr := add(self, 0x20)
-        }
-        return slice(bytes(self).length, ptr);
-    }
-
-    /*
-     * @dev Returns a newly allocated string containing the concatenation of
-     *      `self` and `other`.
-     * @param self The first slice to concatenate.
-     * @param other The second slice to concatenate.
-     * @return The concatenation of the two strings.
-     */
-    function concat(slice memory self, slice memory other) internal pure returns (string memory) {
-        string memory ret = new string(self._len + other._len);
-        uint retptr;
-        assembly {
-            retptr := add(ret, 32)
-        }
-        memcpy(retptr, self._ptr, self._len);
-        memcpy(retptr + self._len, other._ptr, other._len);
-        return ret;
-    }
-}
-
-
-/**
- * @title Roles
- * @dev Library for managing addresses assigned to a Role.
- */
-library Roles {
-    struct Role {
-        mapping (address => bool) bearer;
-    }
-
-    /**
-     * @dev give an account access to this role
-     */
-    function add(Role storage role, address account) internal {
-        require(account != address(0));
-        require(!has(role, account));
-
-        role.bearer[account] = true;
-    }
-
-    /**
-     * @dev remove an account's access to this role
-     */
-    function remove(Role storage role, address account) internal {
-        require(account != address(0));
-        require(has(role, account));
-
-        role.bearer[account] = false;
-    }
-
-    /**
-     * @dev check if an account has this role
-     * @return bool
-     */
-    function has(Role storage role, address account) internal view returns (bool) {
-        require(account != address(0));
-        return role.bearer[account];
-    }
-}
-
-
-/**
- * @title ERC20 interface
- * @dev see https://github.com/ethereum/EIPs/issues/20
- */
-interface IERC20 {
-    function transfer(address to, uint256 value) external returns (bool);
-
-    function approve(address spender, uint256 value) external returns (bool);
-
-    function transferFrom(address from, address to, uint256 value) external returns (bool);
-
-    function totalSupply() external view returns (uint256);
-
-    function balanceOf(address who) external view returns (uint256);
-
-    function allowance(address owner, address spender) external view returns (uint256);
-
-    event Transfer(address indexed from, address indexed to, uint256 value);
-
-    event Approval(address indexed owner, address indexed spender, uint256 value);
-}
-
-
-/**
- * The FoliaController is an upgradeable endpoint for controlling Folia.sol
- */
-
-
-
-
-
-
-
-
+pragma solidity ^0.5.0;
 
 
 /**
@@ -222,7 +45,9 @@ contract IERC721 is IERC165 {
     function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public;
 }
 
+// File: openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol
 
+pragma solidity ^0.5.0;
 
 /**
  * @title ERC721 token receiver interface
@@ -248,7 +73,9 @@ contract IERC721Receiver {
     public returns (bytes4);
 }
 
+// File: openzeppelin-solidity/contracts/math/SafeMath.sol
 
+pragma solidity ^0.5.0;
 
 /**
  * @title SafeMath
@@ -314,7 +141,9 @@ library SafeMath {
     }
 }
 
+// File: openzeppelin-solidity/contracts/utils/Address.sol
 
+pragma solidity ^0.5.0;
 
 /**
  * Utility library of inline functions on addresses
@@ -340,6 +169,59 @@ library Address {
         return size > 0;
     }
 }
+
+// File: openzeppelin-solidity/contracts/introspection/ERC165.sol
+
+pragma solidity ^0.5.0;
+
+
+/**
+ * @title ERC165
+ * @author Matt Condon (@shrugs)
+ * @dev Implements ERC165 using a lookup table.
+ */
+contract ERC165 is IERC165 {
+    bytes4 private constant _INTERFACE_ID_ERC165 = 0x01ffc9a7;
+    /**
+     * 0x01ffc9a7 ===
+     *     bytes4(keccak256('supportsInterface(bytes4)'))
+     */
+
+    /**
+     * @dev a mapping of interface id to whether or not it's supported
+     */
+    mapping(bytes4 => bool) private _supportedInterfaces;
+
+    /**
+     * @dev A contract implementing SupportsInterfaceWithLookup
+     * implement ERC165 itself
+     */
+    constructor () internal {
+        _registerInterface(_INTERFACE_ID_ERC165);
+    }
+
+    /**
+     * @dev implement supportsInterface(bytes4) using a lookup table
+     */
+    function supportsInterface(bytes4 interfaceId) external view returns (bool) {
+        return _supportedInterfaces[interfaceId];
+    }
+
+    /**
+     * @dev internal method for registering an interface
+     */
+    function _registerInterface(bytes4 interfaceId) internal {
+        require(interfaceId != 0xffffffff);
+        _supportedInterfaces[interfaceId] = true;
+    }
+}
+
+// File: openzeppelin-solidity/contracts/token/ERC721/ERC721.sol
+
+pragma solidity ^0.5.0;
+
+
+
 
 
 
@@ -621,10 +503,9 @@ contract ERC721 is ERC165, IERC721 {
     }
 }
 
+// File: openzeppelin-solidity/contracts/token/ERC721/IERC721Enumerable.sol
 
-
-
-
+pragma solidity ^0.5.0;
 
 
 /**
@@ -637,6 +518,10 @@ contract IERC721Enumerable is IERC721 {
 
     function tokenByIndex(uint256 index) public view returns (uint256);
 }
+
+// File: openzeppelin-solidity/contracts/token/ERC721/ERC721Enumerable.sol
+
+pragma solidity ^0.5.0;
 
 
 
@@ -834,11 +719,9 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
     }
 }
 
+// File: openzeppelin-solidity/contracts/token/ERC721/IERC721Metadata.sol
 
-
-
-
-
+pragma solidity ^0.5.0;
 
 
 /**
@@ -850,6 +733,11 @@ contract IERC721Metadata is IERC721 {
     function symbol() external view returns (string memory);
     function tokenURI(uint256 tokenId) external view returns (string memory);
 }
+
+// File: openzeppelin-solidity/contracts/token/ERC721/ERC721Metadata.sol
+
+pragma solidity ^0.5.0;
+
 
 
 
@@ -936,6 +824,12 @@ contract ERC721Metadata is ERC165, ERC721, IERC721Metadata {
     }
 }
 
+// File: openzeppelin-solidity/contracts/token/ERC721/ERC721Full.sol
+
+pragma solidity ^0.5.0;
+
+
+
 
 /**
  * @title Full ERC721 Token
@@ -949,8 +843,35 @@ contract ERC721Full is ERC721, ERC721Enumerable, ERC721Metadata {
     }
 }
 
+// File: openzeppelin-solidity/contracts/token/ERC20/IERC20.sol
 
+pragma solidity ^0.5.0;
 
+/**
+ * @title ERC20 interface
+ * @dev see https://github.com/ethereum/EIPs/issues/20
+ */
+interface IERC20 {
+    function transfer(address to, uint256 value) external returns (bool);
+
+    function approve(address spender, uint256 value) external returns (bool);
+
+    function transferFrom(address from, address to, uint256 value) external returns (bool);
+
+    function totalSupply() external view returns (uint256);
+
+    function balanceOf(address who) external view returns (uint256);
+
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+}
+
+// File: openzeppelin-solidity/contracts/ownership/Ownable.sol
+
+pragma solidity ^0.5.0;
 
 /**
  * @title Ownable
@@ -1023,19 +944,128 @@ contract Ownable {
     }
 }
 
+// File: openzeppelin-solidity/contracts/access/Roles.sol
 
+pragma solidity ^0.5.0;
 
+/**
+ * @title Roles
+ * @dev Library for managing addresses assigned to a Role.
+ */
+library Roles {
+    struct Role {
+        mapping (address => bool) bearer;
+    }
+
+    /**
+     * @dev give an account access to this role
+     */
+    function add(Role storage role, address account) internal {
+        require(account != address(0));
+        require(!has(role, account));
+
+        role.bearer[account] = true;
+    }
+
+    /**
+     * @dev remove an account's access to this role
+     */
+    function remove(Role storage role, address account) internal {
+        require(account != address(0));
+        require(has(role, account));
+
+        role.bearer[account] = false;
+    }
+
+    /**
+     * @dev check if an account has this role
+     * @return bool
+     */
+    function has(Role storage role, address account) internal view returns (bool) {
+        require(account != address(0));
+        return role.bearer[account];
+    }
+}
+
+// File: contracts/helpers/strings.sol
+
+/*
+ * @title String & slice utility library for Solidity contracts.
+ * @author Nick Johnson <arachnid@notdot.net>
+ */
+
+pragma solidity ^0.5.0;
+
+library strings {
+    struct slice {
+        uint _len;
+        uint _ptr;
+    }
+
+    function memcpy(uint dest, uint src, uint len) private pure {
+        // Copy word-length chunks while possible
+        for (; len >= 32; len -= 32) {
+            assembly {
+                mstore(dest, mload(src))
+            }
+            dest += 32;
+            src += 32;
+        }
+
+        // Copy remaining bytes
+        uint mask = 256 ** (32 - len) - 1;
+        assembly {
+            let srcpart := and(mload(src), not(mask))
+            let destpart := and(mload(dest), mask)
+            mstore(dest, or(destpart, srcpart))
+        }
+    }
+
+    /*
+     * @dev Returns a slice containing the entire string.
+     * @param self The string to make a slice from.
+     * @return A newly allocated slice containing the entire string.
+     */
+    function toSlice(string memory self) internal pure returns (slice memory) {
+        uint ptr;
+        assembly {
+            ptr := add(self, 0x20)
+        }
+        return slice(bytes(self).length, ptr);
+    }
+
+    /*
+     * @dev Returns a newly allocated string containing the concatenation of
+     *      `self` and `other`.
+     * @param self The first slice to concatenate.
+     * @param other The second slice to concatenate.
+     * @return The concatenation of the two strings.
+     */
+    function concat(slice memory self, slice memory other) internal pure returns (string memory) {
+        string memory ret = new string(self._len + other._len);
+        uint retptr;
+        assembly {
+            retptr := add(ret, 32)
+        }
+        memcpy(retptr, self._ptr, self._len);
+        memcpy(retptr + self._len, other._ptr, other._len);
+        return ret;
+    }
+}
+
+// File: contracts/Metadata.sol
+
+pragma solidity ^0.5.0;
 /**
 * Metadata contract is upgradeable and returns metadata about Token
 */
-
 
 
 contract Metadata {
     using strings for *;
 
     function tokenURI(uint _tokenId) public pure returns (string memory _infoUrl) {
-        string memory base = "https://folia.app/metadata/";
+        string memory base = "https://folia.app/v1/metadata/";
         string memory id = uint2str(_tokenId);
         return base.toSlice().concat(id.toSlice());
     }
@@ -1061,6 +1091,14 @@ contract Metadata {
         assembly { mstore(add(b, 32), x) }
     }
 }
+
+// File: contracts/Folia.sol
+
+pragma solidity ^0.5.0;
+
+
+
+
 
 
 
@@ -1149,6 +1187,14 @@ contract Folia is ERC721Full, Ownable {
     }
 
 }
+
+// File: contracts/FoliaController.sol
+
+pragma solidity ^0.5.0;
+
+/**
+ * The FoliaController is an upgradeable endpoint for controlling Folia.sol
+ */
 
 
 
@@ -1267,6 +1313,3 @@ contract FoliaController is Ownable {
     }
 
 }
-
-
-
