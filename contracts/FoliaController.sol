@@ -17,7 +17,7 @@ contract FoliaController is Ownable {
     using SafeMath for uint256;
 
     uint256 constant MAX_EDITIONS = 1000000;
-    uint256 latestWorkId;
+    uint256 public latestWorkId;
 
     mapping (uint256 => Work) public works;
     struct Work {
@@ -87,9 +87,9 @@ contract FoliaController is Ownable {
     }
 
     function buy(address recipient, uint256 workId) public payable notPaused returns (bool) {
-        require(works[workId].paused, "WORK_NOT_YET_FOR_SALE");
+        require(!works[workId].paused, "WORK_NOT_YET_FOR_SALE");
         require(works[workId].exists, "WORK_DOES_NOT_EXIST");
-        require(works[workId].editions < works[workId].printed, "EDITIONS_EXCEEDED");
+        require(works[workId].editions > works[workId].printed, "EDITIONS_EXCEEDED");
         require(msg.value == works[workId].price, "DID_NOT_SEND_PRICE");
 
         uint256 editionId = works[workId].printed.add(1);
