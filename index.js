@@ -1,5 +1,9 @@
-var Sample = require('./build/contracts/Sample.json')
+var Folia = require('./build/contracts/Folia.json')
+var FoliaController = require('./build/contracts/FoliaController.json')
+var Metadata = require('./build/contracts/Metadata.json')
 
 module.exports = {
-  Sample: Sample
+  Folia,
+  FoliaController,
+  Metadata
 }

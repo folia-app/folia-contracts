@@ -11,7 +11,11 @@
     "upgradeController": "npx truffle migrate --compile-all --f 4 --to 4",
     "lint": "npx solium --dir contracts/",
     "lint:watch": "npx solium --watch --dir contracts/",
-    "lint:fix": "npx solium  --dir contracts/ --fix"
+    "lint:fix": "npx solium  --dir contracts/ --fix",
+    "networks-extract": "node extract_network_info.js",
+    "networks-inject": "node inject_network_info.js",
+    "networks-reset": "mkdir -p build/contracts && npx truffle networks --clean && npm run networks-inject",
+    "flatten": "./flatten.sh"
   },
   "main": "index.js",
   "directories": {
@@ -19,6 +23,7 @@
   },
   "devDependencies": {
     "@gnosis.pm/util-contracts": "^3.0.1",
+    "@poanet/solidity-flattener": "^3.0.6",
     "bignumber.js": "^8.0.1",
     "dotenv": "^5.0.1",
     "openzeppelin-solidity": "2.1.3",
