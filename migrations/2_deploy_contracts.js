@@ -13,9 +13,12 @@ module.exports = (deployer, helper, accounts) => {
       console.log(_ + 'Metadata deployed at: ' + metadata.address)
 
      // Deploy Folia.sol
-      await deployer.deploy(Folia, 'Folia Name', 'Folia Symbol', metadata.address)
+      await deployer.deploy(Folia, 'Folia', 'FLA', metadata.address)
       let token = await Folia.deployed()
       console.log(_ + 'Folia deployed at: ' + token.address)
+
+      // const adminAddress = '0xdogfooddogfooddogfooddogfooddogfooddogfood'
+      // await token.addAdmin(adminAddress)
 
     } catch (error) {
       console.log(error)
