@@ -42,6 +42,7 @@ await foliaControllerContract.methods.transferOwnership(newOwner).send({from})
 
 // calls
 await foliaControllerContract.methods.works().call()
+await foliaControllerContract.methods.latestWorkId().call()
 await foliaControllerContract.methods.adminWallet().call()
 await foliaControllerContract.methods.paused().call()
 await foliaControllerContract.methods.folia().call()
