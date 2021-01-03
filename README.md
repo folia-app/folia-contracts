@@ -1,7 +1,5 @@
 # folia-contracts
 
-## for dapp
-
 ### add to yr package
 ```sh
 yarn add github.com/folia-app/folia-contracts
