@@ -1,4 +1,5 @@
 require('dotenv').config()
+
 const HDWalletProvider = require('truffle-hdwallet-provider')
 
 module.exports = {
@@ -14,8 +15,8 @@ module.exports = {
         )
       },
       host: 'localhost',
-      port: 9545,
-      network_id: 4447
+      port: 7545,
+      network_id: 5777
     },
     ganache: {
       provider() {
@@ -27,16 +28,17 @@ module.exports = {
       host: 'localhost',
       port: 7545,
       network_id: 5777,
-      gas: 10000000,
-      gasPrice: 1000000000
+      // gas: 10000000,
+      // gasPrice: 1000000000
     },
     mainnet: {
       provider() {
-        // using wallet at index 1 ----------------------------------------------------------------------------------------v
         return new HDWalletProvider(
-          process.env.TESTNET_MNEMONIC,
+          process.env.MAINNET_MNEMONIC,
           'https://mainnet.infura.io/v3/' + process.env.INFURA_API_KEY,
-          1
+          // using wallet at index 0 ----------------------------------------------------------------------------------------v
+          0,
+          10
         )
       },
       network_id: 1
@@ -44,11 +46,12 @@ module.exports = {
     },
     kovan: {
       provider() {
-        // using wallet at index 1 ----------------------------------------------------------------------------------------v
         return new HDWalletProvider(
           process.env.TESTNET_MNEMONIC,
           'https://kovan.infura.io/v3/' + process.env.INFURA_API_KEY,
-          1
+          // using wallet at index 0 ----------------------------------------------------------------------------------------v
+          0,
+          10
         )
       },
       network_id: 42

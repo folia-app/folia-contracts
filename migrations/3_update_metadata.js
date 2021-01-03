@@ -14,10 +14,10 @@ module.exports = (deployer, helper, accounts) => {
 
      // Deploy Folia.sol
       // await deployer.deploy(Folia, 'Folia Name', 'Folia Symbol', metadata.address)
-      let token = await Folia.deployed()
-      console.log(_ + 'Folia deployed at: ' + token.address)
+      let folia = await Folia.deployed()
+      console.log(_ + 'Folia deployed at: ' + folia.address)
 
-      await token.updateMetadata(metadata.address)
+      await folia.updateMetadata(metadata.address)
       console.log(_ + 'Folia metadta updated to ' + metadata.address)
 
     } catch (error) {

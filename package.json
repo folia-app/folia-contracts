@@ -6,7 +6,9 @@
     "compile": "npx truffle compile",
     "migrate": "npx truffle migrate",
     "test": "npx truffle test test/*.test.js",
-    "deploy": "npx truffle migrate --reset --compile-all",
+    "deploy": "npx truffle migrate --reset --compile-all --to 2",
+    "upgradeMetadata": "npx truffle migrate --compile-all --f 3 --to 3",
+    "upgradeController": "npx truffle migrate --compile-all --f 4 --to 4",
     "lint": "npx solium --dir contracts/",
     "lint:watch": "npx solium --watch --dir contracts/",
     "lint:fix": "npx solium  --dir contracts/ --fix"

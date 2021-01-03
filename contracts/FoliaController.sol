@@ -10,7 +10,9 @@ import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 contract FoliaController is Ownable {
 
-    event newWork(uint256 workId, address payable artist, uint256 editions, uint256 price);
+    event newWork(uint256 workId, address payable artist, uint256 editions, uint256 price, bool paused);
+    event updatedWork(uint256 workId, address payable artist, uint256 editions, uint256 price, bool paused);
+    event editionBought(uint256 workId, uint256 editionId, uint256 tokenId, address recipient, uint256 paid, uint256 artistReceived, uint256 adminReceived);
 
     using SafeMath for uint256;
 
@@ -56,27 +58,32 @@ contract FoliaController is Ownable {
         works[latestWorkId].price = price;
         works[latestWorkId].artist = artist;
         works[latestWorkId].paused = _paused;
+        emit newWork(latestWorkId, artist, editions, price, _paused);
     }
 
     function updateArtworkPaused(uint256 workId, bool _paused) public onlyOwner {
         require(works[workId].exists, "WORK_DOES_NOT_EXIST");
         works[workId].paused = _paused;
+        emit updatedWork(workId, works[workId].artist, works[workId].editions, works[workId].price, works[workId].paused);
     }
 
     function updateArtworkEditions(uint256 workId, uint256 _editions) public onlyOwner {
         require(works[workId].exists, "WORK_DOES_NOT_EXIST");
         require(works[workId].printed < _editions, "WORK_EXCEEDS_EDITIONS");
         works[workId].editions = _editions;
+        emit updatedWork(workId, works[workId].artist, works[workId].editions, works[workId].price, works[workId].paused);
     }
 
     function updateArtworkPrice(uint256 workId, uint256 _price) public onlyOwner {
         require(works[workId].exists, "WORK_DOES_NOT_EXIST");
         works[workId].price = _price;
+        emit updatedWork(workId, works[workId].artist, works[workId].editions, works[workId].price, works[workId].paused);
     }
 
     function updateArtworkArtist(uint256 workId, address payable _artist) public onlyOwner {
         require(works[workId].exists, "WORK_DOES_NOT_EXIST");
         works[workId].artist = _artist;
+        emit updatedWork(workId, works[workId].artist, works[workId].editions, works[workId].price, works[workId].paused);
     }
 
     function buy(address recipient, uint256 workId) public payable notPaused returns (bool) {
@@ -97,6 +104,8 @@ contract FoliaController is Ownable {
 
         adminWallet.transfer(adminReceives);
         works[workId].artist.transfer(artistReceives);
+
+        emit editionBought(workId, editionId, tokenId, recipient,  works[workId].price, artistReceives, adminReceives);
     }
 
     function updateAdminSplit(uint256 _adminSplit) public onlyOwner {
