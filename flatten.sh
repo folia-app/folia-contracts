@@ -14,4 +14,5 @@ find contracts -name "*.sol" -print0 | while read -d $'\0' file
 do
   printf " \n%s\n" $file
   npx truffle-flattener "$file" > flat/"$file"
+  # multisol --no-optimization true "$file"
 done
