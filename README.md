@@ -29,7 +29,7 @@ var foliaContract = new global.web3.eth.Contract(
 console.log(foliaControllerContract.methods)
 
 // sends
-await foliaControllerContract.methods.buy(recipient, workId).send({from})
+await foliaControllerContract.methods.buy(recipient, workId).send({from, value}) // value is in wei
 await foliaControllerContract.methods.addArtwork(artist, editions, price, paused).send({from})
 await foliaControllerContract.methods.updateArtworkPaused(workId, paused).send({from})
 await foliaControllerContract.methods.updateArtworkEditions(workId, editions).send({from})
