@@ -29,7 +29,7 @@ contract FoliaController is Ownable {
         address payable artist;
     }
 
-    uint256 adminSplit = 20;
+    uint256 public adminSplit = 15;
 
     address payable public adminWallet;
     bool public paused;

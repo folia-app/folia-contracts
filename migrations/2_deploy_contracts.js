@@ -28,6 +28,10 @@ module.exports = (deployer, helper, accounts) => {
       let foliaController = await FoliaController.deployed()
       console.log(_ + 'FoliaController deployed at: ' + foliaController.address)
 
+      await folia.updateController(foliaController.address)
+      console.log(_ + 'FoliaController updated to ' + foliaController.address)
+
+
     } catch (error) {
       console.log(error)
     }
