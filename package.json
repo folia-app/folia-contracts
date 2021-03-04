@@ -7,7 +7,7 @@
     "migrate": "npx truffle migrate",
     "test": "npx truffle test test/*.test.js",
     "deploy:localhost": "npm run deploy -- --network localhost --reset && node extract.js",
-    "ganache": "npx ganache-cli --seed 0",
+    "ganache": "npx ganache-cli --seed 0 --networkId 667",
     "deploy": "npx truffle migrate --to 2",
     "upgradeMetadata": "npx truffle migrate --compile-all --f 3 --to 3",
     "upgradeController": "npx truffle migrate --compile-all --f 4 --to 4",
