@@ -3,7 +3,7 @@
 ## Deploy for local development
 
 ```sh
-yarn run ethnode
+yarn run ganache
 yarn run deploy:localhost <artifacts-dir>
 ```
 
