@@ -2,7 +2,7 @@
 
 ### add to yr package
 ```sh
-yarn add github.com/folia-app/folia-contracts
+yarn add https://github.com/folia-app/folia-contracts.git
 ```
 ### import and instantiate in your code
 ```js
