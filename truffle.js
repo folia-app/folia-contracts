@@ -18,6 +18,11 @@ module.exports = {
       port: 7545,
       network_id: 5777
     },
+    localhost: {
+      host: 'localhost',
+      port: 8545,
+      network_id: '*'
+    },
     ganache: {
       provider() {
         return new HDWalletProvider(

@@ -1,5 +1,12 @@
 # folia-contracts
 
+## Deploy for local development
+
+```sh
+yarn run ethnode
+yarn run deploy:localhost <artifacts-dir>
+```
+
 ### add to yr package
 ```sh
 yarn add https://github.com/folia-app/folia-contracts.git
