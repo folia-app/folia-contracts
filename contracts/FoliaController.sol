@@ -21,7 +21,6 @@ contract FoliaController is Ownable {
 
     mapping (uint256 => Work) public works;
     struct Work {
-        bool exists;
         bool paused;
         uint256 editions;
         uint256 printed;
@@ -49,11 +48,12 @@ contract FoliaController is Ownable {
     }
 
     function addArtwork(address payable artist, uint256 editions, uint256 price, bool _paused) public onlyOwner {
+        require(editions > 0), "EDITIONS_MUST_BE_GT_0");
         require(editions < MAX_EDITIONS, "MAX_EDITIONS_EXCEEDED");
+        require(artist != address(0), "ARTIST_CAN_NOT_BE_0");
 
         latestWorkId += 1;
 
-        works[latestWorkId].exists = true;
         works[latestWorkId].editions = editions;
         works[latestWorkId].price = price;
         works[latestWorkId].artist = artist;
@@ -62,43 +62,46 @@ contract FoliaController is Ownable {
     }
 
     function updateArtworkPaused(uint256 workId, bool _paused) public onlyOwner {
-        require(works[workId].exists, "WORK_DOES_NOT_EXIST");
+        require(works[workId].editions > 0, "WORK_DOES_NOT_EXIST");
         works[workId].paused = _paused;
         emit updatedWork(workId, works[workId].artist, works[workId].editions, works[workId].price, works[workId].paused);
     }
 
     function updateArtworkEditions(uint256 workId, uint256 _editions) public onlyOwner {
-        require(works[workId].exists, "WORK_DOES_NOT_EXIST");
+        require(works[workId].editions > 0, "WORK_DOES_NOT_EXIST");
         require(works[workId].printed < _editions, "WORK_EXCEEDS_EDITIONS");
         works[workId].editions = _editions;
         emit updatedWork(workId, works[workId].artist, works[workId].editions, works[workId].price, works[workId].paused);
     }
 
     function updateArtworkPrice(uint256 workId, uint256 _price) public onlyOwner {
-        require(works[workId].exists, "WORK_DOES_NOT_EXIST");
+        require(works[workId].editions > 0, "WORK_DOES_NOT_EXIST");
         works[workId].price = _price;
         emit updatedWork(workId, works[workId].artist, works[workId].editions, works[workId].price, works[workId].paused);
     }
 
     function updateArtworkArtist(uint256 workId, address payable _artist) public onlyOwner {
-        require(works[workId].exists, "WORK_DOES_NOT_EXIST");
+        require(works[workId].editions > 0, "WORK_DOES_NOT_EXIST");
+        require(_artist != address(0), "ARTIST_CAN_NOT_BE_ZERO");
         works[workId].artist = _artist;
         emit updatedWork(workId, works[workId].artist, works[workId].editions, works[workId].price, works[workId].paused);
     }
 
     function buy(address recipient, uint256 workId) public payable notPaused returns (bool) {
         require(!works[workId].paused, "WORK_NOT_YET_FOR_SALE");
-        require(works[workId].exists, "WORK_DOES_NOT_EXIST");
+        // No need to check if the work exists because `editions` is required
+        // to be greater than `printed`, and the value of `printed` cannot be
+        // smaller than zero.
         require(works[workId].editions > works[workId].printed, "EDITIONS_EXCEEDED");
         require(msg.value == works[workId].price, "DID_NOT_SEND_PRICE");
 
         uint256 editionId = works[workId].printed.add(1);
         works[workId].printed = editionId;
-        
+
         uint256 tokenId = workId.mul(MAX_EDITIONS).add(editionId);
 
         folia.mint(recipient, tokenId);
-        
+
         uint256 adminReceives = msg.value.mul(adminSplit).div(100);
         uint256 artistReceives = msg.value.sub(adminReceives);
 
