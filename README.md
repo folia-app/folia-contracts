@@ -7,6 +7,54 @@ yarn run ganache
 yarn run deploy:localhost <artifacts-dir>
 ```
 
+## Use the CLI
+
+The CLI offers a simple interface to interact with the smart contract.
+
+### Set up your wallet
+
+The `.env` stores information about the private key to use, and the network endpoints. Different networks have different configurations. To distinguish private keys and endpoints prepend the name of the network to the name of the env variable, like in the following example:
+
+```
+LOCALHOST_PRIVATE_KEY=0x...
+LOCALHOST_ENDPOINT=http://localhost:8545/
+RINKEBY_PRIVATE_KEY=0x...
+RINKEBY_ENDPOINT=https://rinkeby.infura.io/v3/<your-infura-key>
+MAINNET_PRIVATE_KEY=0x...
+MAINNET_ENDPOINT=https://mainnet.infura.io/v3/<your-infura-key>
+```
+
+### Prepare the contracts artifacts
+
+To communicate with the contracts, the CLI needs to know the ABI and the address of each smart contract. First compile the contracts with `yarn deploy:localhost artifacts`. This will create the directory `artifacts`.
+
+### Check if everything is ready
+
+Run the following command to check your configuration:
+
+```sh
+yarn cli config
+```
+
+### Add an artwork
+
+Now you are ready to add an artwork to your local network.
+
+```sh
+# Add an artwork
+yarn cli\
+    add-artwork <artistAddress> <editionNumber> <price> [paused]\
+    --gas-price=10\
+    --confirmations=1\
+    --SEND
+```
+
+You need to add the ugly `--SEND` flag to send the actual transaction. This because I'm paranoid and I don't want to send transactions to mainnet by accident.
+
+### Other options
+
+Run `yarn cli -h` to see all options.
+
 ### add to yr package
 ```sh
 yarn add https://github.com/folia-app/folia-contracts.git
