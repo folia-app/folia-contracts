@@ -15,19 +15,36 @@ contract FoliaController is Ownable {
     event editionBought(uint256 workId, uint256 editionId, uint256 tokenId, address recipient, uint256 paid, uint256 artistReceived, uint256 adminReceived);
 
     using SafeMath for uint256;
+    uint256 constant private WEI = 10**18;
+
+    uint256 public version = 2;
 
     uint256 constant MAX_EDITIONS = 1000000;
     uint256 public latestWorkId;
+
+    enum Types { FIXED, LINEAR }
 
     mapping (uint256 => Work) public works;
     struct Work {
         bool exists;
         bool paused;
+        Types saleType;
+        uint256 multiplierNumerator;
+        uint256 multiplierDenominator;        
         uint256 editions;
         uint256 printed;
         uint256 price;
         address payable artist;
     }
+
+    struct Escrow {
+        bool exists;
+        uint256 price;
+        address payable owner;
+        address allowedToBuy;
+    }
+
+    mapping (uint256 => Escrow) public escrows;
 
     uint256 public adminSplit = 15;
 
@@ -46,6 +63,45 @@ contract FoliaController is Ownable {
     ) public {
         folia = _folia;
         adminWallet = _adminWallet;
+
+        // petra and jaime
+        latestWorkId = 1;
+        works[1].exists = true;
+        works[1].editions = 1;
+        works[1].printed = 1;
+        works[1].artist = 0x720b44fe853254f20e56654c6da4cffe1391403a;
+
+    }
+
+    function buyFromEscrow(uint256 tokenId) public payable {
+        require(escrows[tokenId].exists, "TOKEN IS NOT ESCROWED");
+
+        address payable owner = escrows[tokenId].owner;
+        require(folia.ownerOf(tokenId) == owner, "TOKEN IS NOT OWNED BY ESCROW AUTHOR ANYMORE, PLEASE REMOVE");
+        
+        uint256 price = escrows[tokenId].price;
+        require(msg.value == price, "MUST INCLUDE ESCROW PRICE");
+        require(msg.sender == escrow[tokenId].allowedToBuy, "MSG.SENDER IS NOT ALLOWED TO BUY");
+
+        escrow[tokenId].exists = false;
+        folia.transferFrom(owner, msg.sender, tokenId);
+        owner.transfer(price);
+    }
+
+    function addToEscrow(uint256 tokenId, uint256 price, address allowedToBuy) public {
+        require(folia.ownerOf(tokenId) == msg.sender, "TOKEN IS NOT OWNED BY MSG.SENDER");
+        escrows[tokenId].exists = true;
+        escrows[tokenId].price = price;
+        escrows[tokenId].owner = msg.sender;
+        escrows[tokenId].allowedToBuy = allowedToBuy;
+    }
+
+    function removeFromEscrow(uint256 tokenId) public {
+        require(escrows[tokenId].exists, "TOKEN IS NOT ESCROWED");
+        if( folia.ownerOf(tokenId) != escrows[tokenId].owner ) {
+            escrows[tokenId].exists = false;
+            return;
+        }
     }
 
     function addArtwork(address payable artist, uint256 editions, uint256 price, bool _paused) public onlyOwner {
@@ -86,24 +142,49 @@ contract FoliaController is Ownable {
         emit updatedWork(workId, works[workId].artist, works[workId].editions, works[workId].price, works[workId].paused);
     }
 
-    function buy(address recipient, uint256 workId) public payable notPaused returns (bool) {
-        require(!works[workId].paused, "WORK_NOT_YET_FOR_SALE");
-        require(works[workId].exists, "WORK_DOES_NOT_EXIST");
-        require(works[workId].editions > works[workId].printed, "EDITIONS_EXCEEDED");
-        require(msg.value == works[workId].price, "DID_NOT_SEND_PRICE");
-
+    function _mint(address recipient, uint256 workId) private returns (uint256, uint256) {
         uint256 editionId = works[workId].printed.add(1);
         works[workId].printed = editionId;
         
         uint256 tokenId = workId.mul(MAX_EDITIONS).add(editionId);
 
         folia.mint(recipient, tokenId);
-        
-        uint256 adminReceives = msg.value.mul(adminSplit).div(100);
-        uint256 artistReceives = msg.value.sub(adminReceives);
+        return (editionId, tokenId);
+    }
+
+    function adminMint(address recipient, uint256 workId) public onlyOwner {
+        _mint(recipient, workId);
+    }
+
+    function priceOfWork(uint256 workId, uint256 editionId) public constant returns(uint256) {
+
+        if (works[workId].saleType == Types.FIXED) {
+            return works[workId].price;
+        } else {
+            return works[workId].price + (WEI * works[workId].multiplierNumerator * editionId * WEI) / (WEI * works[workId].multiplierDenominator);
+        }
+    }
+    function buy(address recipient, uint256 workId) public payable notPaused returns (bool) {
+        require(!works[workId].paused, "WORK_NOT_YET_FOR_SALE");
+        require(works[workId].exists, "WORK_DOES_NOT_EXIST");
+        require(works[workId].editions > works[workId].printed, "EDITIONS_EXCEEDED");
+
+        (uint256 editionId, uint256 tokenId) = _mint(recipient, workId);
+
+
+        uint256 totalPrice = priceOfWork(workId, editionId);
+
+        require(msg.value < totalPrice, "DID_NOT_SEND_PRICE");
+
+        uint256 adminReceives = totalPrice.mul(adminSplit).div(100);
+        uint256 artistReceives = totalPrice.sub(adminReceives);
 
         adminWallet.transfer(adminReceives);
         works[workId].artist.transfer(artistReceives);
+
+        if (msg.value > totalPrice) {
+            msg.sender.transfer(msg.value.sub(adminReceives).sub(artistReceives));
+        }
 
         emit editionBought(workId, editionId, tokenId, recipient,  works[workId].price, artistReceives, adminReceives);
     }
