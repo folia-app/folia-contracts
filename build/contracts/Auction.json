@@ -1,0 +1,408 @@
+{
+  "contractName": "Auction",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "isOwner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    }
+  ],
+  "bytecode": "0x6080604052336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16600073ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3600180819055506103ec806100d66000396000f3fe608060405260043610610062576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063715018a6146100675780638da5cb5b1461007e5780638f32d59b146100d5578063f2fde38b14610104575b600080fd5b34801561007357600080fd5b5061007c610155565b005b34801561008a57600080fd5b50610093610227565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156100e157600080fd5b506100ea610250565b604051808215151515815260200191505060405180910390f35b34801561011057600080fd5b506101536004803603602081101561012757600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506102a7565b005b61015d610250565b151561016857600080fd5b600073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a360008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614905090565b6102af610250565b15156102ba57600080fd5b6102c3816102c6565b50565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415151561030257600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505056fea165627a7a72305820a29ab9cf9668ce93bb77486a4ff49cc9044de6806c9e4cf92cc0e8fe6116b77b0029",
+  "deployedBytecode": "0x608060405260043610610062576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063715018a6146100675780638da5cb5b1461007e5780638f32d59b146100d5578063f2fde38b14610104575b600080fd5b34801561007357600080fd5b5061007c610155565b005b34801561008a57600080fd5b50610093610227565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156100e157600080fd5b506100ea610250565b604051808215151515815260200191505060405180910390f35b34801561011057600080fd5b506101536004803603602081101561012757600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506102a7565b005b61015d610250565b151561016857600080fd5b600073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a360008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614905090565b6102af610250565b15156102ba57600080fd5b6102c3816102c6565b50565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415151561030257600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505056fea165627a7a72305820a29ab9cf9668ce93bb77486a4ff49cc9044de6806c9e4cf92cc0e8fe6116b77b0029",
+  "sourceMap": "419:8671:0:-;;;524:10:14;515:6;;:19;;;;;;;;;;;;;;;;;;582:6;;;;;;;;;;;549:40;;578:1;549:40;;;;;;;;;;;;576:1:25;560:13;:17;;;;419:8671:0;;;;;;",
+  "deployedSourceMap": "419:8671:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1347:137:14;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1347:137:14;;;;;;659:77;;8:9:-1;5:2;;;30:1;27;20:12;5:2;659:77:14;;;;;;;;;;;;;;;;;;;;;;;;;;;979:90;;8:9:-1;5:2;;;30:1;27;20:12;5:2;979:90:14;;;;;;;;;;;;;;;;;;;;;;;;;;;1655:107;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1655:107:14;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1655:107:14;;;;;;;;;;;;;;;;;;;;;;1347:137;863:9;:7;:9::i;:::-;855:18;;;;;;;;1445:1;1408:40;;1429:6;;;;;;;;;;;1408:40;;;;;;;;;;;;1475:1;1458:6;;:19;;;;;;;;;;;;;;;;;;1347:137::o;659:77::-;697:7;723:6;;;;;;;;;;;716:13;;659:77;:::o;979:90::-;1019:4;1056:6;;;;;;;;;;;1042:20;;:10;:20;;;1035:27;;979:90;:::o;1655:107::-;863:9;:7;:9::i;:::-;855:18;;;;;;;;1727:28;1746:8;1727:18;:28::i;:::-;1655:107;:::o;1906:183::-;1999:1;1979:22;;:8;:22;;;;1971:31;;;;;;;;2046:8;2017:38;;2038:6;;;;;;;;;;;2017:38;;;;;;;;;;;;2074:8;2065:6;;:17;;;;;;;;;;;;;;;;;;1906:183;:::o",
+  "source": "pragma solidity ^0.5.0;\n\nimport \"openzeppelin-solidity/contracts/math/SafeMath.sol\";\nimport \"openzeppelin-solidity/contracts/ownership/Ownable.sol\";\n\nimport \"openzeppelin-solidity/contracts/token/ERC20/IERC20.sol\";\nimport \"openzeppelin-solidity/contracts/token/ERC721/IERC721.sol\";\nimport \"openzeppelin-solidity/contracts/introspection/IERC165.sol\";\nimport \"openzeppelin-solidity/contracts/utils/ReentrancyGuard.sol\";\n\ncontract Auction is Ownable, ReentrancyGuard {\n    // using SafeMath for uint256;\n   \n    // bytes4 constant interfaceId = 0x80ac58cd;\n    // address constant zora = 0xabefbc9fd2f806065b4f3c237d4b59d9a97bcac7;\n    // address defaultTokenContract;\n    // mapping (bytes32 => Auction) public auctions;\n    // bytes32[] public auctionIds;\n\n    // struct Auction {\n    //   bool exists;\n    //   uint256 amount;\n    //   uint256 tokenId;\n    //   uint256 duration;\n    //   uint256 firstBidTime;\n    //   uint256 reservePrice;\n    //   address creator;\n    //   address bidder;\n    //   address tokenContract;\n    // }\n\n    // event AuctionCreated(bytes32 auctionId, uint256 tokenId, address tokenContract, uint256 duration, uint256 reservePrice, address creator);\n    // event  AuctionBid(\n    //     bytes32 auctionId,\n    //     uint256 tokenId,\n    //     address tokenContract,\n    //     address sender,\n    //     uint256 value,\n    //     uint256 timestamp,\n    //     bool firstBid,\n    //     bool extended\n    //   );\n    // event AuctionEnded(bytes32 auctionId, uint256 tokenId, address tokenContract, address creator, address winner, uint256 amount);\n    // event AuctionCanceled(bytes32 auctionId, uint256 tokenId, address tokenContract, address creator);\n\n    // constructor(address _defaultTokenContract) {\n    //   defaultTokenContract = _defaultTokenContract;\n    //   require(IERC165(defaultTokenContract).supportsInterface(interfaceId), \"Doesn't support NFT interface\");\n    // }\n\n    // function updateDefaultTokenContract(address _defaultTokenContract) onlyOwner {\n    //   defaultTokenContract = _defaultTokenContract;\n    //   require(IERC165(defaultTokenContract).supportsInterface(interfaceId), \"Doesn't support NFT interface\");\n    // }\n\n    // function createAuction(\n    //   uint256 tokenId,\n    //   uint256 duration,\n    //   uint256 reservePrice,\n    //   address creator\n    // ) external returns(bool) {\n    //   return createAuctionCustom(tokenId, defaultTokenContract, duration, reservePrice, creator);\n    // }\n\n    // function createAuctionCustom(\n    //   uint256 tokenId,\n    //   address tokenContract,\n    //   uint256 duration,\n    //   uint256 reservePrice,\n    //   address creator\n    // ) external returns(bool) {\n    //   require(IERC165(tokenContract).supportsInterface(interfaceId), \"Doesn't support NFT interface\");\n\n    //   bytes32 auctionId = keccak256(tokenContract, tokenId);\n    //   require(!auctions[auctionId].exists, \"Auction already exists\");\n\n    //   auctionIds.push(auctionId);\n\n    //   auctions[auctionId].exists = true;\n    //   auctions[auctionId].tokenId = tokenId;\n    //   auctions[auctionId].tokenContract = tokenContract;\n    //   auctions[auctionId].duration = duration;\n    //   auctions[auctionId].reservePrice = reservePrice;\n    //   auctions[auctionId].creator = creator;\n\n    //   IERC721(tokenContract).transferFrom(creator, address(this), tokenId);\n    //   emit AuctionCreated(auctionId, tokenId, tokenContract, duration, reservePrice, creator);\n    //   return true;\n    // }\n\n    // function createBid(uint256 tokenId) external payable returns (bool) {\n    //   return createBidCustom(tokenId, defaultTokenContract);\n    // }\n\n    // //NOTE: removed amount as a variable because it's redundant with msg.amount since ERC20s aren't accepted.\n    // function createBidCustom(uint256 tokenId, address tokenContract) external payable returns (bool) {\n    //   require(IERC165(tokenContract).supportsInterface(interfaceId), \"Doesn't support NFT interface\");\n    //   bytes32 auctionId = keccak256(tokenContract, tokenId);\n    //   require(auctions[auctionId].exists, \"Auction doesn't exist\");\n    //   require(msg.value >= auctions[auctionId].reservePrice, \"Must send reservePrice or more\");\n    //   require(block.timestamp < auctions[auctionId].firstBidTime + auctions[auctionId].duration, \"Auction expired\");\n\n    //   uint256 lastValue = auctions[auctionId].amount;\n\n    //   bool firstBid;\n    //   // allows for auctions with starting price of 0\n    //   if (lastValue != 0) {\n    //     require(msg.value > lastValue, \"Must send more than last bid\");\n    //     address lastBidder = auctions[auctionId].lastBidder;\n    //   } else {\n    //     firstBid = true;\n    //     auctions[auctionId].firstBidTime = block.timestamp;\n    //   }\n\n    //   if (tokenContract == zora) {\n    //       require(\n    //         isValidBid(tokenId, msg.value),\n    //         \"Market: Ask invalid for share splitting\"\n    //     );\n    //   }\n\n    //   auctions[auctionId].amount = msg.value;\n    //   auctions[auctionId].bidder = msg.sender;\n\n    //   bool extended;\n    //   if (block.timestamp - (auctions[auctionId].firstBidTime + auctions[auctionId].duration) < timeBuffer) {\n    //     auctions[auctionId].firstBidTime += timeBuffer;\n    //     extended = true;\n    //   }\n\n    //   if (!firstBid) {\n    //     lastBidder.transfer(lastValue);\n    //   }\n\n    //   emit AuctionBid(\n    //     auctionId,\n    //     tokenId,\n    //     tokenContract,\n    //     msg.sender,\n    //     msg.value,\n    //     block.timestamp,\n    //     firstBid,\n    //     extended\n    //   );\n    //   return true;\n    // }\n\n    // function endAuction(uint256 tokenId) external returns (bool) {\n    //   return endAuctionCustom(tokenId, defaultTokenContract);\n    // }\n\n    // // NOTE: description \"Transfers the NFT to the highest bidder, if there is one and is greater-or-equal the reserve price, else transfers back to the creator\"\n    // // Doesn't make sense. If there is no greater-or-equal to reserve price, the auction hasn't begun and cancelAuction should instead be called.\n    // function endAuctionCustom(uint256 tokenId, address tokenContract) external returns (bool) {\n    //   require(IERC165(tokenContract).supportsInterface(interfaceId), \"Doesn't support NFT interface\");\n    //   bytes32 auctionId = keccak256(tokenContract, tokenId);\n    //   require(auctions[auctionId].exists, \"Auction doesn't exist\");\n    //   require(uint256(auctions[auctionId].firstBidTime) != 0, \"Auction hasn't begun\");\n    //   require(block.timestamp >= auctions[auctionId].firstBidTime + auctions[auctionId].duration, \"Auction hasn't completed\");\n\n    //   address winner = auctions[auctionId].bidder;\n    //   uint256 amount = auctions[auctionId].amount;\n\n    //   emit AuctionEnded(auctionId, tokenId, tokenContract, creator, winner, amount);\n    //   delete auctions[auctionId];\n\n    //   IERC721(tokenContract).transferFrom(address(this), winner, tokenId);\n    //   if (tokenContract == zora) {\n    //     BidShares bidShares = IMarket(zora).bidSharesForToken(tokenId);\n    //     BidShares storage bidShares = _bidShares[tokenId];\n    //     require(isValidBid(tokenId, amount), \"Is not valid bid\");\n    //     // IMarket(zora).splitShare(bidShares.owner, bid.amount)\n\n    //     uint256 creatorAmount = IMarket(zora).splitShare(bidShares.creator, amount);\n\n    //     uint256 sellerAmount = amount.sub(creatorAmount);\n\n    //     bidShares.creator.transfer(creatorAmount);\n    //     creator.transfer(sellerAmount);\n\n    //     // IMarket(zora).splitShare(bidShares.prevOwner, bid.amount)\n\n    //     // // Calculate the bid share for the new owner,\n    //     // // equal to 100 - creatorShare - sellOnShare\n    //     // bidShares.owner = Decimal.D256(\n    //     //     uint256(100)\n    //     //         .mul(Decimal.BASE)\n    //     //         .sub(_bidShares[tokenId].creator.value)\n    //     //         .sub(bid.sellOnShare.value)\n    //     // );\n    //     // Set the previous owner share to the accepted bid's sell-on fee\n    //     // bidShares.prevOwner = bid.sellOnShare;\n\n\n    //   } else {\n    //     creator.transfer(amount);\n    //   }\n\n    //   return true;\n    // }\n\n    // function cancelAuction(uint256 tokenId) external returns (bool) {\n    //   return cancelAuctionCustom(tokenId, defaultTokenContract);\n    // }\n\n    // function cancelAuctionCustom(uint256 tokenId, address tokenContract) external returns (bool) {\n    //   require(IERC165(tokenContract).supportsInterface(interfaceId), \"Doesn't support NFT interface\");\n    //   bytes32 auctionId = keccak256(tokenContract, tokenId);\n    //   require(auctions[auctionId].exists, \"Auction doesn't exist\");\n    //   require(auctions[auctionId].creator == msg.sender, \"Can only be called by auction creator\");\n    //   require(uint256(auctions[auctionId].firstBidTime) == 0, \"Can't cancel an auction once it's begun\");\n    //   delete auctions[auctionId];\n    //   IERC721(tokenContract).transferFrom(address(this), auctions[auctionId].creator, tokenId);\n    //   emit AuctionCanceled(auctionId, tokenId, tokenContract, creator);\n    // }\n\n}",
+  "sourcePath": "/Users/billy/GitHub/folia-app/folia-contracts/contracts/Auction.sol",
+  "ast": {
+    "absolutePath": "/Users/billy/GitHub/folia-app/folia-contracts/contracts/Auction.sol",
+    "exportedSymbols": {
+      "Auction": [
+        12
+      ]
+    },
+    "id": 13,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:0"
+      },
+      {
+        "absolutePath": "openzeppelin-solidity/contracts/math/SafeMath.sol",
+        "file": "openzeppelin-solidity/contracts/math/SafeMath.sol",
+        "id": 2,
+        "nodeType": "ImportDirective",
+        "scope": 13,
+        "sourceUnit": 1415,
+        "src": "25:59:0",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "openzeppelin-solidity/contracts/ownership/Ownable.sol",
+        "file": "openzeppelin-solidity/contracts/ownership/Ownable.sol",
+        "id": 3,
+        "nodeType": "ImportDirective",
+        "scope": 13,
+        "sourceUnit": 1524,
+        "src": "85:63:0",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
+        "file": "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
+        "id": 4,
+        "nodeType": "ImportDirective",
+        "scope": 13,
+        "sourceUnit": 1593,
+        "src": "150:64:0",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "openzeppelin-solidity/contracts/token/ERC721/IERC721.sol",
+        "file": "openzeppelin-solidity/contracts/token/ERC721/IERC721.sol",
+        "id": 5,
+        "nodeType": "ImportDirective",
+        "scope": 13,
+        "sourceUnit": 2741,
+        "src": "215:66:0",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "openzeppelin-solidity/contracts/introspection/IERC165.sol",
+        "file": "openzeppelin-solidity/contracts/introspection/IERC165.sol",
+        "id": 6,
+        "nodeType": "ImportDirective",
+        "scope": 13,
+        "sourceUnit": 1287,
+        "src": "282:67:0",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "openzeppelin-solidity/contracts/utils/ReentrancyGuard.sol",
+        "file": "openzeppelin-solidity/contracts/utils/ReentrancyGuard.sol",
+        "id": 7,
+        "nodeType": "ImportDirective",
+        "scope": 13,
+        "sourceUnit": 2857,
+        "src": "350:67:0",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 8,
+              "name": "Ownable",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1523,
+              "src": "439:7:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Ownable_$1523",
+                "typeString": "contract Ownable"
+              }
+            },
+            "id": 9,
+            "nodeType": "InheritanceSpecifier",
+            "src": "439:7:0"
+          },
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 10,
+              "name": "ReentrancyGuard",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 2856,
+              "src": "448:15:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_ReentrancyGuard_$2856",
+                "typeString": "contract ReentrancyGuard"
+              }
+            },
+            "id": 11,
+            "nodeType": "InheritanceSpecifier",
+            "src": "448:15:0"
+          }
+        ],
+        "contractDependencies": [
+          1523,
+          2856
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 12,
+        "linearizedBaseContracts": [
+          12,
+          2856,
+          1523
+        ],
+        "name": "Auction",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 13,
+        "src": "419:8671:0"
+      }
+    ],
+    "src": "0:9090:0"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/billy/GitHub/folia-app/folia-contracts/contracts/Auction.sol",
+    "exportedSymbols": {
+      "Auction": [
+        12
+      ]
+    },
+    "id": 13,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:0"
+      },
+      {
+        "absolutePath": "openzeppelin-solidity/contracts/math/SafeMath.sol",
+        "file": "openzeppelin-solidity/contracts/math/SafeMath.sol",
+        "id": 2,
+        "nodeType": "ImportDirective",
+        "scope": 13,
+        "sourceUnit": 1415,
+        "src": "25:59:0",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "openzeppelin-solidity/contracts/ownership/Ownable.sol",
+        "file": "openzeppelin-solidity/contracts/ownership/Ownable.sol",
+        "id": 3,
+        "nodeType": "ImportDirective",
+        "scope": 13,
+        "sourceUnit": 1524,
+        "src": "85:63:0",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
+        "file": "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
+        "id": 4,
+        "nodeType": "ImportDirective",
+        "scope": 13,
+        "sourceUnit": 1593,
+        "src": "150:64:0",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "openzeppelin-solidity/contracts/token/ERC721/IERC721.sol",
+        "file": "openzeppelin-solidity/contracts/token/ERC721/IERC721.sol",
+        "id": 5,
+        "nodeType": "ImportDirective",
+        "scope": 13,
+        "sourceUnit": 2741,
+        "src": "215:66:0",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "openzeppelin-solidity/contracts/introspection/IERC165.sol",
+        "file": "openzeppelin-solidity/contracts/introspection/IERC165.sol",
+        "id": 6,
+        "nodeType": "ImportDirective",
+        "scope": 13,
+        "sourceUnit": 1287,
+        "src": "282:67:0",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "openzeppelin-solidity/contracts/utils/ReentrancyGuard.sol",
+        "file": "openzeppelin-solidity/contracts/utils/ReentrancyGuard.sol",
+        "id": 7,
+        "nodeType": "ImportDirective",
+        "scope": 13,
+        "sourceUnit": 2857,
+        "src": "350:67:0",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 8,
+              "name": "Ownable",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1523,
+              "src": "439:7:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Ownable_$1523",
+                "typeString": "contract Ownable"
+              }
+            },
+            "id": 9,
+            "nodeType": "InheritanceSpecifier",
+            "src": "439:7:0"
+          },
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 10,
+              "name": "ReentrancyGuard",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 2856,
+              "src": "448:15:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_ReentrancyGuard_$2856",
+                "typeString": "contract ReentrancyGuard"
+              }
+            },
+            "id": 11,
+            "nodeType": "InheritanceSpecifier",
+            "src": "448:15:0"
+          }
+        ],
+        "contractDependencies": [
+          1523,
+          2856
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 12,
+        "linearizedBaseContracts": [
+          12,
+          2856,
+          1523
+        ],
+        "name": "Auction",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 13,
+        "src": "419:8671:0"
+      }
+    ],
+    "src": "0:9090:0"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.5",
+  "updatedAt": "2021-03-07T17:45:45.248Z",
+  "devdoc": {
+    "methods": {
+      "isOwner()": {
+        "return": "true if `msg.sender` is the owner of the contract."
+      },
+      "owner()": {
+        "return": "the address of the owner."
+      },
+      "renounceOwnership()": {
+        "details": "Allows the current owner to relinquish control of the contract."
+      },
+      "transferOwnership(address)": {
+        "details": "Allows the current owner to transfer control of the contract to a newOwner.",
+        "params": {
+          "newOwner": "The address to transfer ownership to."
+        }
+      }
+    }
+  },
+  "userdoc": {
+    "methods": {
+      "renounceOwnership()": {
+        "notice": "Renouncing to ownership will leave the contract without an owner. It will not be possible to call the functions with the `onlyOwner` modifier anymore."
+      }
+    }
+  }
+}
