@@ -2,7 +2,7 @@ pragma solidity ^0.5.0;
 
 import "./Folia.sol";
 
-contract FoliaController is Ownable {
+contract Artist is Ownable {
     mapping(uint256 => bool) public works;
     address public artist;
     Folia folia;
