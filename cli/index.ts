@@ -3,7 +3,7 @@ import { program } from "commander";
 import { c } from "./colors";
 import { banner } from "./banner";
 import { CLIError } from "./exceptions";
-import { BigNumber } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { load } from "./context";
 import config from "./commands/config";
 import addArtwork from "./commands/addArtwork";
@@ -77,7 +77,7 @@ export async function main() {
 
   program
     .command("add-artwork <artistAddress> <editionNumber> <price> [paused]")
-    .description("Add an artwork")
+    .description("Add an artwork, price is specified in Ether")
     .action(
       async (
         artistAddress: string,
@@ -90,7 +90,7 @@ export async function main() {
           env,
           artistAddress,
           parseInt(editionNumber, 10),
-          parseInt(price, 10),
+          ethers.utils.parseEther(price),
           parseBool(paused)
         );
       }
