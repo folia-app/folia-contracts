@@ -1,27 +1,25 @@
-var Metadata = artifacts.require('./Metadata.sol')
-var Folia = artifacts.require('./Folia.sol')
+var Metadata = artifacts.require("./Metadata.sol");
+var LeftGallery = artifacts.require("./LeftGallery.sol");
 
-let _ = '        '
+let _ = "        ";
 
 module.exports = (deployer, helper, accounts) => {
-
   deployer.then(async () => {
     try {
       // Deploy Metadata.sol
-      await deployer.deploy(Metadata, {replace: true})
-      let metadata = await Metadata.deployed()
-      console.log(_ + 'Metadata deployed at: ' + metadata.address)
+      await deployer.deploy(Metadata, { replace: true });
+      let metadata = await Metadata.deployed();
+      console.log(_ + "Metadata deployed at: " + metadata.address);
 
-     // Deploy Folia.sol
-      // await deployer.deploy(Folia, 'Folia Name', 'Folia Symbol', metadata.address)
-      let folia = await Folia.deployed()
-      console.log(_ + 'Folia deployed at: ' + folia.address)
+      // Deploy LeftGallery.sol
+      // await deployer.deploy(LeftGallery, 'LeftGallery Name', 'LeftGallery Symbol', metadata.address)
+      let leftGallery = await LeftGallery.deployed();
+      console.log(_ + "LeftGallery deployed at: " + leftGallery.address);
 
-      await folia.updateMetadata(metadata.address)
-      console.log(_ + 'Folia metadta updated to ' + metadata.address)
-
+      await leftGallery.updateMetadata(metadata.address);
+      console.log(_ + "LeftGallery metadata updated to " + metadata.address);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  })
-}
+  });
+};

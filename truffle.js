@@ -1,6 +1,6 @@
-require('dotenv').config()
+require("dotenv").config();
 
-const HDWalletProvider = require('truffle-hdwallet-provider')
+const HDWalletProvider = require("truffle-hdwallet-provider");
 
 module.exports = {
   solc: {
@@ -11,26 +11,26 @@ module.exports = {
       provider() {
         return new HDWalletProvider(
           process.env.TRUFFLE_MNEMONIC,
-          'http://localhost:9545/'
-        )
+          "http://localhost:9545/"
+        );
       },
-      host: 'localhost',
+      host: "localhost",
       port: 7545,
-      network_id: 5777
+      network_id: 5777,
     },
     localhost: {
-      host: 'localhost',
+      host: "localhost",
       port: 8545,
-      network_id: '*'
+      network_id: "*",
     },
     ganache: {
       provider() {
         return new HDWalletProvider(
           process.env.GANACHE_MNEMONIC,
-          'http://localhost:7545'
-        )
+          "http://localhost:7545"
+        );
       },
-      host: 'localhost',
+      host: "localhost",
       port: 7545,
       network_id: 5777,
       // gas: 10000000,
@@ -40,27 +40,27 @@ module.exports = {
       provider() {
         return new HDWalletProvider(
           process.env.MAINNET_MNEMONIC,
-          'https://mainnet.infura.io/v3/' + process.env.INFURA_API_KEY,
+          "https://mainnet.infura.io/v3/" + process.env.INFURA_API_KEY,
           // using wallet at index 0 ----------------------------------------------------------------------------------------v
           0,
           10
-        )
+        );
       },
       network_id: 1,
-      gasPrice: 120000000000 // 120 GWEI
+      gasPrice: 120000000000, // 120 GWEI
       // gas: 5561260
     },
     kovan: {
       provider() {
         return new HDWalletProvider(
           process.env.TESTNET_MNEMONIC,
-          'https://kovan.infura.io/v3/' + process.env.INFURA_API_KEY,
+          "https://kovan.infura.io/v3/" + process.env.INFURA_API_KEY,
           // using wallet at index 0 ----------------------------------------------------------------------------------------v
           0,
           10
-        )
+        );
       },
-      network_id: 42
+      network_id: 42,
       // gas: 5561260
     },
     rinkeby: {
@@ -68,44 +68,44 @@ module.exports = {
       provider() {
         return new HDWalletProvider(
           process.env.TESTNET_MNEMONIC,
-          'https://rinkeby.infura.io/v3/' + process.env.INFURA_API_KEY,
+          "https://rinkeby.infura.io/v3/" + process.env.INFURA_API_KEY,
           0,
           10
-        )
+        );
       },
       network_id: 4,
       // gas: 4700000,
-      gasPrice: 100000000000 // 200 GWEI
+      gasPrice: 10000000000, // 20 GWEI
     },
     ropsten: {
       provider() {
         return new HDWalletProvider(
           process.env.TESTNET_MNEMONIC,
-          'https://ropsten.infura.io/v3/' + process.env.INFURA_API_KEY
-        )
+          "https://ropsten.infura.io/v3/" + process.env.INFURA_API_KEY
+        );
       },
-      network_id: 2
+      network_id: 2,
       // gas: 4700000
     },
     sokol: {
       provider() {
         return new HDWalletProvider(
           process.env.TESTNET_MNEMONIC,
-          'https://sokol.poa.network'
-        )
+          "https://sokol.poa.network"
+        );
       },
       gasPrice: 1000000000,
-      network_id: 77
+      network_id: 77,
     },
     poa: {
       provider() {
         return new HDWalletProvider(
           process.env.TESTNET_MNEMONIC,
-          'https://core.poa.network'
-        )
+          "https://core.poa.network"
+        );
       },
       gasPrice: 1000000000,
-      network_id: 99
-    }
-  }
-}
+      network_id: 99,
+    },
+  },
+};

@@ -1,26 +1,34 @@
-var FoliaController = artifacts.require('./FoliaController.sol')
-var Folia = artifacts.require('./Folia.sol')
+var LeftGalleryController = artifacts.require("./LeftGalleryController.sol");
+var LeftGallery = artifacts.require("./LeftGallery.sol");
 
-let _ = '        '
+let _ = "        ";
 
 module.exports = (deployer, helper, accounts) => {
-
   deployer.then(async () => {
     try {
-     // Deploy Folia.sol
-      let folia = await Folia.deployed()
-      console.log(_ + 'Folia deployed at: ' + folia.address)
+      // Deploy LeftGallery.sol
+      let leftGallery = await LeftGallery.deployed();
+      console.log(_ + "LeftGallery deployed at: " + leftGallery.address);
 
-      // Deploy FoliaController.sol
-      await deployer.deploy(FoliaController, folia.address, accounts[1])
-      let foliaController = await FoliaController.deployed()
-      console.log(_ + 'FoliaController deployed at: ' + foliaController.address)
+      // Deploy LeftGalleryController.sol
+      await deployer.deploy(
+        LeftGalleryController,
+        leftGallery.address,
+        accounts[1]
+      );
+      let leftGalleryController = await LeftGalleryController.deployed();
+      console.log(
+        _ +
+          "LeftGalleryController deployed at: " +
+          leftGalleryController.address
+      );
 
-      await folia.updateController(foliaController.address)
-      console.log(_ + 'FoliaController updated to ' + foliaController.address)
-
+      await leftGallery.updateController(leftGalleryController.address);
+      console.log(
+        _ + "LeftGalleryController updated to " + leftGalleryController.address
+      );
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  })
-}
+  });
+};

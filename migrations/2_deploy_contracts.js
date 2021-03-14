@@ -1,39 +1,52 @@
-var Metadata = artifacts.require('./Metadata.sol')
-var Folia = artifacts.require('./Folia.sol')
-var FoliaController = artifacts.require('./FoliaController.sol')
+var Metadata = artifacts.require("./Metadata.sol");
+var LeftGallery = artifacts.require("./LeftGallery.sol");
+var LeftGalleryController = artifacts.require("./LeftGalleryController.sol");
 
-let _ = '        '
+let _ = "        ";
 
 module.exports = (deployer, helper, accounts) => {
-
   deployer.then(async () => {
     try {
-
       // Deploy Metadata.sol
-      await deployer.deploy(Metadata)
-      let metadata = await Metadata.deployed()
-      console.log(_ + 'Metadata deployed at: ' + metadata.address)
+      await deployer.deploy(Metadata);
+      let metadata = await Metadata.deployed();
+      console.log(_ + "Metadata deployed at: " + metadata.address);
 
-      // Deploy Folia.sol
-      await deployer.deploy(Folia, 'Folia', 'FLA', metadata.address)
-      let folia = await Folia.deployed()
-      console.log(_ + 'Folia deployed at: ' + folia.address)
+      // Deploy LeftGallery.sol
+      await deployer.deploy(LeftGallery, "LeftGallery", "LG", metadata.address);
+      let leftGallery = await LeftGallery.deployed();
+      console.log(_ + "LeftGallery deployed at: " + leftGallery.address);
 
-      // Add admin to Folia
-      await folia.addAdmin(accounts[1])
-      console.log(_ + `Admin ${accounts[1]} added to Folia`)
+      // Add admin to LeftGallery
+      //await leftGallery.addAdmin(accounts[0]);
+      //console.log(_ + `Admin ${accounts[0]} added to LeftGallery`);
 
-      // Deploy FoliaController.sol
-      await deployer.deploy(FoliaController, folia.address, accounts[1])
-      let foliaController = await FoliaController.deployed()
-      console.log(_ + 'FoliaController deployed at: ' + foliaController.address)
+      // Add admin to LeftGallery
+      await leftGallery.addAdmin("0xD66A411Ecb8058aEaDDEA689745459ECfaaDa80d");
+      console.log(
+        _ +
+          `Admin 0xD66A411Ecb8058aEaDDEA689745459ECfaaDa80d added to LeftGallery`
+      );
 
-      await folia.updateController(foliaController.address)
-      console.log(_ + 'FoliaController updated to ' + foliaController.address)
+      // Deploy LeftGalleryController.sol
+      await deployer.deploy(
+        LeftGalleryController,
+        leftGallery.address,
+        accounts[0]
+      );
+      let leftGalleryController = await LeftGalleryController.deployed();
+      console.log(
+        _ +
+          "LeftGalleryController deployed at: " +
+          leftGalleryController.address
+      );
 
-
+      await leftGallery.updateController(leftGalleryController.address);
+      console.log(
+        _ + "LeftGalleryController updated to " + leftGalleryController.address
+      );
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  })
-}
+  });
+};
