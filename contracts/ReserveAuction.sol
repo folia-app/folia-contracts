@@ -8,10 +8,25 @@ import "openzeppelin-solidity/contracts/token/ERC721/IERC721.sol";
 import "openzeppelin-solidity/contracts/introspection/IERC165.sol";
 import "openzeppelin-solidity/contracts/utils/ReentrancyGuard.sol";
 
-contract IMediaModified {
-    mapping(uint256 => address) public tokenCreators;
-    address public marketContract;
-}
+/**
+   _____                                                   _   _                           
+  |  __ \                                  /\             | | (_)                          
+  | |__) |___ ___  ___ _ ____   _____     /  \  _   _  ___| |_ _  ___  _ __                
+  |  _  // _ / __|/ _ | '__\ \ / / _ \   / /\ \| | | |/ __| __| |/ _ \| '_ \               
+  | | \ |  __\__ |  __| |   \ V |  __/  / ____ | |_| | (__| |_| | (_) | | | |              
+  |_|  \_\___|___/\___|_|    \_/ \___| /_/    \_\__,_|\___|\__|_|\___/|_| |_|              
+                                                                                           
+                                                                                           
+   ____          ____  _ _ _         _____                       _                         
+  |  _ \        |  _ \(_| | |       |  __ \                     | |                        
+  | |_) |_   _  | |_) |_| | |_   _  | |__) |___ _ __  _ __   ___| | ____ _ _ __ ___  _ __  
+  |  _ <| | | | |  _ <| | | | | | | |  _  // _ | '_ \| '_ \ / _ | |/ / _` | '_ ` _ \| '_ \ 
+  | |_) | |_| | | |_) | | | | |_| | | | \ |  __| | | | | | |  __|   | (_| | | | | | | |_) |
+  |____/ \__, | |____/|_|_|_|\__, | |_|  \_\___|_| |_|_| |_|\___|_|\_\__,_|_| |_| |_| .__/ 
+          __/ |               __/ |                                                 | |    
+         |___/               |___/                                                  |_|    
+
+*/
 
 contract ReserveAuction is Ownable, ReentrancyGuard {
     using SafeMath for uint256;
