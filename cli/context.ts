@@ -2,11 +2,11 @@ import { BigNumber, ethers } from "ethers";
 import { join } from "path";
 import { promises as fs } from "fs";
 import {
-  Folia__factory,
-  FoliaController__factory,
+  LeftGallery__factory,
+  LeftGalleryController__factory,
   Metadata__factory,
-  Folia,
-  FoliaController,
+  LeftGallery,
+  LeftGalleryController,
   Metadata,
 } from "./contracts";
 import { CLIError } from "./exceptions";
@@ -21,13 +21,13 @@ export interface IContext {
   network: string;
   endpoint: string;
   privateKey: string;
-  foliaAddress: string;
-  foliaControllerAddress: string;
+  leftGalleryAddress: string;
+  leftGalleryControllerAddress: string;
   metadataAddress: string;
   wallet: ethers.Wallet;
   provider: ethers.providers.Provider;
-  foliaContract: Folia;
-  foliaControllerContract: FoliaController;
+  leftGalleryContract: LeftGallery;
+  leftGalleryControllerContract: LeftGalleryController;
   metadataContract: Metadata;
 }
 
@@ -95,17 +95,25 @@ export async function load(
   const wallet = new ethers.Wallet(privateKey, provider);
   const { chainId } = await provider.getNetwork();
 
-  const foliaArtifact = await getArtifact("Folia");
-  const foliaControllerArtifact = await getArtifact("FoliaController");
+  const leftGalleryArtifact = await getArtifact("LeftGallery");
+  const leftGalleryControllerArtifact = await getArtifact(
+    "LeftGalleryController"
+  );
   const metadataArtifact = await getArtifact("Metadata");
 
-  const foliaAddress = getAddress(foliaArtifact, chainId);
-  const foliaControllerAddress = getAddress(foliaControllerArtifact, chainId);
+  const leftGalleryAddress = getAddress(leftGalleryArtifact, chainId);
+  const leftGalleryControllerAddress = getAddress(
+    leftGalleryControllerArtifact,
+    chainId
+  );
   const metadataAddress = getAddress(metadataArtifact, chainId);
 
-  const foliaContract = Folia__factory.connect(foliaAddress, wallet);
-  const foliaControllerContract = FoliaController__factory.connect(
-    foliaControllerAddress,
+  const leftGalleryContract = LeftGallery__factory.connect(
+    leftGalleryAddress,
+    wallet
+  );
+  const leftGalleryControllerContract = LeftGalleryController__factory.connect(
+    leftGalleryControllerAddress,
     wallet
   );
   const metadataContract = Metadata__factory.connect(metadataAddress, wallet);
@@ -118,14 +126,14 @@ export async function load(
     gasLimit,
     gasPrice,
     confirmations,
-    foliaAddress,
-    foliaControllerAddress,
+    leftGalleryAddress,
+    leftGalleryControllerAddress,
     metadataAddress,
     wallet,
     provider,
     url,
-    foliaContract,
-    foliaControllerContract,
+    leftGalleryContract,
+    leftGalleryControllerContract,
     metadataContract,
   };
 }

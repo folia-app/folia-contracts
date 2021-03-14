@@ -22,12 +22,12 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 
-interface FoliaControllerInterface extends ethers.utils.Interface {
+interface LeftGalleryControllerInterface extends ethers.utils.Interface {
   functions: {
     "adminWallet()": FunctionFragment;
-    "folia()": FunctionFragment;
     "latestWorkId()": FunctionFragment;
     "paused()": FunctionFragment;
+    "leftGallery()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "owner()": FunctionFragment;
     "isOwner()": FunctionFragment;
@@ -49,12 +49,15 @@ interface FoliaControllerInterface extends ethers.utils.Interface {
     functionFragment: "adminWallet",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "folia", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "latestWorkId",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "paused", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "leftGallery",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
     values?: undefined
@@ -111,12 +114,15 @@ interface FoliaControllerInterface extends ethers.utils.Interface {
     functionFragment: "adminWallet",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "folia", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "latestWorkId",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "paused", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "leftGallery",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
     data: BytesLike
@@ -173,7 +179,7 @@ interface FoliaControllerInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
 }
 
-export class FoliaController extends Contract {
+export class LeftGalleryController extends Contract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -214,16 +220,12 @@ export class FoliaController extends Contract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: FoliaControllerInterface;
+  interface: LeftGalleryControllerInterface;
 
   functions: {
     adminWallet(overrides?: CallOverrides): Promise<[string]>;
 
     "adminWallet()"(overrides?: CallOverrides): Promise<[string]>;
-
-    folia(overrides?: CallOverrides): Promise<[string]>;
-
-    "folia()"(overrides?: CallOverrides): Promise<[string]>;
 
     latestWorkId(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -232,6 +234,10 @@ export class FoliaController extends Contract {
     paused(overrides?: CallOverrides): Promise<[boolean]>;
 
     "paused()"(overrides?: CallOverrides): Promise<[boolean]>;
+
+    leftGallery(overrides?: CallOverrides): Promise<[string]>;
+
+    "leftGallery()"(overrides?: CallOverrides): Promise<[string]>;
 
     /**
      * Allows the current owner to relinquish control of the contract.
@@ -426,10 +432,6 @@ export class FoliaController extends Contract {
 
   "adminWallet()"(overrides?: CallOverrides): Promise<string>;
 
-  folia(overrides?: CallOverrides): Promise<string>;
-
-  "folia()"(overrides?: CallOverrides): Promise<string>;
-
   latestWorkId(overrides?: CallOverrides): Promise<BigNumber>;
 
   "latestWorkId()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -437,6 +439,10 @@ export class FoliaController extends Contract {
   paused(overrides?: CallOverrides): Promise<boolean>;
 
   "paused()"(overrides?: CallOverrides): Promise<boolean>;
+
+  leftGallery(overrides?: CallOverrides): Promise<string>;
+
+  "leftGallery()"(overrides?: CallOverrides): Promise<string>;
 
   /**
    * Allows the current owner to relinquish control of the contract.
@@ -631,10 +637,6 @@ export class FoliaController extends Contract {
 
     "adminWallet()"(overrides?: CallOverrides): Promise<string>;
 
-    folia(overrides?: CallOverrides): Promise<string>;
-
-    "folia()"(overrides?: CallOverrides): Promise<string>;
-
     latestWorkId(overrides?: CallOverrides): Promise<BigNumber>;
 
     "latestWorkId()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -642,6 +644,10 @@ export class FoliaController extends Contract {
     paused(overrides?: CallOverrides): Promise<boolean>;
 
     "paused()"(overrides?: CallOverrides): Promise<boolean>;
+
+    leftGallery(overrides?: CallOverrides): Promise<string>;
+
+    "leftGallery()"(overrides?: CallOverrides): Promise<string>;
 
     /**
      * Allows the current owner to relinquish control of the contract.
@@ -907,10 +913,6 @@ export class FoliaController extends Contract {
 
     "adminWallet()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    folia(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "folia()"(overrides?: CallOverrides): Promise<BigNumber>;
-
     latestWorkId(overrides?: CallOverrides): Promise<BigNumber>;
 
     "latestWorkId()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -918,6 +920,10 @@ export class FoliaController extends Contract {
     paused(overrides?: CallOverrides): Promise<BigNumber>;
 
     "paused()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    leftGallery(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "leftGallery()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     /**
      * Allows the current owner to relinquish control of the contract.
@@ -1089,10 +1095,6 @@ export class FoliaController extends Contract {
 
     "adminWallet()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    folia(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "folia()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     latestWorkId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "latestWorkId()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1100,6 +1102,10 @@ export class FoliaController extends Contract {
     paused(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "paused()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    leftGallery(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "leftGallery()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     /**
      * Allows the current owner to relinquish control of the contract.

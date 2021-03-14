@@ -7,13 +7,13 @@ export default async function config(ctx: IContext) {
   console.log("Private key:", c.blue("*".repeat(ctx.privateKey.length)));
   console.log(
     "Folia address:",
-    c.blue(ctx.foliaAddress),
-    ctx.url(ctx.foliaAddress)
+    c.blue(ctx.leftGalleryAddress),
+    ctx.url(ctx.leftGalleryAddress)
   );
   console.log(
     "FoliaController address:",
-    c.blue(ctx.foliaControllerAddress),
-    ctx.url(ctx.foliaControllerAddress)
+    c.blue(ctx.leftGalleryControllerAddress),
+    ctx.url(ctx.leftGalleryControllerAddress)
   );
   console.log(
     "Metadata address:",

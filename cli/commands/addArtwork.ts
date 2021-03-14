@@ -10,7 +10,7 @@ export default async function addArtwork(
   price: BigNumber,
   pause: boolean
 ) {
-  const { foliaControllerContract } = ctx;
+  const { leftGalleryControllerContract: controller } = ctx;
   console.log(
     "Call",
     c.blue`addArtwork(${address}, ${editions}, ${price.toString()}, ${pause})`
@@ -19,20 +19,8 @@ export default async function addArtwork(
   const receipt = await send(
     ctx,
     (overrides) =>
-      foliaControllerContract.addArtwork(
-        address,
-        editions,
-        price,
-        pause,
-        overrides
-      ),
-    () =>
-      foliaControllerContract.estimateGas.addArtwork(
-        address,
-        editions,
-        price,
-        pause
-      )
+      controller.addArtwork(address, editions, price, pause, overrides),
+    () => controller.estimateGas.addArtwork(address, editions, price, pause)
   );
 
   if (receipt) {
