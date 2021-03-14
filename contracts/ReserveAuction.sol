@@ -116,7 +116,7 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
         uint256 duration,
         uint256 reservePrice,
         address payable creator
-    ) external notPaused {
+    ) external notPaused onlyOwner {
         require(!auctions[tokenId].exists, "Auction already exists");
 
         tokenIds.push(tokenId);
