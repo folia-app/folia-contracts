@@ -9,22 +9,27 @@ import "openzeppelin-solidity/contracts/introspection/IERC165.sol";
 import "openzeppelin-solidity/contracts/utils/ReentrancyGuard.sol";
 
 /**
-   _____                                                   _   _                           
-  |  __ \                                  /\             | | (_)                          
-  | |__) |___ ___  ___ _ ____   _____     /  \  _   _  ___| |_ _  ___  _ __                
-  |  _  // _ / __|/ _ | '__\ \ / / _ \   / /\ \| | | |/ __| __| |/ _ \| '_ \               
-  | | \ |  __\__ |  __| |   \ V |  __/  / ____ | |_| | (__| |_| | (_) | | | |              
-  |_|  \_\___|___/\___|_|    \_/ \___| /_/    \_\__,_|\___|\__|_|\___/|_| |_|              
-                                                                                           
-                                                                                           
-   ____          ____  _ _ _         _____                       _                         
-  |  _ \        |  _ \(_| | |       |  __ \                     | |                        
-  | |_) |_   _  | |_) |_| | |_   _  | |__) |___ _ __  _ __   ___| | ____ _ _ __ ___  _ __  
-  |  _ <| | | | |  _ <| | | | | | | |  _  // _ | '_ \| '_ \ / _ | |/ / _` | '_ ` _ \| '_ \ 
-  | |_) | |_| | | |_) | | | | |_| | | | \ |  __| | | | | | |  __|   | (_| | | | | | | |_) |
-  |____/ \__, | |____/|_|_|_|\__, | |_|  \_\___|_| |_|_| |_|\___|_|\_\__,_|_| |_| |_| .__/ 
-          __/ |               __/ |                                                 | |    
-         |___/               |___/                                                  |_|    
+
+ ██▀███  ▓█████   ██████ ▓█████  ██▀███   ██▒   █▓▓█████     ▄▄▄       █    ██  ▄████▄  ▄▄▄█████▓ ██▓ ▒█████   ███▄    █                  
+▓██ ▒ ██▒▓█   ▀ ▒██    ▒ ▓█   ▀ ▓██ ▒ ██▒▓██░   █▒▓█   ▀    ▒████▄     ██  ▓██▒▒██▀ ▀█  ▓  ██▒ ▓▒▓██▒▒██▒  ██▒ ██ ▀█   █                  
+▓██ ░▄█ ▒▒███   ░ ▓██▄   ▒███   ▓██ ░▄█ ▒ ▓██  █▒░▒███      ▒██  ▀█▄  ▓██  ▒██░▒▓█    ▄ ▒ ▓██░ ▒░▒██▒▒██░  ██▒▓██  ▀█ ██▒                 
+▒██▀▀█▄  ▒▓█  ▄   ▒   ██▒▒▓█  ▄ ▒██▀▀█▄    ▒██ █░░▒▓█  ▄    ░██▄▄▄▄██ ▓▓█  ░██░▒▓▓▄ ▄██▒░ ▓██▓ ░ ░██░▒██   ██░▓██▒  ▐▌██▒                 
+░██▓ ▒██▒░▒████▒▒██████▒▒░▒████▒░██▓ ▒██▒   ▒▀█░  ░▒████▒    ▓█   ▓██▒▒▒█████▓ ▒ ▓███▀ ░  ▒██▒ ░ ░██░░ ████▓▒░▒██░   ▓██░                 
+░ ▒▓ ░▒▓░░░ ▒░ ░▒ ▒▓▒ ▒ ░░░ ▒░ ░░ ▒▓ ░▒▓░   ░ ▐░  ░░ ▒░ ░    ▒▒   ▓▒█░░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░  ▒ ░░   ░▓  ░ ▒░▒░▒░ ░ ▒░   ▒ ▒                  
+  ░▒ ░ ▒░ ░ ░  ░░ ░▒  ░ ░ ░ ░  ░  ░▒ ░ ▒░   ░ ░░   ░ ░  ░     ▒   ▒▒ ░░░▒░ ░ ░   ░  ▒       ░     ▒ ░  ░ ▒ ▒░ ░ ░░   ░ ▒░                 
+  ░░   ░    ░   ░  ░  ░     ░     ░░   ░      ░░     ░        ░   ▒    ░░░ ░ ░ ░          ░       ▒ ░░ ░ ░ ▒     ░   ░ ░                  
+   ░        ░  ░      ░     ░  ░   ░           ░     ░  ░         ░  ░   ░     ░ ░                ░      ░ ░           ░                  
+                                              ░                                ░                                                          
+ ▄▄▄▄ ▓██   ██▓    ▄▄▄▄    ██▓ ██▓     ██▓   ▓██   ██▓    ██▀███  ▓█████  ███▄    █  ███▄    █ ▓█████  ██ ▄█▀▄▄▄       ███▄ ▄███▓ ██▓███  
+▓█████▄▒██  ██▒   ▓█████▄ ▓██▒▓██▒    ▓██▒    ▒██  ██▒   ▓██ ▒ ██▒▓█   ▀  ██ ▀█   █  ██ ▀█   █ ▓█   ▀  ██▄█▒▒████▄    ▓██▒▀█▀ ██▒▓██░  ██▒
+▒██▒ ▄██▒██ ██░   ▒██▒ ▄██▒██▒▒██░    ▒██░     ▒██ ██░   ▓██ ░▄█ ▒▒███   ▓██  ▀█ ██▒▓██  ▀█ ██▒▒███   ▓███▄░▒██  ▀█▄  ▓██    ▓██░▓██░ ██▓▒
+▒██░█▀  ░ ▐██▓░   ▒██░█▀  ░██░▒██░    ▒██░     ░ ▐██▓░   ▒██▀▀█▄  ▒▓█  ▄ ▓██▒  ▐▌██▒▓██▒  ▐▌██▒▒▓█  ▄ ▓██ █▄░██▄▄▄▄██ ▒██    ▒██ ▒██▄█▓▒ ▒
+░▓█  ▀█▓░ ██▒▓░   ░▓█  ▀█▓░██░░██████▒░██████▒ ░ ██▒▓░   ░██▓ ▒██▒░▒████▒▒██░   ▓██░▒██░   ▓██░░▒████▒▒██▒ █▄▓█   ▓██▒▒██▒   ░██▒▒██▒ ░  ░
+░▒▓███▀▒ ██▒▒▒    ░▒▓███▀▒░▓  ░ ▒░▓  ░░ ▒░▓  ░  ██▒▒▒    ░ ▒▓ ░▒▓░░░ ▒░ ░░ ▒░   ▒ ▒ ░ ▒░   ▒ ▒ ░░ ▒░ ░▒ ▒▒ ▓▒▒▒   ▓▒█░░ ▒░   ░  ░▒▓▒░ ░  ░
+▒░▒   ░▓██ ░▒░    ▒░▒   ░  ▒ ░░ ░ ▒  ░░ ░ ▒  ░▓██ ░▒░      ░▒ ░ ▒░ ░ ░  ░░ ░░   ░ ▒░░ ░░   ░ ▒░ ░ ░  ░░ ░▒ ▒░ ▒   ▒▒ ░░  ░      ░░▒ ░     
+ ░    ░▒ ▒ ░░      ░    ░  ▒ ░  ░ ░     ░ ░   ▒ ▒ ░░       ░░   ░    ░      ░   ░ ░    ░   ░ ░    ░   ░ ░░ ░  ░   ▒   ░      ░   ░░       
+ ░     ░ ░         ░       ░      ░  ░    ░  ░░ ░           ░        ░  ░         ░          ░    ░  ░░  ░        ░  ░       ░            
+      ░░ ░              ░                     ░ ░                                                                                         
 
 */
 
@@ -116,7 +121,7 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
         uint256 duration,
         uint256 reservePrice,
         address payable creator
-    ) external notPaused onlyOwner {
+    ) external notPaused onlyOwner nonReentrant {
         require(!auctions[tokenId].exists, "Auction already exists");
 
         tokenIds.push(tokenId);
@@ -131,7 +136,7 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
         emit AuctionCreated(tokenId, nftAddress, duration, reservePrice, creator);
     }
 
-    function createBid(uint256 tokenId) external payable notPaused {
+    function createBid(uint256 tokenId) external payable notPaused nonReentrant {
         require(auctions[tokenId].exists, "Auction doesn't exist");
         require(
             msg.value >= auctions[tokenId].reservePrice,
@@ -177,9 +182,7 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
             extended = true;
         }
 
-        if (!firstBid) {
-            lastBidder.transfer(lastValue);
-        }
+ 
 
         emit AuctionBid(
             tokenId,
@@ -190,9 +193,12 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
             firstBid,
             extended
         );
+        if (!firstBid) {
+            lastBidder.transfer(lastValue);
+        }
     }
 
-    function endAuction(uint256 tokenId) external notPaused {
+    function endAuction(uint256 tokenId) external notPaused nonReentrant {
         require(auctions[tokenId].exists, "Auction doesn't exist");
         require(
             uint256(auctions[tokenId].firstBidTime) != 0,
@@ -215,7 +221,7 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
         creator.transfer(amount);
     }
 
-    function cancelAuction(uint256 tokenId) external {
+    function cancelAuction(uint256 tokenId) external nonReentrant {
         require(auctions[tokenId].exists, "Auction doesn't exist");
         require(
             auctions[tokenId].creator == msg.sender || msg.sender == owner(),
@@ -226,9 +232,9 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
             "Can't cancel an auction once it's begun"
         );
         address creator = auctions[tokenId].creator;
+        delete auctions[tokenId];
         IERC721(nftAddress).transferFrom(address(this), creator, tokenId);
         emit AuctionCanceled(tokenId, nftAddress, creator);
-        delete auctions[tokenId];
     }
 
     function updatePaused(bool _paused) public onlyOwner {
