@@ -49,6 +49,7 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
 
     struct Auction {
         bool exists;
+        bool paused;
         uint256 amount;
         uint256 tokenId;
         uint256 duration;
@@ -117,10 +118,12 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
     }
 
     function createAuction(
+        bool paused,
         uint256 tokenId,
         uint256 duration,
         uint256 reservePrice,
-        address payable creator
+        uint256 artistShare,
+        address payable artist
     ) external notPaused onlyOwner nonReentrant {
         require(!auctions[tokenId].exists, "Auction already exists");
 
@@ -131,7 +134,7 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
         auctions[tokenId].reservePrice = reservePrice;
         auctions[tokenId].creator = creator;
 
-        IERC721(nftAddress).transferFrom(creator, address(this), tokenId);
+        IERC721(nftAddress).transferFrom(msg.sender, address(this), tokenId);
 
         emit AuctionCreated(tokenId, nftAddress, duration, reservePrice, creator);
     }
