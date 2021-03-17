@@ -178,7 +178,8 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
             (auctions[tokenId].firstBidTime.add(auctions[tokenId].duration))
                 .sub(block.timestamp) < timeBuffer
         ) {
-            auctions[tokenId].duration = timeBuffer;
+            // take the difference between now and starting point, add timeBuffer and set as duration
+            auctions[tokenId].duration = block.timestamp.sub(auctions[tokenId].firstBidTime).add(timeBuffer);
             extended = true;
         }
 
