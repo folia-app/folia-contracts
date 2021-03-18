@@ -39,7 +39,7 @@ contract('Folia', async function(accounts) {
   describe('Folia.sol', function() {
     it('should return metadata uints as strings', async function() {
 
-      const URI = 'https://folia.app/metadata/'
+      const URI = 'https://folia.app/v1/metadata/'
 
       let tokenURI_uint = 0
       let tokenURI_result = await token.tokenURI(tokenURI_uint)
