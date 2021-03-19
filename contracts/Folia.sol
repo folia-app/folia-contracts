@@ -1,4 +1,9 @@
-// pragma solidity ^0.5.0;
+pragma solidity ^0.6.8;
+
+interface Folia {
+    function mint(address recepient, uint256 tokenId) external;
+}
+
 // import "openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
 // import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 // import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
@@ -55,7 +60,6 @@
 //     function updateController(address _controller) public onlyAdminOrController {
 //         controller = _controller;
 //     }
-
 //     function addAdmin(address _admin) public onlyOwner {
 //         _admins.add(_admin);
 //         admins += 1;

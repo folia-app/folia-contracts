@@ -3,25 +3,15 @@ import asPromised from 'chai-as-promised';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { Blockchain } from '../utils/Blockchain';
 import { generatedWallets } from '../utils/generatedWallets';
-import { MarketFactory } from '../typechain/MarketFactory';
 import { ethers, Wallet } from 'ethers';
 import { AddressZero } from '@ethersproject/constants';
 import Decimal from '../utils/Decimal';
 import { BigNumber, BigNumberish, Bytes } from 'ethers';
-import { MediaFactory } from '../typechain/MediaFactory';
+import { TestTokenFactory } from '../typechain/TestTokenFactory';
 import { ReserveAuctionFactory } from '../typechain/ReserveAuctionFactory';
 import { ReserveAuction } from '../typechain/ReserveAuction';
-import { Media } from '../typechain/Media';
-import {
-  approveCurrency,
-  deployCurrency,
-  EIP712Sig,
-  getBalance,
-  mintCurrency,
-  signMintWithSig,
-  signPermit,
-  toNumWei,
-} from './utils';
+import { TestToken } from '../typechain/TestToken';
+
 import {
   arrayify,
   formatBytes32String,
@@ -30,7 +20,6 @@ import {
   sha256,
 } from 'ethers/lib/utils';
 import exp from 'constants';
-import { Market } from '../typechain';
 import { isRegExp } from 'util';
 
 chai.use(asPromised);
@@ -49,6 +38,8 @@ let metadataHex: string;
 let metadataHash: string;
 let metadataHashBytes: Bytes;
 let duration: number;
+let paused: boolean;
+let adminSplit: number;
 let reservePrice: BigNumber;
 
 let tokenURI = 'www.example.com';
@@ -87,62 +78,32 @@ describe('ReserveAuction', () => {
     deployerWallet,
     bidderWallet,
     creatorWallet,
-    ownerWallet,
+    adminWallet,
     prevOwnerWallet,
     otherWallet,
     nonBidderWallet,
   ] = generatedWallets(provider);
 
-  let defaultBidShares = {
-    prevOwner: Decimal.new(10),
-    owner: Decimal.new(80),
-    creator: Decimal.new(10),
-  };
-
   let defaultTokenId = 1;
-  let defaultAsk = {
-    amount: 100,
-    currency: '0x41A322b28D0fF354040e2CbC676F0320d8c8850d',
-    sellOnShare: Decimal.new(0),
-  };
-  const defaultBid = (
-    currency: string,
-    bidder: string,
-    recipient?: string
-  ) => ({
-    amount: 100,
-    currency,
-    bidder,
-    recipient: recipient || bidder,
-    sellOnShare: Decimal.new(10),
-  });
 
   let auctionAddress: string;
   let tokenAddress: string;
   let reserveAuctionAddress: string;
 
 
-  async function marketAs(wallet: Wallet) {
-    return MarketFactory.connect(auctionAddress, wallet)
-  }
   async function auctionAs(wallet: Wallet) {
     return ReserveAuctionFactory.connect(reserveAuctionAddress, wallet)
   }
-  async function tokenAs(wallet: Wallet) {
-    return MediaFactory.connect(tokenAddress, wallet);
-  }
-  async function deploy() {
-    const auction = await (
-      await new MarketFactory(deployerWallet).deploy()
-    ).deployed();
-    auctionAddress = auction.address;
 
+  async function tokenAs(wallet: Wallet) {
+    return TestTokenFactory.connect(tokenAddress, wallet);
+  }
+
+  async function deploy() {
     const token = await (
-      await new MediaFactory(deployerWallet).deploy(auction.address)
+      await new TestTokenFactory(deployerWallet).deploy()
     ).deployed();
     tokenAddress = token.address;
-
-    await auction.configure(tokenAddress);
 
     const reserveAuction = await (
       await new ReserveAuctionFactory(deployerWallet).deploy(token.address)
@@ -151,79 +112,12 @@ describe('ReserveAuction', () => {
     reserveAuctionAddress = reserveAuction.address;
   }
 
-  async function mint(
-    token: Media,
-    metadataURI: string,
-    tokenURI: string,
-    contentHash: Bytes,
-    metadataHash: Bytes,
-    shares: BidShares
-  ) {
-    const data: MediaData = {
-      tokenURI,
-      metadataURI,
-      contentHash,
-      metadataHash,
-    };
-    return token.mint(data, shares);
-  }
-
-  async function mintWithSig(
-    token: Media,
-    creator: string,
-    tokenURI: string,
-    metadataURI: string,
-    contentHash: Bytes,
-    metadataHash: Bytes,
-    shares: BidShares,
-    sig: EIP712Sig
-  ) {
-    const data: MediaData = {
-      tokenURI,
-      metadataURI,
-      contentHash,
-      metadataHash,
-    };
-
-    return token.mintWithSig(creator, data, shares, sig);
-  }
-
-  async function setAsk(token: Media, tokenId: number, ask: Ask) {
-    return token.setAsk(tokenId, ask);
-  }
-
-  async function removeAsk(token: Media, tokenId: number) {
-    return token.removeAsk(tokenId);
-  }
-
-  async function setBid(token: Media, bid: Bid, tokenId: number) {
-    return token.setBid(tokenId, bid);
-  }
-
-  async function removeBid(token: Media, tokenId: number) {
-    return token.removeBid(tokenId);
-  }
-
-  async function acceptBid(token: Media, tokenId: number, bid: Bid) {
-    return token.acceptBid(tokenId, bid);
-  }
-
-
   async function mintToken() {
-    const asCreator = await tokenAs(creatorWallet);
-    await mint(
-      asCreator,
-      metadataURI,
-      tokenURI,
-      contentHashBytes,
-      metadataHashBytes,
-      defaultBidShares
-    );
-
-    const totalTokens = await asCreator.balanceOf(creatorWallet.address)
-    const lastToken = await asCreator.tokenOfOwnerByIndex(creatorWallet.address, (totalTokens).sub(1))
-
-    return lastToken
+    const asCreator = await tokenAs(deployerWallet);
+    const totalSupply = await asCreator.totalSupply()
+    await asCreator.mint(deployerWallet.address, totalSupply.add(1))
+    const totalTokens = await asCreator.balanceOf(deployerWallet.address)
+    return asCreator.tokenOfOwnerByIndex(deployerWallet.address, totalTokens.sub(1))
   }
 
   // Trade a token a few times and create some open bids
@@ -236,9 +130,11 @@ describe('ReserveAuction', () => {
 
     const asCurrentOwnerWalletAuction = await auctionAs(currentOwnerWallet)
 
+      duration = 60 * 60 * 24; // 24 hours
+      reservePrice = BigNumber.from(10).pow(18).div(2) // 0.5 ETH
+      adminSplit = 15
+      paused = false
 
-    duration = 60 * 60 * 24; // 24 hours
-    reservePrice = BigNumber.from(10).pow(18).div(2) // 0.5 ETH
     
     let getApproved = await asCurrentOwnerToken.getApproved(tokenId)
     let currentOwner = await asCurrentOwnerToken.ownerOf(tokenId)
@@ -247,8 +143,7 @@ describe('ReserveAuction', () => {
     }
 
     getApproved = await asCurrentOwnerToken.getApproved(tokenId)
-
-    return asCurrentOwnerWalletAuction.createAuction(tokenId, duration, reservePrice, currentOwnerWallet.address)
+    return asCurrentOwnerWalletAuction.createAuction(paused, tokenId, duration, reservePrice, adminSplit, adminWallet.address, currentOwnerWallet.address)
 
   }
 
@@ -287,27 +182,23 @@ describe('ReserveAuction', () => {
       const auctionAsDeployer = await auctionAs(deployerWallet)
 
       const token = await (
-        await new MediaFactory(creatorWallet).deploy(auctionAddress)
+        await new TestTokenFactory(creatorWallet).deploy()
       ).deployed();
 
       await expect(
-        auctionAsCreator.updateZora(token.address)
+        auctionAsCreator.updateNftAddress(token.address)
       ).rejectedWith('Ownable: caller is not the owner')
 
       await expect(
-        auctionAsDeployer.updateZora(token.address)
+        auctionAsDeployer.updateNftAddress(token.address)
       ).fulfilled
     })
 
-    it('only valid erc721 can be contract address', async () => {
+    it('only valid TestToken can be contract address', async () => {
       const auctionAsDeployer = await auctionAs(deployerWallet)
 
-      const notToken = await (
-        await new MarketFactory(creatorWallet).deploy()
-      ).deployed();
-
       await expect(
-        auctionAsDeployer.updateZora(notToken.address)
+        auctionAsDeployer.updateNftAddress(reserveAuctionAddress)
       ).rejected
     })
 
@@ -318,13 +209,14 @@ describe('ReserveAuction', () => {
         await deploy();
       });
 
-    it('can\'t submit an auction that already exists', async () => {
+    it(`can't submit an auction that already exists`, async () => {
 
       const tokenId = await mintToken();
-      await setupAuction(tokenId, creatorWallet);
+
+      await setupAuction(tokenId, deployerWallet);
 
       await expect(
-        setupAuction(tokenId, creatorWallet)
+        setupAuction(tokenId, deployerWallet)
       ).rejectedWith('Auction already exists')
     })
 
@@ -339,7 +231,7 @@ describe('ReserveAuction', () => {
       const auctionAsBidder = await auctionAs(bidderWallet)
 
       const tokenId = await mintToken();
-      await setupAuction(tokenId, creatorWallet);
+      await setupAuction(tokenId, deployerWallet);
 
       await expect(
         auctionAsBidder.createBid(tokenId, {value: reservePrice.div(2)})
@@ -352,7 +244,7 @@ describe('ReserveAuction', () => {
       const auctionAsOther = await auctionAs(otherWallet)
 
       const tokenId = await mintToken();
-      await setupAuction(tokenId, creatorWallet);
+      await setupAuction(tokenId, deployerWallet);
       await auctionAsBidder.createBid(tokenId, {value: reservePrice})
       blockchain.increaseTimeAsync(duration)
       await expect(
@@ -365,7 +257,7 @@ describe('ReserveAuction', () => {
       const auctionAsOther = await auctionAs(otherWallet)
 
       const tokenId = await mintToken();
-      await setupAuction(tokenId, creatorWallet);
+      await setupAuction(tokenId, deployerWallet);
       await auctionAsBidder.createBid(tokenId, {value: reservePrice.mul(3)})
       await expect(
         auctionAsOther.createBid(tokenId, {value: reservePrice.mul(2)})
@@ -379,7 +271,7 @@ describe('ReserveAuction', () => {
       const minBid = await auctionAsBidder.minBid()
 
       const tokenId = await mintToken();
-      await setupAuction(tokenId, creatorWallet);
+      await setupAuction(tokenId, deployerWallet);
       await auctionAsBidder.createBid(tokenId, {value: reservePrice})
       await expect(
         auctionAsBidder.createBid(tokenId, {value: reservePrice.add(minBid.sub(1))})
@@ -394,7 +286,7 @@ describe('ReserveAuction', () => {
       const timeBuffer = await auctionAsBidder.timeBuffer()
 
       const tokenId = await mintToken();
-      await setupAuction(tokenId, creatorWallet);
+      await setupAuction(tokenId, deployerWallet);
       await auctionAsBidder.createBid(tokenId, {value: reservePrice})
 
       const auctionBefore = await auctionAsBidder.auctions(tokenId)
@@ -402,21 +294,27 @@ describe('ReserveAuction', () => {
 
       const blockBefore = await provider.getBlock(await provider.getBlockNumber())
       const timeBefore = blockBefore.timestamp
+      const overTime = 10
 
-      await blockchain.increaseTimeAsync(BigNumber.from(duration).sub(timeBuffer).add(1).toNumber())
+      await blockchain.increaseTimeAsync(BigNumber.from(duration).sub(timeBuffer).add(overTime).toNumber())
       await blockchain.waitBlocksAsync(1)
 
-      const blockAfter = await provider.getBlock(await provider.getBlockNumber())
-      const timeAfter = blockAfter.timestamp
+      let blockAfter = await provider.getBlock(await provider.getBlockNumber())
+      let timeAfter = blockAfter.timestamp
 
-      expect(timeAfter - timeBefore).eq(BigNumber.from(duration).sub(timeBuffer).add(1).toNumber())
+
+      expect(timeAfter - timeBefore).eq(BigNumber.from(duration).sub(timeBuffer).add(overTime).toNumber())
 
       await auctionAsBidder.createBid(tokenId, {value: reservePrice.mul(2)})
+
+      blockAfter = await provider.getBlock(await provider.getBlockNumber())
+      let timeAfter2 = blockAfter.timestamp
+
 
       const auctionAfter = await auctionAsBidder.auctions(tokenId)
       const durationAfter = auctionAfter.duration
 
-      expect(durationAfter.sub(durationBefore).toString()).eq(timeBuffer.toString())
+      expect(durationAfter.sub(durationBefore).toString()).eq(BigNumber.from(timeAfter2).sub(timeAfter).add(overTime).toString())
 
     })
   })
@@ -431,7 +329,7 @@ describe('ReserveAuction', () => {
       const auctionAsBidder = await auctionAs(bidderWallet)
 
       const tokenId = await mintToken();
-      await setupAuction(tokenId, creatorWallet);
+      await setupAuction(tokenId, deployerWallet);
       await auctionAsBidder.createBid(tokenId, {value: reservePrice})
 
       await blockchain.increaseTimeAsync(BigNumber.from(duration).add(1).toNumber())
@@ -446,7 +344,7 @@ describe('ReserveAuction', () => {
       const auctionAsBidder = await auctionAs(bidderWallet)
 
       const tokenId = await mintToken();
-      await setupAuction(tokenId, creatorWallet);
+      await setupAuction(tokenId, deployerWallet);
 
       await expect(
         auctionAsBidder.endAuction(tokenId)
@@ -458,7 +356,7 @@ describe('ReserveAuction', () => {
       const auctionAsBidder = await auctionAs(bidderWallet)
 
       const tokenId = await mintToken();
-      await setupAuction(tokenId, creatorWallet);
+      await setupAuction(tokenId, deployerWallet);
       await auctionAsBidder.createBid(tokenId, {value: reservePrice})
 
       await expect(
@@ -487,7 +385,7 @@ describe('ReserveAuction', () => {
       const auctionAsBidder = await auctionAs(bidderWallet)
 
       const tokenId = await mintToken();
-      await setupAuction(tokenId, creatorWallet);
+      await setupAuction(tokenId, deployerWallet);
       await auctionAsBidder.createBid(tokenId, {value: reservePrice})
 
       await blockchain.increaseTimeAsync(BigNumber.from(duration).add(1).toNumber())
@@ -502,7 +400,7 @@ describe('ReserveAuction', () => {
       const auctionAsOther = await auctionAs(otherWallet)
 
       const tokenId = await mintToken();
-      await setupAuction(tokenId, creatorWallet);
+      await setupAuction(tokenId, deployerWallet);
 
       await expect(
         auctionAsOther.cancelAuction(tokenId)
@@ -510,10 +408,10 @@ describe('ReserveAuction', () => {
     })
 
     it(`can cancel an auction if you're the creator `, async () => {
-      const auctionAsCreator = await auctionAs(creatorWallet)
+      const auctionAsCreator = await auctionAs(deployerWallet)
 
       const tokenId = await mintToken();
-      await setupAuction(tokenId, creatorWallet);
+      await setupAuction(tokenId, deployerWallet);
 
       await expect(
         auctionAsCreator.cancelAuction(tokenId)
@@ -524,7 +422,7 @@ describe('ReserveAuction', () => {
       const auctionAsDeployer = await auctionAs(deployerWallet)
 
       const tokenId = await mintToken();
-      await setupAuction(tokenId, creatorWallet);
+      await setupAuction(tokenId, deployerWallet);
 
       await expect(
         auctionAsDeployer.cancelAuction(tokenId)
@@ -537,7 +435,7 @@ describe('ReserveAuction', () => {
       const auctionAsBidder = await auctionAs(bidderWallet)
 
       const tokenId = await mintToken();
-      await setupAuction(tokenId, creatorWallet);
+      await setupAuction(tokenId, deployerWallet);
       await auctionAsBidder.createBid(tokenId, {value: reservePrice})
 
       await expect(
@@ -546,12 +444,12 @@ describe('ReserveAuction', () => {
     })
 
     it(`can cancel an auction and transfer the token back and delete the auction`, async () => {
-      const tokenAsCreator = await tokenAs(creatorWallet)
+      const tokenAsCreator = await tokenAs(deployerWallet)
       const auctionAsDeployer = await auctionAs(deployerWallet)
 
       const tokenId = await mintToken();
       const ownerBefore = await tokenAsCreator.ownerOf(tokenId)
-      await setupAuction(tokenId, creatorWallet);
+      await setupAuction(tokenId, deployerWallet);
 
       const ownerInBetween = await tokenAsCreator.ownerOf(tokenId)
       expect(ownerBefore).not.eq(ownerInBetween)
@@ -576,39 +474,49 @@ describe('ReserveAuction', () => {
     });
 
     it('should work when seller is creator of NFT', async () => {
-      const token = await tokenAs(creatorWallet);
+      const token = await tokenAs(deployerWallet);
       const auctionAsBidder = await auctionAs(bidderWallet)
 
       const tokenId = await mintToken();
 
-      await setupAuction(tokenId, creatorWallet);
+      await setupAuction(tokenId, deployerWallet);
 
       let ownerOf = await token.ownerOf(tokenId);
       expect(ownerOf).eq(reserveAuctionAddress);
 
-      let beforeCreatorBalance = await creatorWallet.getBalance()
+      let beforeCreatorBalance = await deployerWallet.getBalance()
 
       await auctionAsBidder.createBid(tokenId, {value: reservePrice.toString()})
       blockchain.increaseTimeAsync(duration)
+
+      const adminShareBefore = await adminWallet.getBalance()
+
+      const auctionSettings = await auctionAsBidder.auctions(tokenId)
 
       await auctionAsBidder.endAuction(tokenId)
       ownerOf = await token.ownerOf(tokenId);
       expect(ownerOf).eq(bidderWallet.address);
 
-      let afterCreatorBalance = await creatorWallet.getBalance()
-      expect(afterCreatorBalance.toString()).eq(beforeCreatorBalance.add(reservePrice).toString());
+      const adminShare = auctionSettings.amount.mul(15).div(100)
+      const adminShareAfter = await adminWallet.getBalance()
+      // expect(adminShareAfter.toString()).eq(adminShareBefore.add(adminShare).toString());
+
+      const creatorShare = reservePrice.sub(adminShare)
+
+      let afterCreatorBalance = await deployerWallet.getBalance()
+      expect(afterCreatorBalance.toString()).eq(beforeCreatorBalance.add(creatorShare).toString());
 
     });
 
 
     it('should work when seller is creator of NFT and multiple bids happen', async () => {
-      const token = await tokenAs(creatorWallet);
+      const token = await tokenAs(deployerWallet);
       const auctionAsBidder = await auctionAs(bidderWallet)
       const auctionAsOther = await auctionAs(otherWallet)
 
       const tokenId = await mintToken();
 
-      await setupAuction(tokenId, creatorWallet);
+      await setupAuction(tokenId, deployerWallet);
 
       await auctionAsBidder.createBid(tokenId, {value: reservePrice.toString()})
 
@@ -626,45 +534,6 @@ describe('ReserveAuction', () => {
 
       // losing bidder should have their balance back
       expect(afterAsBidder.toString()).eq(beforeAsBidder.add(reservePrice).toString());
-
-    });
-
-    it('should work when seller is not creator of NFT', async () => {
-      const market = await marketAs(creatorWallet);
-      const token = await tokenAs(creatorWallet);
-      const auctionAsBidder = await auctionAs(bidderWallet)
-
-      const tokenId = await mintToken();
-
-      await token.transferFrom(creatorWallet.address, otherWallet.address, tokenId)
-      let ownerOf = await token.ownerOf(tokenId);
-      expect(ownerOf).eq(otherWallet.address);
-
-      await setupAuction(tokenId, otherWallet);
-
-      ownerOf = await token.ownerOf(tokenId);
-      expect(ownerOf).eq(reserveAuctionAddress);
-
-      let beforeCreatorBalance = await creatorWallet.getBalance()
-      let beforeOtherBalance = await otherWallet.getBalance()
-
-      await auctionAsBidder.createBid(tokenId, {value: reservePrice.toString()})
-      blockchain.increaseTimeAsync(duration)
-
-      await auctionAsBidder.endAuction(tokenId)
-      ownerOf = await token.ownerOf(tokenId);
-      expect(ownerOf).eq(bidderWallet.address);
-
-
-      const creatorShare = await market.bidSharesForToken(tokenId);
-
-      const creatorAmount = await market.splitShare(creatorShare.creator, reservePrice);
-
-      let afterCreatorBalance = await creatorWallet.getBalance()
-      expect(afterCreatorBalance.toString()).eq(beforeCreatorBalance.add(creatorAmount).toString());
-
-      let afterOtherBalance = await otherWallet.getBalance()
-      expect(afterOtherBalance.toString()).eq(beforeOtherBalance.add(reservePrice).sub(creatorAmount).toString());
 
     });
 
