@@ -3,8 +3,12 @@
 /* eslint-disable */
 export { Erc721Factory } from "./Erc721Factory";
 export type { Erc721 } from "./Erc721";
+export { FoliaFactory } from "./FoliaFactory";
+export type { Folia } from "./Folia";
 export { FoliaControllerFactory } from "./FoliaControllerFactory";
 export type { FoliaController } from "./FoliaController";
+export { MetadataFactory } from "./MetadataFactory";
+export type { Metadata } from "./Metadata";
 export { ReserveAuctionFactory } from "./ReserveAuctionFactory";
 export type { ReserveAuction } from "./ReserveAuction";
 export { TestTokenFactory } from "./TestTokenFactory";
