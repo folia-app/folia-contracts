@@ -238,18 +238,21 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
         address winner = auctions[tokenId].bidder;
         uint256 amount = auctions[tokenId].amount;
         address creator = auctions[tokenId].creator;
+        uint256 adminSplit = auctions[tokenId].adminSplit;
+        address payable admin = auctions[tokenId].admin;
+        address payable proceedsRecipient = auctions[tokenId].proceedsRecipient;
 
         emit AuctionEnded(tokenId, nftAddress, creator, winner, amount);
         delete auctions[tokenId];
 
         IERC721(nftAddress).transferFrom(address(this), winner, tokenId);
 
-        uint256 adminReceives = amount.mul(auctions[tokenId].adminSplit).div(100);
+        uint256 adminReceives = amount.mul(adminSplit).div(100);
         uint256 proceedsAmount = amount.sub(adminReceives);
         if (adminReceives > 0) {
-            auctions[tokenId].admin.transfer(adminReceives);
+            admin.transfer(adminReceives);
         }
-        auctions[tokenId].proceedsRecipient.transfer(proceedsAmount);
+        proceedsRecipient.transfer(proceedsAmount);
     }
 
     function cancelAuction(uint256 tokenId) external nonReentrant {
