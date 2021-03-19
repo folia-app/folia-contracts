@@ -36,7 +36,7 @@ import "openzeppelin-solidity/contracts/utils/ReentrancyGuard.sol";
 contract ReserveAuction is Ownable, ReentrancyGuard {
     using SafeMath for uint256;
 
-    bool public paused;
+    bool public globalPaused;
 
     uint256 public timeBuffer = 15 * 60; // extend 15 minutes after every bid made in last 15 minutes
     uint256 public minBid = 1 * 10**17; // 0.1 eth
@@ -55,12 +55,15 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
         uint256 duration;
         uint256 firstBidTime;
         uint256 reservePrice;
-        address payable creator;
+        uint256 adminSplit; // percentage of 100
+        address creator;
+        address payable admin;
+        address payable proceedsRecipient;
         address payable bidder;
     }
 
     modifier notPaused() {
-        require(!paused, "Must not be paused");
+        require(!globalPaused, "Must not be paused");
         _;
     }
 
@@ -92,6 +95,10 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
         address nftAddress,
         address creator
     );
+    event UpdateAuction(
+        uint256 tokenId,
+        bool paused
+    );
 
     constructor(address _nftAddress) public {
         require(
@@ -117,30 +124,43 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
         timeBuffer = _timeBuffer;
     }
 
+    function updateAuction(uint256 tokenId, bool paused) public onlyOwner {
+        require(auctions[tokenId].exists, "Auction doesn't exist");
+        auctions[tokenId].paused = paused;
+        emit UpdateAuction(tokenId, paused);
+    }
+
     function createAuction(
         bool paused,
         uint256 tokenId,
         uint256 duration,
         uint256 reservePrice,
-        uint256 artistShare,
-        address payable artist
+        uint256 adminSplit, // percentage
+        address payable admin,
+        address payable proceedsRecipient
     ) external notPaused onlyOwner nonReentrant {
         require(!auctions[tokenId].exists, "Auction already exists");
-
+        require(adminSplit < 100, "Percentage has to be less than 100");
         tokenIds.push(tokenId);
 
+        auctions[tokenId].paused = paused;
         auctions[tokenId].exists = true;
         auctions[tokenId].duration = duration;
         auctions[tokenId].reservePrice = reservePrice;
-        auctions[tokenId].creator = creator;
+
+        auctions[tokenId].adminSplit = adminSplit;
+        auctions[tokenId].creator = msg.sender;
+        auctions[tokenId].admin = admin;
+        auctions[tokenId].proceedsRecipient = proceedsRecipient;
 
         IERC721(nftAddress).transferFrom(msg.sender, address(this), tokenId);
 
-        emit AuctionCreated(tokenId, nftAddress, duration, reservePrice, creator);
+        emit AuctionCreated(tokenId, nftAddress, duration, reservePrice, msg.sender);
     }
 
     function createBid(uint256 tokenId) external payable notPaused nonReentrant {
         require(auctions[tokenId].exists, "Auction doesn't exist");
+        require(!auctions[tokenId].paused, "Auction paused");
         require(
             msg.value >= auctions[tokenId].reservePrice,
             "Must send reservePrice or more"
@@ -203,6 +223,7 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
 
     function endAuction(uint256 tokenId) external notPaused nonReentrant {
         require(auctions[tokenId].exists, "Auction doesn't exist");
+        require(!auctions[tokenId].paused, "Auction paused");
         require(
             uint256(auctions[tokenId].firstBidTime) != 0,
             "Auction hasn't begun"
@@ -215,13 +236,19 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
 
         address winner = auctions[tokenId].bidder;
         uint256 amount = auctions[tokenId].amount;
-        address payable creator = auctions[tokenId].creator;
+        address creator = auctions[tokenId].creator;
 
         emit AuctionEnded(tokenId, nftAddress, creator, winner, amount);
         delete auctions[tokenId];
 
         IERC721(nftAddress).transferFrom(address(this), winner, tokenId);
-        creator.transfer(amount);
+
+        uint256 adminReceives = amount.mul(auctions[tokenId].adminSplit).div(100);
+        uint256 proceedsAmount = amount.sub(adminReceives);
+        if (adminReceives > 0) {
+            auctions[tokenId].admin.transfer(adminReceives);
+        }
+        auctions[tokenId].proceedsRecipient.transfer(proceedsAmount);
     }
 
     function cancelAuction(uint256 tokenId) external nonReentrant {
@@ -240,7 +267,7 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
         emit AuctionCanceled(tokenId, nftAddress, creator);
     }
 
-    function updatePaused(bool _paused) public onlyOwner {
-        paused = _paused;
+    function updatePaused(bool _globalPaused) public onlyOwner {
+        globalPaused = _globalPaused;
     }
 }
