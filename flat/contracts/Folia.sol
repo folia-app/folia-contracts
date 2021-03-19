@@ -1119,26 +1119,12 @@ contract Folia is ERC721Full, Ownable {
         _;
     }
 
-    modifier onlyAdmin() {
-        require(_admins.has(msg.sender), "DOES_NOT_HAVE_ADMIN_ROLE");
-        _;
-    }
-    
-    /**
-    * @dev Checks msg.sender can transfer a token, by being owner, approved, operator or controller
-    * @param _tokenId uint256 ID of the token to validate
-    */
-    modifier canTransfer(uint256 _tokenId) {
-        require(_isApprovedOrOwner(msg.sender, _tokenId) || msg.sender == controller);
-        _;
-    }
-
     constructor(string memory name, string memory symbol, address _metadata) public ERC721Full(name, symbol) {
         metadata = _metadata;
         _admins.add(msg.sender);
         admins += 1;
     }
-    
+
     function mint(address recepient, uint256 tokenId) public onlyAdminOrController {
         _mint(recepient, tokenId);
     }
