@@ -42,8 +42,8 @@ module.exports = {
         )
       },
       network_id: 1,
-      gasPrice: 120000000000 // 120 GWEI
-      // gas: 5561260
+      gasPrice: 150000000000, // 150 GWEI
+      gas: 6721975
     },
     kovan: {
       provider() {
