@@ -42,7 +42,7 @@ module.exports = {
         )
       },
       network_id: 1,
-      gasPrice: 150000000000, // 150 GWEI
+      gasPrice: 115000000000, // 150 GWEI
       gas: 6721975
     },
     kovan: {
