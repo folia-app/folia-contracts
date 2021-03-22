@@ -1065,7 +1065,7 @@ contract Metadata {
     using strings for *;
 
     function tokenURI(uint _tokenId) public pure returns (string memory _infoUrl) {
-        string memory base = "https://folia.app/v1/metadata/";
+        string memory base = "https://scammer.market/v1/metadata/";
         string memory id = uint2str(_tokenId);
         return base.toSlice().concat(id.toSlice());
     }
@@ -1092,7 +1092,7 @@ contract Metadata {
     }
 }
 
-// File: contracts/Folia.sol
+// File: contracts/Scammer.sol
 
 pragma solidity ^0.5.0;
 
@@ -1106,7 +1106,7 @@ pragma solidity ^0.5.0;
 /**
  * The Token contract does this and that...
  */
-contract Folia is ERC721Full, Ownable {
+contract Scammer is ERC721Full, Ownable {
     using Roles for Roles.Role;
     Roles.Role private _admins;
     uint8 admins;
@@ -1119,12 +1119,26 @@ contract Folia is ERC721Full, Ownable {
         _;
     }
 
+    modifier onlyAdmin() {
+        require(_admins.has(msg.sender), "DOES_NOT_HAVE_ADMIN_ROLE");
+        _;
+    }
+    
+    /**
+    * @dev Checks msg.sender can transfer a token, by being owner, approved, operator or controller
+    * @param _tokenId uint256 ID of the token to validate
+    */
+    modifier canTransfer(uint256 _tokenId) {
+        require(_isApprovedOrOwner(msg.sender, _tokenId) || msg.sender == controller);
+        _;
+    }
+
     constructor(string memory name, string memory symbol, address _metadata) public ERC721Full(name, symbol) {
         metadata = _metadata;
         _admins.add(msg.sender);
         admins += 1;
     }
-
+    
     function mint(address recepient, uint256 tokenId) public onlyAdminOrController {
         _mint(recepient, tokenId);
     }
@@ -1153,7 +1167,7 @@ contract Folia is ERC721Full, Ownable {
     }
 
     /**
-    * @dev Moves Eth to a certain address for use in the CloversController
+    * @dev Moves Eth to a certain address for use in the ScammerController
     * @param _to The address to receive the Eth.
     * @param _amount The amount of Eth to be transferred.
     */
@@ -1162,7 +1176,7 @@ contract Folia is ERC721Full, Ownable {
         _to.transfer(_amount);
     }
     /**
-    * @dev Moves Token to a certain address for use in the CloversController
+    * @dev Moves Token to a certain address for use in the ScammerController
     * @param _to The address to receive the Token.
     * @param _amount The amount of Token to be transferred.
     * @param _token The address of the Token to be transferred.
@@ -1170,132 +1184,6 @@ contract Folia is ERC721Full, Ownable {
     function moveToken(address _to, uint256 _amount, address _token) public onlyAdminOrController returns (bool) {
         require(_amount <= IERC20(_token).balanceOf(address(this)));
         return IERC20(_token).transfer(_to, _amount);
-    }
-
-}
-
-// File: contracts/FoliaController.sol
-
-pragma solidity ^0.5.0;
-
-/**
- * The FoliaController is an upgradeable endpoint for controlling Folia.sol
- */
-
-
-
-
-contract FoliaController is Ownable {
-
-    event newWork(uint256 workId, address payable artist, uint256 editions, uint256 price, bool paused);
-    event updatedWork(uint256 workId, address payable artist, uint256 editions, uint256 price, bool paused);
-    event editionBought(uint256 workId, uint256 editionId, uint256 tokenId, address recipient, uint256 paid, uint256 artistReceived, uint256 adminReceived);
-
-    using SafeMath for uint256;
-
-    uint256 constant MAX_EDITIONS = 1000000;
-    uint256 public latestWorkId;
-
-    mapping (uint256 => Work) public works;
-    struct Work {
-        bool exists;
-        bool paused;
-        uint256 editions;
-        uint256 printed;
-        uint256 price;
-        address payable artist;
-    }
-
-    uint256 public adminSplit = 15;
-
-    address payable public adminWallet;
-    bool public paused;
-    Folia public folia;
-
-    modifier notPaused() {
-        require(!paused, "Must not be paused");
-        _;
-    }
-
-    constructor(
-        Folia _folia,
-        address payable _adminWallet
-    ) public {
-        folia = _folia;
-        adminWallet = _adminWallet;
-    }
-
-    function addArtwork(address payable artist, uint256 editions, uint256 price, bool _paused) public onlyOwner {
-        require(editions < MAX_EDITIONS, "MAX_EDITIONS_EXCEEDED");
-
-        latestWorkId += 1;
-
-        works[latestWorkId].exists = true;
-        works[latestWorkId].editions = editions;
-        works[latestWorkId].price = price;
-        works[latestWorkId].artist = artist;
-        works[latestWorkId].paused = _paused;
-        emit newWork(latestWorkId, artist, editions, price, _paused);
-    }
-
-    function updateArtworkPaused(uint256 workId, bool _paused) public onlyOwner {
-        require(works[workId].exists, "WORK_DOES_NOT_EXIST");
-        works[workId].paused = _paused;
-        emit updatedWork(workId, works[workId].artist, works[workId].editions, works[workId].price, works[workId].paused);
-    }
-
-    function updateArtworkEditions(uint256 workId, uint256 _editions) public onlyOwner {
-        require(works[workId].exists, "WORK_DOES_NOT_EXIST");
-        require(works[workId].printed < _editions, "WORK_EXCEEDS_EDITIONS");
-        works[workId].editions = _editions;
-        emit updatedWork(workId, works[workId].artist, works[workId].editions, works[workId].price, works[workId].paused);
-    }
-
-    function updateArtworkPrice(uint256 workId, uint256 _price) public onlyOwner {
-        require(works[workId].exists, "WORK_DOES_NOT_EXIST");
-        works[workId].price = _price;
-        emit updatedWork(workId, works[workId].artist, works[workId].editions, works[workId].price, works[workId].paused);
-    }
-
-    function updateArtworkArtist(uint256 workId, address payable _artist) public onlyOwner {
-        require(works[workId].exists, "WORK_DOES_NOT_EXIST");
-        works[workId].artist = _artist;
-        emit updatedWork(workId, works[workId].artist, works[workId].editions, works[workId].price, works[workId].paused);
-    }
-
-    function buy(address recipient, uint256 workId) public payable notPaused returns (bool) {
-        require(!works[workId].paused, "WORK_NOT_YET_FOR_SALE");
-        require(works[workId].exists, "WORK_DOES_NOT_EXIST");
-        require(works[workId].editions > works[workId].printed, "EDITIONS_EXCEEDED");
-        require(msg.value == works[workId].price, "DID_NOT_SEND_PRICE");
-
-        uint256 editionId = works[workId].printed.add(1);
-        works[workId].printed = editionId;
-        
-        uint256 tokenId = workId.mul(MAX_EDITIONS).add(editionId);
-
-        folia.mint(recipient, tokenId);
-        
-        uint256 adminReceives = msg.value.mul(adminSplit).div(100);
-        uint256 artistReceives = msg.value.sub(adminReceives);
-
-        adminWallet.transfer(adminReceives);
-        works[workId].artist.transfer(artistReceives);
-
-        emit editionBought(workId, editionId, tokenId, recipient,  works[workId].price, artistReceives, adminReceives);
-    }
-
-    function updateAdminSplit(uint256 _adminSplit) public onlyOwner {
-        require(_adminSplit <= 100, "SPLIT_MUST_BE_LTE_100");
-        adminSplit = _adminSplit;
-    }
-
-    function updateAdminWallet(address payable _adminWallet) public onlyOwner {
-        adminWallet = _adminWallet;
-    }
-
-    function updatePaused(bool _paused) public onlyOwner {
-        paused = _paused;
     }
 
 }
