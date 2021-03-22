@@ -1,4 +1,5 @@
 pragma solidity ^0.5.0;
+
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721Full.sol";
 import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
@@ -10,7 +11,7 @@ import "./Metadata.sol";
 /**
  * The Token contract does this and that...
  */
-contract Folia is ERC721Full, Ownable {
+contract Scammer is ERC721Full, Ownable {
     using Roles for Roles.Role;
     Roles.Role private _admins;
     uint8 admins;
@@ -23,12 +24,26 @@ contract Folia is ERC721Full, Ownable {
         _;
     }
 
+    modifier onlyAdmin() {
+        require(_admins.has(msg.sender), "DOES_NOT_HAVE_ADMIN_ROLE");
+        _;
+    }
+    
+    /**
+    * @dev Checks msg.sender can transfer a token, by being owner, approved, operator or controller
+    * @param _tokenId uint256 ID of the token to validate
+    */
+    modifier canTransfer(uint256 _tokenId) {
+        require(_isApprovedOrOwner(msg.sender, _tokenId) || msg.sender == controller);
+        _;
+    }
+
     constructor(string memory name, string memory symbol, address _metadata) public ERC721Full(name, symbol) {
         metadata = _metadata;
         _admins.add(msg.sender);
         admins += 1;
     }
-
+    
     function mint(address recepient, uint256 tokenId) public onlyAdminOrController {
         _mint(recepient, tokenId);
     }
@@ -57,7 +72,7 @@ contract Folia is ERC721Full, Ownable {
     }
 
     /**
-    * @dev Moves Eth to a certain address for use in the CloversController
+    * @dev Moves Eth to a certain address for use in the ScammerController
     * @param _to The address to receive the Eth.
     * @param _amount The amount of Eth to be transferred.
     */
@@ -66,7 +81,7 @@ contract Folia is ERC721Full, Ownable {
         _to.transfer(_amount);
     }
     /**
-    * @dev Moves Token to a certain address for use in the CloversController
+    * @dev Moves Token to a certain address for use in the ScammerController
     * @param _to The address to receive the Token.
     * @param _amount The amount of Token to be transferred.
     * @param _token The address of the Token to be transferred.

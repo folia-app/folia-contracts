@@ -1,14 +1,14 @@
 pragma solidity ^0.5.0;
 
 /**
- * The FoliaController is an upgradeable endpoint for controlling Folia.sol
+ * The ScammerController is an upgradeable endpoint for controlling Scammer.sol
  */
 
-import "./Folia.sol";
+import "./Scammer.sol";
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
-contract FoliaController is Ownable {
+contract ScammerController is Ownable {
 
     event newWork(uint256 workId, address payable artist, uint256 editions, uint256 price, bool paused);
     event updatedWork(uint256 workId, address payable artist, uint256 editions, uint256 price, bool paused);
@@ -33,7 +33,7 @@ contract FoliaController is Ownable {
 
     address payable public adminWallet;
     bool public paused;
-    Folia public folia;
+    Scammer public scammer;
 
     modifier notPaused() {
         require(!paused, "Must not be paused");
@@ -41,10 +41,10 @@ contract FoliaController is Ownable {
     }
 
     constructor(
-        Folia _folia,
+        Scammer _scammer,
         address payable _adminWallet
     ) public {
-        folia = _folia;
+        scammer = _scammer;
         adminWallet = _adminWallet;
     }
 
@@ -97,7 +97,7 @@ contract FoliaController is Ownable {
         
         uint256 tokenId = workId.mul(MAX_EDITIONS).add(editionId);
 
-        folia.mint(recipient, tokenId);
+        scammer.mint(recipient, tokenId);
         
         uint256 adminReceives = msg.value.mul(adminSplit).div(100);
         uint256 artistReceives = msg.value.sub(adminReceives);
