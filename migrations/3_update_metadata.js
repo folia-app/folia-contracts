@@ -1,5 +1,5 @@
 var Metadata = artifacts.require('./Metadata.sol')
-var Folia = artifacts.require('./Folia.sol')
+var Scammer = artifacts.require('./Scammer.sol')
 
 let _ = '        '
 
@@ -12,13 +12,13 @@ module.exports = (deployer, helper, accounts) => {
       let metadata = await Metadata.deployed()
       console.log(_ + 'Metadata deployed at: ' + metadata.address)
 
-     // Deploy Folia.sol
-      // await deployer.deploy(Folia, 'Folia Name', 'Folia Symbol', metadata.address)
-      let folia = await Folia.deployed()
-      console.log(_ + 'Folia deployed at: ' + folia.address)
+      // Deploy Scammer.sol
+      // await deployer.deploy(Scammer, 'Scammer Name', 'Scammer Symbol', metadata.address)
+      let scammer = await Scammer.deployed()
+      console.log(_ + 'Scammer deployed at: ' + scammer.address)
 
-      await folia.updateMetadata(metadata.address)
-      console.log(_ + 'Folia metadta updated to ' + metadata.address)
+      await scammer.updateMetadata(metadata.address)
+      console.log(_ + 'Scammer metadta updated to ' + metadata.address)
 
     } catch (error) {
       console.log(error)

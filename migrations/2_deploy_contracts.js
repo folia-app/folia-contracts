@@ -1,6 +1,6 @@
 var Metadata = artifacts.require('./Metadata.sol')
-var Folia = artifacts.require('./Folia.sol')
-var FoliaController = artifacts.require('./FoliaController.sol')
+var Scammer = artifacts.require('./Scammer.sol')
+var ScammerController = artifacts.require('./ScammerController.sol')
 
 let _ = '        '
 
@@ -14,22 +14,22 @@ module.exports = (deployer, helper, accounts) => {
       let metadata = await Metadata.deployed()
       console.log(_ + 'Metadata deployed at: ' + metadata.address)
 
-      // Deploy Folia.sol
-      await deployer.deploy(Folia, 'Folia', 'FLA', metadata.address)
-      let folia = await Folia.deployed()
-      console.log(_ + 'Folia deployed at: ' + folia.address)
+      // Deploy Scammer.sol
+      await deployer.deploy(Scammer, 'Scammer', 'FLA', metadata.address)
+      let scammer = await Scammer.deployed()
+      console.log(_ + 'Scammer deployed at: ' + scammer.address)
 
-      // Add admin to Folia
-      await folia.addAdmin(accounts[1])
-      console.log(_ + `Admin ${accounts[1]} added to Folia`)
+      // Add admin to Scammer
+      await scammer.addAdmin(accounts[1])
+      console.log(_ + `Admin ${accounts[1]} added to Scammer`)
 
-      // Deploy FoliaController.sol
-      await deployer.deploy(FoliaController, folia.address, accounts[1])
-      let foliaController = await FoliaController.deployed()
-      console.log(_ + 'FoliaController deployed at: ' + foliaController.address)
+      // Deploy ScammerController.sol
+      await deployer.deploy(ScammerController, scammer.address, accounts[1])
+      let scammerController = await ScammerController.deployed()
+      console.log(_ + 'ScammerController deployed at: ' + scammerController.address)
 
-      await folia.updateController(foliaController.address)
-      console.log(_ + 'FoliaController updated to ' + foliaController.address)
+      await scammer.updateController(scammerController.address)
+      console.log(_ + 'ScammerController updated to ' + scammerController.address)
 
 
     } catch (error) {
