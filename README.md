@@ -31,21 +31,25 @@ var scammerContract = new global.web3.eth.Contract(
 console.log(scammerControllerContract.methods)
 
 // sends
-await scammerControllerContract.methods.buy(recipient, workId).send({from, value}) // value is in wei
-await scammerControllerContract.methods.addArtwork(artist, editions, price, paused).send({from})
-await scammerControllerContract.methods.updateArtworkPaused(workId, paused).send({from})
-await scammerControllerContract.methods.updateArtworkEditions(workId, editions).send({from})
-await scammerControllerContract.methods.updateArtworkPrice(workId, price).send({from})
-await scammerControllerContract.methods.updateArtworkArtist(workId, artist).send({from})
+await scammerControllerContract.methods.buy(recipient, tokenId).send({from, value}) // value is in wei
+await scammerControllerContract.methods.addCollection(editions, price, paused).send({from})
+await scammerControllerContract.methods.mintVoucher(address).send({from})
+await scammerControllerContract.methods.burnVoucher(address).send({from})
+await scammerControllerContract.methods.updateCollectionPaused(collectionId, paused).send({from})
+await scammerControllerContract.methods.updateCollectionEditions(collectionId, editions).send({from})
+await scammerControllerContract.methods.updateCollectionPrice(collectionId, price).send({from})
+await scammerControllerContract.methods.updateCollectionArtist(collectionId, artist).send({from})
 await scammerControllerContract.methods.updateAdminSplit(adminSplit).send({from})
 await scammerControllerContract.methods.updateAdminWallet(adminWallet).send({from})
 await scammerControllerContract.methods.updatePaused(paused).send({from})
 await scammerControllerContract.methods.transferOwnership(newOwner).send({from})
 
 // calls
-await scammerControllerContract.methods.works().call()
-await scammerControllerContract.methods.latestWorkId().call()
+await scammerControllerContract.methods.collections().call()
+await scammerControllerContract.methods.hasVoucher().call()
+await scammerControllerContract.methods.latestCollectionId().call()
 await scammerControllerContract.methods.adminWallet().call()
+await scammerControllerContract.methods.artistWallet().call()
 await scammerControllerContract.methods.paused().call()
 await scammerControllerContract.methods.scammer().call()
 await scammerControllerContract.methods.renounceOwnership().call()
