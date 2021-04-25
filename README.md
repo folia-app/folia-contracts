@@ -84,4 +84,8 @@ await foliaContract.methods.getApproved(tokenId).call()
 await foliaContract.methods.isApprovedForAll(owner, operator).call()
 ```
 
+## Notes
 
+`Folia.sol`, `Metadata.sol`, `ReserveAuction.sol` and `FoliaController.sol` were compiled with v0.5.0 with optimizations off.
+
+`FoliaControllerV2.sol` was compiled with v0.5.0 with optimizations at `2000000`.
