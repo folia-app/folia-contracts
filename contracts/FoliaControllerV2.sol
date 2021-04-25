@@ -117,7 +117,7 @@ contract FoliaControllerV2 is Ownable {
         require(work.saleType == SaleType.ID, "WRONG_SALE_TYPE");
         require(work.exists, "WORK_DOES_NOT_EXIST");
 
-        require(work.editions <= editionId, "OUTSIDE_RANGE_OF_EDITIONS");
+        require(work.editions >= editionId, "OUTSIDE_RANGE_OF_EDITIONS");
         uint256 tokenId = workId.mul(MAX_EDITIONS).add(editionId);
 
         require(msg.value == work.price, "DID_NOT_SEND_PRICE");
