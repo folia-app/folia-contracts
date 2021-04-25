@@ -56,7 +56,7 @@ contract FoliaControllerV2 is Ownable {
     }
 
     function works(uint256 workId) public view returns (bool exists, bool paused, SaleType saleType, uint256 editions, uint256 printed, uint256 price, address payable artist) {
-      if (workId > foliaController.latestWorkId()) {
+      if (workId >= foliaController.latestWorkId()) {
         return (_works[workId].exists, _works[workId].paused, _works[workId].saleType, _works[workId].editions, _works[workId].printed, _works[workId].price, _works[workId].artist);
       } else {
         (bool _exists, bool _paused, uint256 _editions, uint256 _printed, uint256 _price, address payable _artist) = foliaController.works(workId);
