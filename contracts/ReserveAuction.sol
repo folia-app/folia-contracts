@@ -8,31 +8,6 @@ import "openzeppelin-solidity/contracts/token/ERC721/IERC721.sol";
 import "openzeppelin-solidity/contracts/introspection/IERC165.sol";
 import "openzeppelin-solidity/contracts/utils/ReentrancyGuard.sol";
 
-/**
-
- ██▀███  ▓█████   ██████ ▓█████  ██▀███   ██▒   █▓▓█████     ▄▄▄       █    ██  ▄████▄  ▄▄▄█████▓ ██▓ ▒█████   ███▄    █                  
-▓██ ▒ ██▒▓█   ▀ ▒██    ▒ ▓█   ▀ ▓██ ▒ ██▒▓██░   █▒▓█   ▀    ▒████▄     ██  ▓██▒▒██▀ ▀█  ▓  ██▒ ▓▒▓██▒▒██▒  ██▒ ██ ▀█   █                  
-▓██ ░▄█ ▒▒███   ░ ▓██▄   ▒███   ▓██ ░▄█ ▒ ▓██  █▒░▒███      ▒██  ▀█▄  ▓██  ▒██░▒▓█    ▄ ▒ ▓██░ ▒░▒██▒▒██░  ██▒▓██  ▀█ ██▒                 
-▒██▀▀█▄  ▒▓█  ▄   ▒   ██▒▒▓█  ▄ ▒██▀▀█▄    ▒██ █░░▒▓█  ▄    ░██▄▄▄▄██ ▓▓█  ░██░▒▓▓▄ ▄██▒░ ▓██▓ ░ ░██░▒██   ██░▓██▒  ▐▌██▒                 
-░██▓ ▒██▒░▒████▒▒██████▒▒░▒████▒░██▓ ▒██▒   ▒▀█░  ░▒████▒    ▓█   ▓██▒▒▒█████▓ ▒ ▓███▀ ░  ▒██▒ ░ ░██░░ ████▓▒░▒██░   ▓██░                 
-░ ▒▓ ░▒▓░░░ ▒░ ░▒ ▒▓▒ ▒ ░░░ ▒░ ░░ ▒▓ ░▒▓░   ░ ▐░  ░░ ▒░ ░    ▒▒   ▓▒█░░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░  ▒ ░░   ░▓  ░ ▒░▒░▒░ ░ ▒░   ▒ ▒                  
-  ░▒ ░ ▒░ ░ ░  ░░ ░▒  ░ ░ ░ ░  ░  ░▒ ░ ▒░   ░ ░░   ░ ░  ░     ▒   ▒▒ ░░░▒░ ░ ░   ░  ▒       ░     ▒ ░  ░ ▒ ▒░ ░ ░░   ░ ▒░                 
-  ░░   ░    ░   ░  ░  ░     ░     ░░   ░      ░░     ░        ░   ▒    ░░░ ░ ░ ░          ░       ▒ ░░ ░ ░ ▒     ░   ░ ░                  
-   ░        ░  ░      ░     ░  ░   ░           ░     ░  ░         ░  ░   ░     ░ ░                ░      ░ ░           ░                  
-                                              ░                                ░                                                          
- ▄▄▄▄ ▓██   ██▓    ▄▄▄▄    ██▓ ██▓     ██▓   ▓██   ██▓    ██▀███  ▓█████  ███▄    █  ███▄    █ ▓█████  ██ ▄█▀▄▄▄       ███▄ ▄███▓ ██▓███  
-▓█████▄▒██  ██▒   ▓█████▄ ▓██▒▓██▒    ▓██▒    ▒██  ██▒   ▓██ ▒ ██▒▓█   ▀  ██ ▀█   █  ██ ▀█   █ ▓█   ▀  ██▄█▒▒████▄    ▓██▒▀█▀ ██▒▓██░  ██▒
-▒██▒ ▄██▒██ ██░   ▒██▒ ▄██▒██▒▒██░    ▒██░     ▒██ ██░   ▓██ ░▄█ ▒▒███   ▓██  ▀█ ██▒▓██  ▀█ ██▒▒███   ▓███▄░▒██  ▀█▄  ▓██    ▓██░▓██░ ██▓▒
-▒██░█▀  ░ ▐██▓░   ▒██░█▀  ░██░▒██░    ▒██░     ░ ▐██▓░   ▒██▀▀█▄  ▒▓█  ▄ ▓██▒  ▐▌██▒▓██▒  ▐▌██▒▒▓█  ▄ ▓██ █▄░██▄▄▄▄██ ▒██    ▒██ ▒██▄█▓▒ ▒
-░▓█  ▀█▓░ ██▒▓░   ░▓█  ▀█▓░██░░██████▒░██████▒ ░ ██▒▓░   ░██▓ ▒██▒░▒████▒▒██░   ▓██░▒██░   ▓██░░▒████▒▒██▒ █▄▓█   ▓██▒▒██▒   ░██▒▒██▒ ░  ░
-░▒▓███▀▒ ██▒▒▒    ░▒▓███▀▒░▓  ░ ▒░▓  ░░ ▒░▓  ░  ██▒▒▒    ░ ▒▓ ░▒▓░░░ ▒░ ░░ ▒░   ▒ ▒ ░ ▒░   ▒ ▒ ░░ ▒░ ░▒ ▒▒ ▓▒▒▒   ▓▒█░░ ▒░   ░  ░▒▓▒░ ░  ░
-▒░▒   ░▓██ ░▒░    ▒░▒   ░  ▒ ░░ ░ ▒  ░░ ░ ▒  ░▓██ ░▒░      ░▒ ░ ▒░ ░ ░  ░░ ░░   ░ ▒░░ ░░   ░ ▒░ ░ ░  ░░ ░▒ ▒░ ▒   ▒▒ ░░  ░      ░░▒ ░     
- ░    ░▒ ▒ ░░      ░    ░  ▒ ░  ░ ░     ░ ░   ▒ ▒ ░░       ░░   ░    ░      ░   ░ ░    ░   ░ ░    ░   ░ ░░ ░  ░   ▒   ░      ░   ░░       
- ░     ░ ░         ░       ░      ░  ░    ░  ░░ ░           ░        ░  ░         ░          ░    ░  ░░  ░        ░  ░       ░            
-      ░░ ░              ░                     ░ ░                                                                                         
-
-*/
-
 contract ReserveAuction is Ownable, ReentrancyGuard {
     using SafeMath for uint256;
 
@@ -43,6 +18,7 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
 
     bytes4 constant interfaceId = 0x80ac58cd; // 721 interface id
     address public nftAddress;
+    address payable public admin;
 
     mapping(uint256 => Auction) public auctions;
     uint256[] public tokenIds;
@@ -57,7 +33,6 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
         uint256 reservePrice;
         uint256 adminSplit; // percentage of 100
         address creator;
-        address payable admin;
         address payable proceedsRecipient;
         address payable bidder;
     }
@@ -100,12 +75,13 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
         bool paused
     );
 
-    constructor(address _nftAddress) public {
+    constructor(address _nftAddress, address payable _admin) public {
         require(
             IERC165(_nftAddress).supportsInterface(interfaceId),
             "Doesn't support NFT interface"
         );
         nftAddress = _nftAddress;
+        admin = _admin;
     }
 
     function updateNftAddress(address _nftAddress) public onlyOwner {
@@ -134,9 +110,9 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
         bool paused,
         uint256 tokenId,
         uint256 duration,
+        uint256 firstBidTime,
         uint256 reservePrice,
         uint256 adminSplit, // percentage
-        address payable admin,
         address payable proceedsRecipient
     ) external notPaused onlyOwner nonReentrant {
         require(!auctions[tokenId].exists, "Auction already exists");
@@ -146,11 +122,11 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
         auctions[tokenId].paused = paused;
         auctions[tokenId].exists = true;
         auctions[tokenId].duration = duration;
+        auctions[tokenId].firstBidTime = firstBidTime;
         auctions[tokenId].reservePrice = reservePrice;
 
         auctions[tokenId].adminSplit = adminSplit;
         auctions[tokenId].creator = msg.sender;
-        auctions[tokenId].admin = admin;
         auctions[tokenId].proceedsRecipient = proceedsRecipient;
 
         IERC721(nftAddress).transferFrom(msg.sender, address(this), tokenId);
@@ -159,20 +135,30 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
     }
 
     function createBid(uint256 tokenId) external payable notPaused nonReentrant {
-        require(auctions[tokenId].exists, "Auction doesn't exist");
-        require(!auctions[tokenId].paused, "Auction paused");
+
+        Auction memory auction = auctions[tokenId];
+
+        require(auction.exists, "Auction doesn't exist");
+        require(!auction.paused, "Auction paused");
         require(
-            msg.value >= auctions[tokenId].reservePrice,
+            msg.value >= auction.reservePrice,
             "Must send reservePrice or more"
         );
+
+        if (auction.firstBidTime > 0) {
+            require(
+                auction.firstBidTime <= block.timestamp,
+            "Auction hasn't started");
+        }
+
         require(
-            auctions[tokenId].firstBidTime == 0 ||
+            auction.firstBidTime == 0 ||
                 block.timestamp <
-                auctions[tokenId].firstBidTime + auctions[tokenId].duration,
+                auction.firstBidTime + auction.duration,
             "Auction expired"
         );
 
-        uint256 lastValue = auctions[tokenId].amount;
+        uint256 lastValue = auction.amount;
 
         bool firstBid;
         address payable lastBidder;
@@ -184,10 +170,12 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
                 msg.value.sub(lastValue) >= minBid,
                 "Must send more than last bid by minBid Amount"
             );
-            lastBidder = auctions[tokenId].bidder;
+            lastBidder = auction.bidder;
         } else {
             firstBid = true;
-            auctions[tokenId].firstBidTime = block.timestamp;
+            if (auction.firstBidTime == 0) {
+                auctions[tokenId].firstBidTime = block.timestamp;
+            }
         }
 
         auctions[tokenId].amount = msg.value;
@@ -198,15 +186,12 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
         // we want to know by how much the timestamp is less than start + duration
         // if the difference is less than the timeBuffer, update duration to time buffer
         if (
-            (auctions[tokenId].firstBidTime.add(auctions[tokenId].duration))
-                .sub(block.timestamp) < timeBuffer
+            ( auctions[tokenId].firstBidTime.add( auction.duration ) ).sub( block.timestamp ) < timeBuffer
         ) {
             // take the difference between now and starting point, add timeBuffer and set as duration
             auctions[tokenId].duration = block.timestamp.sub(auctions[tokenId].firstBidTime).add(timeBuffer);
             extended = true;
         }
-
- 
 
         emit AuctionBid(
             tokenId,
@@ -219,31 +204,35 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
         );
         if (!firstBid) {
             // in case the bidder is a contract that doesn't allow receiving
-            if (!lastBidder.send(lastValue)) {
-                auctions[tokenId].admin.transfer(lastValue);
+             (bool success, ) = lastBidder.call.value(lastValue)("");
+            if (!success) {
+                (success, ) = admin.call.value(lastValue)("");
+                require(success, "admin (in place of lastBidder) failed to receive");
             }
         }
     }
 
     function endAuction(uint256 tokenId) external notPaused nonReentrant {
-        require(auctions[tokenId].exists, "Auction doesn't exist");
-        require(!auctions[tokenId].paused, "Auction paused");
+        
+        Auction memory auction = auctions[tokenId];
+
+        require(auction.exists, "Auction doesn't exist");
+        require(!auction.paused, "Auction paused");
         require(
-            uint256(auctions[tokenId].firstBidTime) != 0,
+            uint256(auction.firstBidTime) != 0,
             "Auction hasn't begun"
         );
         require(
             block.timestamp >=
-                auctions[tokenId].firstBidTime + auctions[tokenId].duration,
+                auction.firstBidTime + auction.duration,
             "Auction hasn't completed"
         );
 
-        address winner = auctions[tokenId].bidder;
-        uint256 amount = auctions[tokenId].amount;
-        address creator = auctions[tokenId].creator;
-        uint256 adminSplit = auctions[tokenId].adminSplit;
-        address payable admin = auctions[tokenId].admin;
-        address payable proceedsRecipient = auctions[tokenId].proceedsRecipient;
+        address winner = auction.bidder;
+        uint256 amount = auction.amount;
+        address creator = auction.creator;
+        uint256 adminSplit = auction.adminSplit;
+        address payable proceedsRecipient = auction.proceedsRecipient;
 
         emit AuctionEnded(tokenId, nftAddress, creator, winner, amount);
         delete auctions[tokenId];
@@ -252,23 +241,30 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
 
         uint256 adminReceives = amount.mul(adminSplit).div(100);
         uint256 proceedsAmount = amount.sub(adminReceives);
+        bool success;
         if (adminReceives > 0) {
-            admin.transfer(adminReceives);
+            (success, ) = admin.call.value(adminReceives)("");
+            require(success, "admin failed to receive");
         }
-        proceedsRecipient.transfer(proceedsAmount);
+
+        (success, ) = proceedsRecipient.call.value(proceedsAmount)("");
+        require(success, "recipient failed to receive");
     }
 
     function cancelAuction(uint256 tokenId) external nonReentrant {
-        require(auctions[tokenId].exists, "Auction doesn't exist");
+
+        Auction memory auction = auctions[tokenId];
+
+        require(auction.exists, "Auction doesn't exist");
         require(
-            auctions[tokenId].creator == msg.sender || msg.sender == owner(),
+            auction.creator == msg.sender || msg.sender == owner(),
             "Can only be called by auction creator or owner"
         );
         require(
-            uint256(auctions[tokenId].firstBidTime) == 0,
+            auction.amount == 0,
             "Can't cancel an auction once it's begun"
         );
-        address creator = auctions[tokenId].creator;
+        address creator = auction.creator;
         delete auctions[tokenId];
         IERC721(nftAddress).transferFrom(address(this), creator, tokenId);
         emit AuctionCanceled(tokenId, nftAddress, creator);
@@ -276,5 +272,9 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
 
     function updatePaused(bool _globalPaused) public onlyOwner {
         globalPaused = _globalPaused;
+    }
+
+    function updateAdmin(address payable _admin) public onlyOwner {
+        admin = _admin;
     }
 }

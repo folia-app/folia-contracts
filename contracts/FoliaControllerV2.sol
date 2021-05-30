@@ -8,8 +8,9 @@ import "./Folia.sol";
 import "./FoliaController.sol";
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "openzeppelin-solidity/contracts/utils/ReentrancyGuard.sol";
 
-contract FoliaControllerV2 is Ownable {
+contract FoliaControllerV2 is Ownable, ReentrancyGuard {
 
     event newWork(uint256 workId, address payable artist, uint256 editions, uint256 price, bool paused);
     event updatedWork(uint256 workId, address payable artist, uint256 editions, uint256 price, bool paused);
@@ -56,7 +57,7 @@ contract FoliaControllerV2 is Ownable {
     }
 
     function works(uint256 workId) public view returns (bool exists, bool paused, SaleType saleType, uint256 editions, uint256 printed, uint256 price, address payable artist) {
-      if (workId >= foliaController.latestWorkId()) {
+      if (workId > foliaController.latestWorkId()) {
         return (_works[workId].exists, _works[workId].paused, _works[workId].saleType, _works[workId].editions, _works[workId].printed, _works[workId].price, _works[workId].artist);
       } else {
         (bool _exists, bool _paused, uint256 _editions, uint256 _printed, uint256 _price, address payable _artist) = foliaController.works(workId);
@@ -111,7 +112,7 @@ contract FoliaControllerV2 is Ownable {
         emit updatedWork(workId, work.artist, work.editions, work.price, work.paused);
     }
 
-    function buyByID(address recipient, uint256 workId, uint256 editionId) public payable notPaused returns(bool) {
+    function buyByID(address recipient, uint256 workId, uint256 editionId) public payable notPaused nonReentrant returns(bool) {
         Work storage work = _works[workId];
         require(!work.paused, "WORK_NOT_YET_FOR_SALE");
         require(work.saleType == SaleType.ID, "WRONG_SALE_TYPE");
@@ -128,13 +129,16 @@ contract FoliaControllerV2 is Ownable {
         uint256 adminReceives = msg.value.mul(adminSplit).div(100);
         uint256 artistReceives = msg.value.sub(adminReceives);
 
-        adminWallet.transfer(adminReceives);
-        work.artist.transfer(artistReceives);
+        (bool success, ) = adminWallet.call.value(adminReceives)("");
+        require(success, "admin failed to receive");
+
+        (success, ) = work.artist.call.value(artistReceives)("");
+        require(success, "artist failed to receive");
 
         emit editionBought(workId, editionId, tokenId, recipient,  work.price, artistReceives, adminReceives);
     }
 
-    function buy(address recipient, uint256 workId) public payable notPaused returns (bool) {
+    function buy(address recipient, uint256 workId) public payable notPaused nonReentrant returns (bool) {
         Work storage work = _works[workId];
         require(!work.paused, "WORK_NOT_YET_FOR_SALE");
         require(work.saleType == SaleType.noID, "WRONG_SALE_TYPE");
@@ -152,8 +156,11 @@ contract FoliaControllerV2 is Ownable {
         uint256 adminReceives = msg.value.mul(adminSplit).div(100);
         uint256 artistReceives = msg.value.sub(adminReceives);
 
-        adminWallet.transfer(adminReceives);
-        work.artist.transfer(artistReceives);
+        (bool success, ) = adminWallet.call.value(adminReceives)("");
+        require(success, "admin failed to receive");
+        
+        (success, ) = work.artist.call.value(artistReceives)("");
+        require(success, "artist failed to receive");
 
         emit editionBought(workId, editionId, tokenId, recipient,  work.price, artistReceives, adminReceives);
     }
