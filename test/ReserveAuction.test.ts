@@ -105,8 +105,10 @@ describe('ReserveAuction', () => {
     ).deployed();
     tokenAddress = token.address;
 
+    const foliaSafe = '0x397c2C9c2841bcC396ecAEdBc00cD2CFd07de917'
+
     const reserveAuction = await (
-      await new ReserveAuctionFactory(deployerWallet).deploy(token.address)
+      await new ReserveAuctionFactory(deployerWallet).deploy(token.address, foliaSafe)
     ).deployed();
 
     reserveAuctionAddress = reserveAuction.address;
@@ -142,8 +144,10 @@ describe('ReserveAuction', () => {
       await asCurrentOwnerToken.approve(reserveAuctionAddress, tokenId);
     }
 
+    let firstTimeBid = '0'
+
     getApproved = await asCurrentOwnerToken.getApproved(tokenId)
-    return asCurrentOwnerWalletAuction.createAuction(paused, tokenId, duration, reservePrice, adminSplit, adminWallet.address, currentOwnerWallet.address)
+    return asCurrentOwnerWalletAuction.createAuction(paused, tokenId, duration, firstTimeBid, reservePrice, adminSplit, currentOwnerWallet.address)
 
   }
 
@@ -187,7 +191,8 @@ describe('ReserveAuction', () => {
 
       await expect(
         auctionAsCreator.updateNftAddress(token.address)
-      ).rejectedWith('Ownable: caller is not the owner')
+        ).rejected
+        // ).rejectedWith('Ownable: caller is not the owner')
 
       await expect(
         auctionAsDeployer.updateNftAddress(token.address)

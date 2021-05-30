@@ -186,10 +186,10 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
         // we want to know by how much the timestamp is less than start + duration
         // if the difference is less than the timeBuffer, update duration to time buffer
         if (
-            ( auction.firstBidTime.add( auction.duration ) ).sub( block.timestamp ) < timeBuffer
+            ( auctions[tokenId].firstBidTime.add( auction.duration ) ).sub( block.timestamp ) < timeBuffer
         ) {
             // take the difference between now and starting point, add timeBuffer and set as duration
-            auctions[tokenId].duration = block.timestamp.sub(auction.firstBidTime).add(timeBuffer);
+            auctions[tokenId].duration = block.timestamp.sub(auctions[tokenId].firstBidTime).add(timeBuffer);
             extended = true;
         }
 
