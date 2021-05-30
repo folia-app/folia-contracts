@@ -1,12 +1,12 @@
-pragma solidity ^0.6.8;
+pragma solidity ^0.5.0;
 
 /**
  * The FoliaController is an upgradeable endpoint for controlling Folia.sol
  */
 
 import "./Folia.sol";
-import "@openzeppelin/contracts/math/SafeMath.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 contract FoliaController is Ownable {
 

@@ -3,8 +3,17 @@ require('dotenv').config()
 const HDWalletProvider = require('truffle-hdwallet-provider')
 
 module.exports = {
-  solc: {
-    // version: "0.4.25"
+  compilers: {
+    solc: {
+      version: "0.5.0",
+      parser: "solcjs",
+      settings: {
+        optimizer: {
+          enabled: true,
+          runs: 2000000
+        }
+      }
+    }
   },
   networks: {
     develop: {
@@ -42,8 +51,8 @@ module.exports = {
         )
       },
       network_id: 1,
-      gasPrice: 120000000000 // 120 GWEI
-      // gas: 5561260
+      gasPrice: 90000000000, // 130 GWEI
+      gas: 2000000
     },
     kovan: {
       provider() {
