@@ -1153,7 +1153,7 @@ contract Folia is ERC721Full, Ownable {
     }
 
     /**
-    * @dev Moves Eth to a certain address for use in the CloversController
+    * @dev Moves Eth to a certain address for use in the FoliaController
     * @param _to The address to receive the Eth.
     * @param _amount The amount of Eth to be transferred.
     */
@@ -1162,7 +1162,7 @@ contract Folia is ERC721Full, Ownable {
         _to.transfer(_amount);
     }
     /**
-    * @dev Moves Token to a certain address for use in the CloversController
+    * @dev Moves Token to a certain address for use in the FoliaController
     * @param _to The address to receive the Token.
     * @param _amount The amount of Token to be transferred.
     * @param _token The address of the Token to be transferred.
@@ -1300,6 +1300,41 @@ contract FoliaController is Ownable {
 
 }
 
+// File: openzeppelin-solidity/contracts/utils/ReentrancyGuard.sol
+
+pragma solidity ^0.5.0;
+
+/**
+ * @title Helps contracts guard against reentrancy attacks.
+ * @author Remco Bloemen <remco@2π.com>, Eenae <alexey@mixbytes.io>
+ * @dev If you mark a function `nonReentrant`, you should also
+ * mark it `external`.
+ */
+contract ReentrancyGuard {
+    /// @dev counter to allow mutex lock with only one SSTORE operation
+    uint256 private _guardCounter;
+
+    constructor () internal {
+        // The counter starts at one to prevent changing it from zero to a non-zero
+        // value, which is a more expensive operation.
+        _guardCounter = 1;
+    }
+
+    /**
+     * @dev Prevents a contract from calling itself, directly or indirectly.
+     * Calling a `nonReentrant` function from another `nonReentrant`
+     * function is not supported. It is possible to prevent this from happening
+     * by making the `nonReentrant` function external, and make it call a
+     * `private` function that does the actual work.
+     */
+    modifier nonReentrant() {
+        _guardCounter += 1;
+        uint256 localCounter = _guardCounter;
+        _;
+        require(localCounter == _guardCounter);
+    }
+}
+
 // File: contracts/FoliaControllerV2.sol
 
 pragma solidity ^0.5.0;
@@ -1312,7 +1347,8 @@ pragma experimental ABIEncoderV2;
 
 
 
-contract FoliaControllerV2 is Ownable {
+
+contract FoliaControllerV2 is Ownable, ReentrancyGuard {
 
     event newWork(uint256 workId, address payable artist, uint256 editions, uint256 price, bool paused);
     event updatedWork(uint256 workId, address payable artist, uint256 editions, uint256 price, bool paused);
@@ -1359,7 +1395,7 @@ contract FoliaControllerV2 is Ownable {
     }
 
     function works(uint256 workId) public view returns (bool exists, bool paused, SaleType saleType, uint256 editions, uint256 printed, uint256 price, address payable artist) {
-      if (workId >= foliaController.latestWorkId()) {
+      if (workId > foliaController.latestWorkId()) {
         return (_works[workId].exists, _works[workId].paused, _works[workId].saleType, _works[workId].editions, _works[workId].printed, _works[workId].price, _works[workId].artist);
       } else {
         (bool _exists, bool _paused, uint256 _editions, uint256 _printed, uint256 _price, address payable _artist) = foliaController.works(workId);
@@ -1414,7 +1450,7 @@ contract FoliaControllerV2 is Ownable {
         emit updatedWork(workId, work.artist, work.editions, work.price, work.paused);
     }
 
-    function buyByID(address recipient, uint256 workId, uint256 editionId) public payable notPaused returns(bool) {
+    function buyByID(address recipient, uint256 workId, uint256 editionId) public payable notPaused nonReentrant returns(bool) {
         Work storage work = _works[workId];
         require(!work.paused, "WORK_NOT_YET_FOR_SALE");
         require(work.saleType == SaleType.ID, "WRONG_SALE_TYPE");
@@ -1431,13 +1467,16 @@ contract FoliaControllerV2 is Ownable {
         uint256 adminReceives = msg.value.mul(adminSplit).div(100);
         uint256 artistReceives = msg.value.sub(adminReceives);
 
-        adminWallet.transfer(adminReceives);
-        work.artist.transfer(artistReceives);
+        (bool success, ) = adminWallet.call.value(adminReceives)("");
+        require(success, "admin failed to receive");
+
+        (success, ) = work.artist.call.value(artistReceives)("");
+        require(success, "artist failed to receive");
 
         emit editionBought(workId, editionId, tokenId, recipient,  work.price, artistReceives, adminReceives);
     }
 
-    function buy(address recipient, uint256 workId) public payable notPaused returns (bool) {
+    function buy(address recipient, uint256 workId) public payable notPaused nonReentrant returns (bool) {
         Work storage work = _works[workId];
         require(!work.paused, "WORK_NOT_YET_FOR_SALE");
         require(work.saleType == SaleType.noID, "WRONG_SALE_TYPE");
@@ -1455,8 +1494,11 @@ contract FoliaControllerV2 is Ownable {
         uint256 adminReceives = msg.value.mul(adminSplit).div(100);
         uint256 artistReceives = msg.value.sub(adminReceives);
 
-        adminWallet.transfer(adminReceives);
-        work.artist.transfer(artistReceives);
+        (bool success, ) = adminWallet.call.value(adminReceives)("");
+        require(success, "admin failed to receive");
+        
+        (success, ) = work.artist.call.value(artistReceives)("");
+        require(success, "artist failed to receive");
 
         emit editionBought(workId, editionId, tokenId, recipient,  work.price, artistReceives, adminReceives);
     }

@@ -5,7 +5,7 @@
  * @author Nick Johnson <arachnid@notdot.net>
  */
 
-pragma solidity ^0.6.8;
+pragma solidity ^0.5.0;
 
 library strings {
     struct slice {
@@ -66,7 +66,7 @@ library strings {
 
 // File: contracts/Metadata.sol
 
-pragma solidity ^0.6.8;
+pragma solidity ^0.5.0;
 /**
 * Metadata contract is upgradeable and returns metadata about Token
 */
