@@ -1,4 +1,5 @@
 var FoliaController = artifacts.require('./FoliaController.sol')
+var FoliaControllerV2 = artifacts.require('./FoliaControllerV2.sol')
 var Folia = artifacts.require('./Folia.sol')
 
 let _ = '        '
@@ -12,12 +13,16 @@ module.exports = (deployer, helper, accounts) => {
       console.log(_ + 'Folia deployed at: ' + folia.address)
 
       // Deploy FoliaController.sol
-      await deployer.deploy(FoliaController, folia.address, accounts[1])
       let foliaController = await FoliaController.deployed()
       console.log(_ + 'FoliaController deployed at: ' + foliaController.address)
 
-      await folia.updateController(foliaController.address)
-      console.log(_ + 'FoliaController updated to ' + foliaController.address)
+      // Deploy FoliaControllerV2.sol
+      await deployer.deploy(FoliaControllerV2, folia.address, foliaController.address, accounts[1])
+      let foliaControllerV2 = await FoliaControllerV2.deployed()
+      console.log(_ + 'FoliaControllerV2 deployed at: ' + foliaControllerV2.address)
+
+      await folia.updateController(foliaControllerV2.address)
+      console.log(_ + 'FoliaController updated to ' + foliaControllerV2.address)
 
     } catch (error) {
       console.log(error)
