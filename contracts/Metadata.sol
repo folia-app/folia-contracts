@@ -3,7 +3,7 @@ pragma solidity ^0.5.0;
 * Metadata contract is upgradeable and returns metadata about Token
 */
 
-import "./helpers/strings.sol";
+import "./strings.sol";
 
 contract Metadata {
     using strings for *;

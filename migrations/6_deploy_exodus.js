@@ -4,26 +4,82 @@ let _ = '        '
 
 module.exports = (deployer, helper, accounts) => {
   
-poems = [
-  "Transfixed by Zion\nThe New Jews spam hypertexts,\nLight-sick, Quivering.",
-  "The quickest jury now;\nEver golden New form zone,\nNo expectations.",
-  "The Ark groans, zags up\namethyst waves. Sea of squares;\njailborn code - next world.",
-  "Hyperspectral dawn\nQuakes, beams blaze the jewel face,\nvenomized excess",
-  "Zones flex, make new ruins.\nParadise conquistador\nJails veiled by light.",
-  "Void arrows, zip like\nlarks, hymns mixing, joy cyphers;\nLiquid Gold Fusion.",
-  "Jagged quartz towers,\nPacked above the navy bluffs,\nmix nectar and light.",
-  "Verdant Perjury,\nlife, pixellized in ghost loams\nwarps, quickens, recedes.",
-  "Nonreal packet maze\nthe jacquard blades of textiles;\nweaving light arrays",
-  "Hacked Amazon\nJungle syntax waveform\nDisplaced by squares",
-  "Quadratic Empire\nWe wove the megajoule helix\nblock by freezing block.",
-  "Jinxed light-life ends;\nQuit, Respawn. Shadow playback,\nvenom horizon.",
-  "subtropical shrines;\nhajiis, pixels liquidized\nwalk the lucent graves",
-  "Body juts, friezed.\nfaqirs seek exemption, wilt -\nVibe Sarcophagi.",
-  "Flesh, triumphal grave.\nHelix wreck, joyless, oblique;\nOzymandias.",
-  "The fog of junk psalms\nRequests to the wreck reflex\nHypnotized blank verse",
-  "About Plato's cave\nText jets quilt the azure sky \nwith glissando foam",
-  "Darkness, refresh view\nComing flux; Onyx, Jasper\nThe Bezel \xc3\x89poque.",
-  "Hijacked forms, waves\nBody poem, dazzling equinox\nSelbstverselbstlichung."
+pangrams = [ `Transfixed by Zion
+The New Jews spam hypertexts,
+Light-sick, Quivering.`,
+
+  `The quickest jury now;
+  Ever golden New form zone,
+  No expectations.`,
+  
+  `The Ark groans, zags up
+  amethyst waves. Sea of squares;
+  jailborn code - next world.`,
+  
+  `Hyperspectral dawn
+  Quakes, beams blaze the jewel face,
+  venomized excess.`,
+  
+  `Zones flex, make new ruins.
+  Paradise conquistadors
+  Jails veiled by light.`,
+  
+  `Void arrows, zip like
+  larks, hymns mixing, joy cyphers;
+  Liquid Gold Fusion.`,
+  
+  `Jagged quartz towers,
+  Packed above the navy bluffs,
+  mix nectar and light.`,
+  
+  `Verdant Perjury;
+  life, pixellized in ghost loams
+  warps, quickens, recedes.`,
+  
+  `Nonreal packet maze
+  The jacquard blades of textiles
+  weaving light arrays.`,
+  
+  `Hacked Amazon
+  Jungle syntax waveform, now
+  displaced by squares.`,
+  
+  `Quadratic Empire;
+  Megajoule helix woven
+  block by freezing block.`,
+  
+  `Jinxed lightlife ends;
+  Quit, Respawn. Shadow playback,
+  venom horizon.`,
+  
+  `Subtropical shrines;
+  hajiis, pixels liquidized
+  walk the lucent graves.`,
+  
+  `Body juts, friezed.
+  faqirs seek exemption, wilt -
+  Vibe Sarcophagi.`,
+  
+  `Flesh, triumphal grave.
+  Helix wreck, joyless, oblique;
+  Ozymandias.`,
+  
+  `The fog of junk psalms
+  Requests to the wreck reflex
+  Hypnotized blank verse.`,
+  
+  `About Plato's cave
+  Text jets quilt the azure sky 
+  with glissando foam.`,
+  
+  `Darkness, refresh view
+  Coming flux; Onyx, Jasper
+  The Bezel Époque.`,
+  
+  `Hijacked forms, waves
+  Body poem, dazzling equinox
+  Selbstverselbstlichung.`
+  
 ]
     deployer.then(async () => {
     try {
@@ -32,9 +88,8 @@ poems = [
       await deployer.deploy(EXODUS2)
       let exodus2 = await EXODUS2.deployed()
       console.log(_ + 'EXODUS2 deployed at: ' + exodus2.address)
-      console.log({exodus2})
       for (i = 0; i < 20; i++) {
-        await exodus2.addPoem(poems[i])
+        await exodus2.deploy(pangrams[i])
       }
       
 
