@@ -105,10 +105,10 @@ describe('ReserveAuction', () => {
     ).deployed();
     tokenAddress = token.address;
 
-    const foliaSafe = '0x397c2C9c2841bcC396ecAEdBc00cD2CFd07de917'
+    // const foliaSafe = '0x397c2C9c2841bcC396ecAEdBc00cD2CFd07de917'
 
     const reserveAuction = await (
-      await new ReserveAuctionFactory(deployerWallet).deploy(token.address, foliaSafe)
+      await new ReserveAuctionFactory(deployerWallet).deploy(token.address, adminWallet.address)
     ).deployed();
 
     reserveAuctionAddress = reserveAuction.address;
@@ -123,7 +123,8 @@ describe('ReserveAuction', () => {
   }
 
   // Trade a token a few times and create some open bids
-  async function setupAuction(tokenId, currentOwnerWallet) {
+  async function setupAuction(tokenId, currentOwnerWallet, firstTimeBid = 0, reservePrice_ = null) { // 0.5 eth
+    reservePrice = reservePrice_ || BigNumber.from(10).pow(18).div(2)
     const asCurrentOwnerToken = await tokenAs(currentOwnerWallet);
     // const asPrevOwner = await tokenAs(prevOwnerWallet);
     // const asOwner = await tokenAs(ownerWallet);
@@ -133,18 +134,14 @@ describe('ReserveAuction', () => {
     const asCurrentOwnerWalletAuction = await auctionAs(currentOwnerWallet)
 
       duration = 60 * 60 * 24; // 24 hours
-      reservePrice = BigNumber.from(10).pow(18).div(2) // 0.5 ETH
       adminSplit = 15
       paused = false
-
     
     let getApproved = await asCurrentOwnerToken.getApproved(tokenId)
     let currentOwner = await asCurrentOwnerToken.ownerOf(tokenId)
     if (getApproved != reserveAuctionAddress && currentOwner != reserveAuctionAddress) {
       await asCurrentOwnerToken.approve(reserveAuctionAddress, tokenId);
     }
-
-    let firstTimeBid = '0'
 
     getApproved = await asCurrentOwnerToken.getApproved(tokenId)
     return asCurrentOwnerWalletAuction.createAuction(paused, tokenId, duration, firstTimeBid, reservePrice, adminSplit, currentOwnerWallet.address)
@@ -169,14 +166,14 @@ describe('ReserveAuction', () => {
     zeroContentHashBytes = ethers.utils.arrayify(ethers.constants.HashZero);
   });
 
-  describe('#constructor', () => {
+  describe.skip('#constructor', () => {
     it('should be able to deploy', async () => {
       await expect(deploy()).eventually.fulfilled;
     });
   });
 
 
-  describe('#auction mundane', () => {
+  describe.skip('#auction mundane', () => {
     beforeEach(async () => {
       await deploy();
     });
@@ -209,7 +206,7 @@ describe('ReserveAuction', () => {
 
   })
 
-  describe('#createBid mundane', () => {
+  describe.skip('#createBid mundane', () => {
       beforeEach(async () => {
         await deploy();
       });
@@ -325,7 +322,7 @@ describe('ReserveAuction', () => {
   })
 
 
-  describe('#endAuction mundane', () => {
+  describe.skip('#endAuction mundane', () => {
     beforeEach(async () => {
       await deploy();
     });
@@ -381,7 +378,7 @@ describe('ReserveAuction', () => {
 
 
 
-  describe('#cancelAuction mundane', () => {
+  describe.skip('#cancelAuction mundane', () => {
     beforeEach(async () => {
       await deploy();
     });
@@ -500,11 +497,16 @@ describe('ReserveAuction', () => {
 
       await auctionAsBidder.endAuction(tokenId)
       ownerOf = await token.ownerOf(tokenId);
+
       expect(ownerOf).eq(bidderWallet.address);
 
-      const adminShare = auctionSettings.amount.mul(15).div(100)
+      let admin  = await auctionAsBidder.admin()
+
+      expect(adminWallet.address.toLowerCase()).eq(admin.toLowerCase(), "admin wallets don't match")
+
+      const adminShare = auctionSettings.amount.mul(auctionSettings.adminSplit).div(100)
       const adminShareAfter = await adminWallet.getBalance()
-      // expect(adminShareAfter.toString()).eq(adminShareBefore.add(adminShare).toString());
+      expect(adminShareAfter.toString()).eq(adminShareBefore.add(adminShare).toString());
 
       const creatorShare = reservePrice.sub(adminShare)
 
@@ -522,6 +524,111 @@ describe('ReserveAuction', () => {
       const tokenId = await mintToken();
 
       await setupAuction(tokenId, deployerWallet);
+
+      await auctionAsBidder.createBid(tokenId, {value: reservePrice.toString()})
+      let beforeAsBidder = await bidderWallet.getBalance()
+
+      await auctionAsOther.createBid(tokenId, {value: reservePrice.mul(2).toString()})
+
+      blockchain.increaseTimeAsync(duration)
+
+      await auctionAsOther.endAuction(tokenId)
+      let ownerOf = await token.ownerOf(tokenId);
+      expect(ownerOf).eq(otherWallet.address);
+
+      let afterAsBidder = await bidderWallet.getBalance()
+
+      // losing bidder should have their balance back
+      expect(afterAsBidder.toString()).eq(beforeAsBidder.add(reservePrice).toString());
+
+    });
+
+    it('should pass when firstBidTime is set manually', async () => {
+      const token = await tokenAs(deployerWallet);
+      const auctionAsBidder = await auctionAs(bidderWallet)
+      const auctionAsOther = await auctionAs(otherWallet)
+
+      let blockBefore = await provider.getBlock(await provider.getBlockNumber())
+      let timeBefore = blockBefore.timestamp
+
+      const tokenId = await mintToken();
+      var diff = 5 // minutes
+      var firstBidTime = Math.floor((new Date(timeBefore * 1000 + diff * 60000)).getTime() / 1000);
+
+      await setupAuction(tokenId, deployerWallet, firstBidTime);
+
+      // const auctionSettings = await auctionAsBidder.auctions(tokenId)
+      // console.log({
+      //   firstBidTime: auctionSettings.firstBidTime.toString(),
+      //   duration: auctionSettings.duration.toString()
+      // })
+
+      await expect(
+        auctionAsBidder.createBid(tokenId, {value: reservePrice.toString()})
+      ).rejectedWith(`Auction hasn't started`)
+
+      await blockchain.increaseTimeAsync(diff * 60)
+      await blockchain.waitBlocksAsync(1)
+
+      let blockAfter = await provider.getBlock(await provider.getBlockNumber())
+      // let timeAfter = blockAfter.timestamp
+
+      await auctionAsBidder.createBid(tokenId, {value: reservePrice.toString()})
+
+      let beforeAsBidder = await bidderWallet.getBalance()
+
+      await auctionAsOther.createBid(tokenId, {value: reservePrice.mul(2).toString()})
+
+      blockchain.increaseTimeAsync(duration)
+
+      await auctionAsOther.endAuction(tokenId)
+      let ownerOf = await token.ownerOf(tokenId);
+      expect(ownerOf).eq(otherWallet.address);
+
+      let afterAsBidder = await bidderWallet.getBalance()
+
+      // losing bidder should have their balance back
+      expect(afterAsBidder.toString()).eq(beforeAsBidder.add(reservePrice).toString());
+
+    });
+
+
+    it('should pass when reservePrice is 0', async () => {
+    const token = await tokenAs(deployerWallet);
+    const auctionAsBidder = await auctionAs(bidderWallet)
+      const auctionAsOther = await auctionAs(otherWallet)
+
+      let blockBefore = await provider.getBlock(await provider.getBlockNumber())
+      let timeBefore = blockBefore.timestamp
+
+      const tokenId = await mintToken();
+      var diff = 5 // minutes
+      var firstBidTime = Math.floor((new Date(timeBefore * 1000 + diff * 60000)).getTime() / 1000);
+      
+      let reservePrice_ = BigNumber.from(0)
+
+      await setupAuction(tokenId, deployerWallet, firstBidTime, reservePrice_);
+
+      // const auctionSettings = await auctionAsBidder.auctions(tokenId)
+      // console.log({
+      //   firstBidTime: auctionSettings.firstBidTime.toString(),
+      //   duration: auctionSettings.duration.toString()
+      // })
+
+      await expect(
+        auctionAsBidder.createBid(tokenId, {value: reservePrice_.toString()})
+      ).rejectedWith(`Auction hasn't started`)
+
+      await blockchain.increaseTimeAsync(diff * 60)
+      await blockchain.waitBlocksAsync(1)
+
+      let blockAfter = await provider.getBlock(await provider.getBlockNumber())
+      // let timeAfter = blockAfter.timestamp
+
+      await auctionAsBidder.createBid(tokenId, {value: reservePrice_.toString()})
+
+
+      await auctionAsOther.createBid(tokenId, {value: reservePrice_.toString()})
 
       await auctionAsBidder.createBid(tokenId, {value: reservePrice.toString()})
 

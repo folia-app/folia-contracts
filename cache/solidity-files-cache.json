@@ -44,7 +44,7 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/Folia.sol": {
-      "lastModificationDate": 1622400960588,
+      "lastModificationDate": 1622408298805,
       "contentHash": "fe274f57ae09a391f5f2de3813152c68",
       "sourceName": "contracts/Folia.sol",
       "solcConfig": {
@@ -264,8 +264,8 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/Metadata.sol": {
-      "lastModificationDate": 1622400960590,
-      "contentHash": "914fdbb0b2c5132782902086155aa2dd",
+      "lastModificationDate": 1622663355937,
+      "contentHash": "7400f72f22ac5fb0bdb8cd96719343f3",
       "sourceName": "contracts/Metadata.sol",
       "solcConfig": {
         "version": "0.5.0",
@@ -298,7 +298,7 @@
         }
       },
       "imports": [
-        "./helpers/strings.sol"
+        "./strings.sol"
       ],
       "versionPragmas": [
         "^0.5.0"
@@ -791,50 +791,8 @@
         "IERC721Metadata"
       ]
     },
-    "/Users/billy/GitHub/folia-app/folia-contracts/contracts/helpers/strings.sol": {
-      "lastModificationDate": 1622400960591,
-      "contentHash": "a58f3be1dc8c1f28b254598769c0448d",
-      "sourceName": "contracts/helpers/strings.sol",
-      "solcConfig": {
-        "version": "0.5.0",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 2000000
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.5.0"
-      ],
-      "artifacts": [
-        "strings"
-      ]
-    },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/FoliaControllerV2.sol": {
-      "lastModificationDate": 1622405371195,
+      "lastModificationDate": 1622408298805,
       "contentHash": "c700383a3f0b164a7beeca4e6a8f8fe4",
       "sourceName": "contracts/FoliaControllerV2.sol",
       "solcConfig": {
@@ -970,8 +928,8 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/ReserveAuction.sol": {
-      "lastModificationDate": 1622407676682,
-      "contentHash": "8304dacf1766051ba676786166d85839",
+      "lastModificationDate": 1622899692995,
+      "contentHash": "a9482c0e5a34b50e03debdb4110b039b",
       "sourceName": "contracts/ReserveAuction.sol",
       "solcConfig": {
         "version": "0.5.0",
@@ -1018,7 +976,7 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/TestToken.sol": {
-      "lastModificationDate": 1622405895469,
+      "lastModificationDate": 1622408298806,
       "contentHash": "11556133c921601d886430a4c0df3460",
       "sourceName": "contracts/TestToken.sol",
       "solcConfig": {
@@ -1059,6 +1017,93 @@
       ],
       "artifacts": [
         "TestToken"
+      ]
+    },
+    "/Users/billy/GitHub/folia-app/folia-contracts/contracts/EXODUS2.sol": {
+      "lastModificationDate": 1622671259959,
+      "contentHash": "012550742707c999b65d7d250bee2a98",
+      "sourceName": "contracts/EXODUS2.sol",
+      "solcConfig": {
+        "version": "0.5.0",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 2000000
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "openzeppelin-solidity/contracts/token/ERC721/ERC721Full.sol",
+        "./strings.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "EXODUS2"
+      ]
+    },
+    "/Users/billy/GitHub/folia-app/folia-contracts/contracts/strings.sol": {
+      "lastModificationDate": 1622663343670,
+      "contentHash": "a58f3be1dc8c1f28b254598769c0448d",
+      "sourceName": "contracts/strings.sol",
+      "solcConfig": {
+        "version": "0.5.0",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 2000000
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "strings"
       ]
     }
   }

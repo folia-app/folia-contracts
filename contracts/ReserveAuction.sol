@@ -202,7 +202,7 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
             firstBid,
             extended
         );
-        if (!firstBid) {
+        if (!firstBid && lastValue > 0) {
             // in case the bidder is a contract that doesn't allow receiving
              (bool success, ) = lastBidder.call.value(lastValue)("");
             if (!success) {
