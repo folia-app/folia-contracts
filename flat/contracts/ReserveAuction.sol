@@ -252,7 +252,6 @@ contract ReserveAuction is Ownable, ReentrancyGuard {
         bool exists;
         bool paused;
         uint256 amount;
-        uint256 tokenId;
         uint256 duration;
         uint256 firstBidTime;
         uint256 reservePrice;

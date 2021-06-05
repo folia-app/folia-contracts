@@ -223,7 +223,7 @@ contract ReentrancyGuard {
     }
 }
 
-// File: contracts/ExodusAuction.sol
+// File: contracts/FoliaAuction.sol
 
 pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
@@ -233,7 +233,7 @@ pragma experimental ABIEncoderV2;
 
 
 
-contract ExodusAuction is Ownable, ReentrancyGuard {
+contract FoliaAuction is Ownable, ReentrancyGuard {
     using SafeMath for uint256;
 
     bool public globalPaused;
@@ -252,7 +252,6 @@ contract ExodusAuction is Ownable, ReentrancyGuard {
         bool exists;
         bool paused;
         uint256 amount;
-        uint256 tokenId;
         uint256 duration;
         uint256 firstBidTime;
         uint256 reservePrice;
