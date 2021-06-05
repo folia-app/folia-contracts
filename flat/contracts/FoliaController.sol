@@ -987,7 +987,7 @@ library Roles {
     }
 }
 
-// File: contracts/helpers/strings.sol
+// File: contracts/strings.sol
 
 /*
  * @title String & slice utility library for Solidity contracts.
