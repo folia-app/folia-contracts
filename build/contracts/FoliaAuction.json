@@ -1,0 +1,728 @@
+{
+  "contractName": "FoliaAuction",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_globalPaused",
+          "type": "bool"
+        }
+      ],
+      "name": "updatePaused",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_minBid",
+          "type": "uint256"
+        }
+      ],
+      "name": "updateMinBid",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "name": "paused",
+          "type": "bool"
+        }
+      ],
+      "name": "updateAuction",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "minBid",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "auctions",
+      "outputs": [
+        {
+          "name": "exists",
+          "type": "bool"
+        },
+        {
+          "name": "paused",
+          "type": "bool"
+        },
+        {
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "name": "duration",
+          "type": "uint256"
+        },
+        {
+          "name": "firstBidTime",
+          "type": "uint256"
+        },
+        {
+          "name": "reservePrice",
+          "type": "uint256"
+        },
+        {
+          "name": "adminSplit",
+          "type": "uint256"
+        },
+        {
+          "name": "creator",
+          "type": "address"
+        },
+        {
+          "name": "proceedsRecipient",
+          "type": "address"
+        },
+        {
+          "name": "bidder",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "nftAddress",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "globalPaused",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "createBid",
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "isOwner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "cancelAuction",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_timeBuffer",
+          "type": "uint256"
+        }
+      ],
+      "name": "updateTimeBuffer",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "paused",
+          "type": "bool"
+        },
+        {
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "name": "duration",
+          "type": "uint256"
+        },
+        {
+          "name": "firstBidTime",
+          "type": "uint256"
+        },
+        {
+          "name": "reservePrice",
+          "type": "uint256"
+        },
+        {
+          "name": "adminSplit",
+          "type": "uint256"
+        },
+        {
+          "name": "proceedsRecipient",
+          "type": "address"
+        }
+      ],
+      "name": "createAuction",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "endAuction",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "tokenIds",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_admin",
+          "type": "address"
+        }
+      ],
+      "name": "updateAdmin",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_nftAddress",
+          "type": "address"
+        }
+      ],
+      "name": "updateNftAddress",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "timeBuffer",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "admin",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "duration",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "reservePrice",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "creator",
+          "type": "address"
+        }
+      ],
+      "name": "AuctionCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "timestamp",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "firstBid",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "name": "extended",
+          "type": "bool"
+        }
+      ],
+      "name": "AuctionBid",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "creator",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "winner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "AuctionEnded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "creator",
+          "type": "address"
+        }
+      ],
+      "name": "AuctionCanceled",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "paused",
+          "type": "bool"
+        }
+      ],
+      "name": "UpdateAuction",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    }
+  ],
+  "metadata": "",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.5.0;\nimport \"./ReserveAuction.sol\";\n\ncontract FoliaAuction is ReserveAuction {}\n",
+  "sourcePath": "/Users/billy/GitHub/folia-app/folia-contracts/contracts/FoliaAuction.sol",
+  "ast": {
+    "absolutePath": "/Users/billy/GitHub/folia-app/folia-contracts/contracts/FoliaAuction.sol",
+    "exportedSymbols": {
+      "FoliaAuction": [
+        425
+      ]
+    },
+    "id": 426,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 421,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:2"
+      },
+      {
+        "absolutePath": "/Users/billy/GitHub/folia-app/folia-contracts/contracts/ReserveAuction.sol",
+        "file": "./ReserveAuction.sol",
+        "id": 422,
+        "nodeType": "ImportDirective",
+        "scope": 426,
+        "sourceUnit": 2772,
+        "src": "24:30:2",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 423,
+              "name": "ReserveAuction",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 2771,
+              "src": "81:14:2",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_ReserveAuction_$2771",
+                "typeString": "contract ReserveAuction"
+              }
+            },
+            "id": 424,
+            "nodeType": "InheritanceSpecifier",
+            "src": "81:14:2"
+          }
+        ],
+        "contractDependencies": [
+          2771,
+          3298,
+          4631
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 425,
+        "linearizedBaseContracts": [
+          425,
+          2771,
+          4631,
+          3298
+        ],
+        "name": "FoliaAuction",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 426,
+        "src": "56:42:2"
+      }
+    ],
+    "src": "0:99:2"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/billy/GitHub/folia-app/folia-contracts/contracts/FoliaAuction.sol",
+    "exportedSymbols": {
+      "FoliaAuction": [
+        425
+      ]
+    },
+    "id": 426,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 421,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:2"
+      },
+      {
+        "absolutePath": "/Users/billy/GitHub/folia-app/folia-contracts/contracts/ReserveAuction.sol",
+        "file": "./ReserveAuction.sol",
+        "id": 422,
+        "nodeType": "ImportDirective",
+        "scope": 426,
+        "sourceUnit": 2772,
+        "src": "24:30:2",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 423,
+              "name": "ReserveAuction",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 2771,
+              "src": "81:14:2",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_ReserveAuction_$2771",
+                "typeString": "contract ReserveAuction"
+              }
+            },
+            "id": 424,
+            "nodeType": "InheritanceSpecifier",
+            "src": "81:14:2"
+          }
+        ],
+        "contractDependencies": [
+          2771,
+          3298,
+          4631
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 425,
+        "linearizedBaseContracts": [
+          425,
+          2771,
+          4631,
+          3298
+        ],
+        "name": "FoliaAuction",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 426,
+        "src": "56:42:2"
+      }
+    ],
+    "src": "0:99:2"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.3.2",
+  "updatedAt": "2021-06-05T21:26:39.718Z",
+  "devdoc": {
+    "methods": {
+      "isOwner()": {
+        "return": "true if `msg.sender` is the owner of the contract."
+      },
+      "owner()": {
+        "return": "the address of the owner."
+      },
+      "renounceOwnership()": {
+        "details": "Allows the current owner to relinquish control of the contract."
+      },
+      "transferOwnership(address)": {
+        "details": "Allows the current owner to transfer control of the contract to a newOwner.",
+        "params": {
+          "newOwner": "The address to transfer ownership to."
+        }
+      }
+    }
+  },
+  "userdoc": {
+    "methods": {
+      "renounceOwnership()": {
+        "notice": "Renouncing to ownership will leave the contract without an owner. It will not be possible to call the functions with the `onlyOwner` modifier anymore."
+      }
+    }
+  }
+}

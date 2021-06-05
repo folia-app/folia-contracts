@@ -1,5 +1,5 @@
 var Folia = artifacts.require('./Folia.sol')
-var ReserveAuction = artifacts.require('./ReserveAuction.sol')
+var FoliaAuction = artifacts.require('./FoliaAuction.sol')
 
 let _ = '        '
 
@@ -9,14 +9,12 @@ module.exports = (deployer, helper, accounts) => {
     try {
 
       const foliaSafe = '0x397c2C9c2841bcC396ecAEdBc00cD2CFd07de917'
-
       let folia = await deployer.deploy(Folia, {overwrite: false})
 
-      // Deploy ReserveAuction.sol
-      await deployer.deploy(ReserveAuction, folia.address, foliaSafe)
-      let reserveAuction = await ReserveAuction.deployed()
-      console.log(_ + 'ReserveAuction deployed at: ' + reserveAuction.address)
-
+      // Deploy FoliaAuction.sol
+      await deployer.deploy(FoliaAuction, folia.address, foliaSafe)
+      let foliaAuction = await FoliaAuction.deployed()
+      console.log(_ + 'FoliaAuction deployed at: ' + foliaAuction.address)
 
     } catch (error) {
       console.log(error)

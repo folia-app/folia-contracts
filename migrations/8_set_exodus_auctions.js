@@ -7,8 +7,7 @@ module.exports = (deployer, helper, accounts) => {
 
   deployer.then(async () => {
     try {
-
-      const foliaSafe = '0x397c2C9c2841bcC396ecAEdBc00cD2CFd07de917'
+      const rudnicks = '0x4a61d76ea05A758c1db9C9b5a5ad22f445A38C46'
       let exodus2 = await deployer.deploy(EXODUS2, {overwrite: false})
       let reserveAuction = await deployer.deploy(ReserveAuction, {overwrite: false})
 
@@ -68,7 +67,7 @@ module.exports = (deployer, helper, accounts) => {
           bidStartTime, //uint256 firstBidTime,
           0, // uint256 reservePrice,
           15, //uint256 adminSplit, // percentage
-          accounts[1] // address payable proceedsRecipient TODO: change this before mainnet
+          rudnicks // address payable proceedsRecipient TODO: change this before mainnet
         )
         console.log(`made auction ${i} for tokenID ${tokenId} with bidStartTime ${bidStartTime}`)
 
