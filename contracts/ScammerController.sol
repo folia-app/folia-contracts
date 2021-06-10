@@ -19,9 +19,9 @@ contract ScammerController is Ownable {
     uint256 constant MAX_EDITIONS = 1000000;
     uint256 public latestCollectionId;
 
-    mapping (address => uint) vouchers;
-    mapping (uint256 => Collection) public collections;
+    mapping (address => uint) public vouchers;
 
+    mapping (uint256 => Collection) public collections;
     struct Collection {
         bool exists;
         bool paused;
@@ -112,7 +112,7 @@ contract ScammerController is Ownable {
 
         // need to change this so it checks that token exists (collectionId exists, and edition # exists)
         require(collections[collectionId].exists, "COLLECTION_DOES_NOT_EXIST");
-        require(editionId > collections[collectionId].editions, "INVALID_TOKEN_ID");
+        require(editionId <= collections[collectionId].editions && editionId != 0, "INVALID_TOKEN_ID");
         require(msg.value == collections[collectionId].price , "DID_NOT_SEND_PRICE");
 
         scammer.mint(recipient, tokenId);
