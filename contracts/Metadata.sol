@@ -13,6 +13,7 @@ contract Metadata {
         string memory id = uint2str(_tokenId);
         return base.toSlice().concat(id.toSlice());
     }
+
     function uint2str(uint i) internal pure returns (string memory) {
         if (i == 0) return "0";
         uint j = i;
