@@ -106,7 +106,7 @@ contract ScammerController is Ownable {
 
         // need to change this so it checks that token exists (collectionId exists, and edition # exists)
         require(collections[collectionId].exists, "COLLECTION_DOES_NOT_EXIST");
-        require(editionId > collections[collectionId].editions, "INVALID_TOKEN_ID");
+        require(editionId < collections[collectionId].editions, "INVALID_TOKEN_ID");
         require(vouchers[msg.sender] > 0 , "USER_HAS_NO_VOUCHERS");
 
         scammer.mint(recipient, tokenId);
