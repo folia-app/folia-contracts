@@ -55,7 +55,6 @@ contract DeadDotComSeanceController is Ownable, ReentrancyGuard {
     function addArtwork(address payable artist, uint256 editions, uint256 price, bool _paused, SaleType saleType) public onlyOwner {
         require(editions < MAX_EDITIONS, "MAX_EDITIONS_EXCEEDED");
 
-        latestWorkId += 1;
 
         _works[latestWorkId] = Work({
           exists: true,
@@ -66,6 +65,8 @@ contract DeadDotComSeanceController is Ownable, ReentrancyGuard {
           price: price,
           artist: artist
         });
+
+        latestWorkId += 1;
 
         emit newWork(latestWorkId, artist, editions, price, _paused);
     }
