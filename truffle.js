@@ -31,7 +31,9 @@ module.exports = {
       provider() {
         return new HDWalletProvider(
           process.env.GANACHE_MNEMONIC,
-          'http://localhost:7545'
+          'http://localhost:7545',
+          0,
+          10
         )
       },
       host: 'localhost',
