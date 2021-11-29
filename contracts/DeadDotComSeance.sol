@@ -33,7 +33,7 @@ import "./Folia.sol";
 "There are no bad ideas in tech, only bad timing"
 - Marc Andreessen
 
-Dead DotCom Seance — Simon Denny, Guile Twardowski, David Holz
+Dead DotCom Seance — Simon Denny, Guile Twardowski, Cosmographia (David Holz)
 Published in partnership wth Folia (Billy Rennenkamp, Dan Denorch, Everett Williams)
 */
 
