@@ -2,15 +2,6 @@ pragma solidity ^0.5.0;
 import "./Folia.sol";
 
 /*
- ______   _______  _______  ______  
-(  __  \ (  ____ \(  ___  )(  __  \ 
-| (  \  )| (    \/| (   ) || (  \  )
-| |   ) || (__    | (___) || |   ) |
-| |   | ||  __)   |  ___  || |   | |
-| |   ) || (      | (   ) || |   ) |
-| (__/  )| (____/\| )   ( || (__/  )
-(______/ (_______/|/     \|(______/ 
-                                    
  ______   _______ _________ _______  _______  _______ 
 (  __  \ (  ___  )\__   __/(  ____ \(  ___  )(       )
 | (  \  )| (   ) |   ) (   | (    \/| (   ) || () () |
@@ -33,11 +24,10 @@ import "./Folia.sol";
 "There are no bad ideas in tech, only bad timing"
 - Marc Andreessen
 
-Dead DotCom Seance — Simon Denny, Guile Twardowski, Cosmographia (David Holz)
+DotCom Seance — Simon Denny, Guile Twardowski, Cosmographia (David Holz)
 Published in partnership wth Folia (Billy Rennenkamp, Dan Denorch, Everett Williams)
 */
 
-contract DeadDotComSeance is Folia {
-    constructor(address _metadata) public Folia("Dead DotCom Seance", "DOTCOM", _metadata){}
-
+contract DotComSeance is Folia {
+    constructor(address _metadata) public Folia("DotCom Seance", "DOTCOM", _metadata){}
 }

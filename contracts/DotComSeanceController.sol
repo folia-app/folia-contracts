@@ -3,12 +3,12 @@ pragma solidity ^0.5.0;
  * The FoliaControllerV2 is an upgradeable endpoint for controlling Folia.sol
  */
 
-import "./DeadDotComSeance.sol";
+import "./DotComSeance.sol";
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/utils/ReentrancyGuard.sol";
 
-contract DeadDotComSeanceController is Ownable, ReentrancyGuard {
+contract DotComSeanceController is Ownable, ReentrancyGuard {
 
     event newWork(uint256 workId, address payable artist, uint256 editions, uint256 price, bool _paused);
     event updatedWork(uint256 workId, address payable artist, uint256 editions, uint256 price, bool _paused);
@@ -33,7 +33,7 @@ contract DeadDotComSeanceController is Ownable, ReentrancyGuard {
         address payable artist;
     }
 
-    DeadDotComSeance public deadDotComSeance;
+    DotComSeance public dotComSeance;
 
     uint256 public adminSplit = 20;
     address payable public adminWallet;
@@ -45,10 +45,10 @@ contract DeadDotComSeanceController is Ownable, ReentrancyGuard {
     }
 
     constructor(
-        DeadDotComSeance _deadDotComSeance,
+        DotComSeance _dotComSeance,
         address payable _adminWallet
     ) public {
-        deadDotComSeance = _deadDotComSeance;
+        dotComSeance = _dotComSeance;
         adminWallet = _adminWallet;
     }
 
@@ -112,7 +112,7 @@ contract DeadDotComSeanceController is Ownable, ReentrancyGuard {
         require(msg.value == work.price, "DID_NOT_SEND_PRICE");
 
         work.printed += 1;
-        deadDotComSeance.mint(recipient, tokenId);
+        dotComSeance.mint(recipient, tokenId);
         
         uint256 adminReceives = msg.value.mul(adminSplit).div(100);
         uint256 artistReceives = msg.value.sub(adminReceives);
@@ -139,7 +139,7 @@ contract DeadDotComSeanceController is Ownable, ReentrancyGuard {
         
         uint256 tokenId = workId.mul(MAX_EDITIONS).add(editionId);
 
-        deadDotComSeance.mint(recipient, tokenId);
+        dotComSeance.mint(recipient, tokenId);
         
         uint256 adminReceives = msg.value.mul(adminSplit).div(100);
         uint256 artistReceives = msg.value.sub(adminReceives);
