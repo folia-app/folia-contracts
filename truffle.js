@@ -45,7 +45,7 @@ module.exports = {
     mainnet: {
       provider() {
         return new HDWalletProvider(
-          process.env.MAINNET_MNEMONIC,
+          process.env.TESTNET_MNEMONIC,
           'https://mainnet.infura.io/v3/' + process.env.INFURA_API_KEY,
           // using wallet at index 0 ----------------------------------------------------------------------------------------v
           0,
@@ -53,8 +53,8 @@ module.exports = {
         )
       },
       network_id: 1,
-      gasPrice: 25000000000, // 25 GWEI
-      // gas: 6721975
+      gasPrice: 65000000000, // 65 GWEI
+       gas: 5000000
     },
     kovan: {
       provider() {

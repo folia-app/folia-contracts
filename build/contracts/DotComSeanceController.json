@@ -19763,6 +19763,136 @@
     "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
   },
   "networks": {
+    "1": {
+      "events": {
+        "0xb930315bb0fbb02e6a5098eda387a015f9b831da0666fd6943731c891a049965": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "workId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "artist",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "editions",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "price",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "_paused",
+              "type": "bool"
+            }
+          ],
+          "name": "newWork",
+          "type": "event"
+        },
+        "0x92544cd0b5fea6142ab048e0ea4e8b55f04fb3c2528b3c918875ed2a7a1a9e47": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "workId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "artist",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "editions",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "price",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "_paused",
+              "type": "bool"
+            }
+          ],
+          "name": "updatedWork",
+          "type": "event"
+        },
+        "0x98d41ea2d99604d19bd920bfa2fde9f14a004bb5f3bbacf3706fc23dd386f499": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "workId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "editionId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "tokenId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "recipient",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "paid",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "artistReceived",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "adminReceived",
+              "type": "uint256"
+            }
+          ],
+          "name": "editionBought",
+          "type": "event"
+        },
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xCF1f4b4f0FA1B41e74431E74551B4EF5424043DB",
+      "transactionHash": "0x241e5779c71bc781940996e9f65fd6a337a38980d1284066d0c9bfed85510498"
+    },
     "4": {
       "events": {
         "0xb930315bb0fbb02e6a5098eda387a015f9b831da0666fd6943731c891a049965": {
@@ -19895,7 +20025,7 @@
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-12-15T23:45:03.699Z",
+  "updatedAt": "2021-12-17T08:34:27.205Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {
