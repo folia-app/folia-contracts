@@ -1,4 +1,4 @@
-// File: openzeppelin-solidity/contracts/introspection/IERC165.sol
+// File: contracts/IERC165.sol
 
 pragma solidity ^0.5.0;
 
@@ -16,7 +16,7 @@ interface IERC165 {
     function supportsInterface(bytes4 interfaceId) external view returns (bool);
 }
 
-// File: openzeppelin-solidity/contracts/token/ERC721/IERC721.sol
+// File: contracts/IERC721.sol
 
 pragma solidity ^0.5.0;
 
@@ -45,7 +45,7 @@ contract IERC721 is IERC165 {
     function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public;
 }
 
-// File: openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol
+// File: contracts/IERC721Receiver.sol
 
 pragma solidity ^0.5.0;
 
@@ -73,7 +73,7 @@ contract IERC721Receiver {
     public returns (bytes4);
 }
 
-// File: openzeppelin-solidity/contracts/math/SafeMath.sol
+// File: contracts/SafeMath.sol
 
 pragma solidity ^0.5.0;
 
@@ -141,7 +141,7 @@ library SafeMath {
     }
 }
 
-// File: openzeppelin-solidity/contracts/utils/Address.sol
+// File: contracts/Address.sol
 
 pragma solidity ^0.5.0;
 
@@ -170,7 +170,7 @@ library Address {
     }
 }
 
-// File: openzeppelin-solidity/contracts/introspection/ERC165.sol
+// File: contracts/ERC165.sol
 
 pragma solidity ^0.5.0;
 
@@ -216,7 +216,7 @@ contract ERC165 is IERC165 {
     }
 }
 
-// File: openzeppelin-solidity/contracts/token/ERC721/ERC721.sol
+// File: contracts/ERC721.sol
 
 pragma solidity ^0.5.0;
 
@@ -503,7 +503,7 @@ contract ERC721 is ERC165, IERC721 {
     }
 }
 
-// File: openzeppelin-solidity/contracts/token/ERC721/IERC721Enumerable.sol
+// File: contracts/IERC721Enumerable.sol
 
 pragma solidity ^0.5.0;
 
@@ -519,7 +519,7 @@ contract IERC721Enumerable is IERC721 {
     function tokenByIndex(uint256 index) public view returns (uint256);
 }
 
-// File: openzeppelin-solidity/contracts/token/ERC721/ERC721Enumerable.sol
+// File: contracts/ERC721Enumerable.sol
 
 pragma solidity ^0.5.0;
 
@@ -719,7 +719,7 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
     }
 }
 
-// File: openzeppelin-solidity/contracts/token/ERC721/IERC721Metadata.sol
+// File: contracts/IERC721Metadata.sol
 
 pragma solidity ^0.5.0;
 
@@ -734,7 +734,7 @@ contract IERC721Metadata is IERC721 {
     function tokenURI(uint256 tokenId) external view returns (string memory);
 }
 
-// File: openzeppelin-solidity/contracts/token/ERC721/ERC721Metadata.sol
+// File: contracts/ERC721Metadata.sol
 
 pragma solidity ^0.5.0;
 
@@ -824,7 +824,7 @@ contract ERC721Metadata is ERC165, ERC721, IERC721Metadata {
     }
 }
 
-// File: openzeppelin-solidity/contracts/token/ERC721/ERC721Full.sol
+// File: contracts/ERC721Full.sol
 
 pragma solidity ^0.5.0;
 
@@ -843,7 +843,7 @@ contract ERC721Full is ERC721, ERC721Enumerable, ERC721Metadata {
     }
 }
 
-// File: openzeppelin-solidity/contracts/token/ERC20/IERC20.sol
+// File: contracts/IERC20.sol
 
 pragma solidity ^0.5.0;
 
@@ -869,7 +869,7 @@ interface IERC20 {
     event Approval(address indexed owner, address indexed spender, uint256 value);
 }
 
-// File: openzeppelin-solidity/contracts/ownership/Ownable.sol
+// File: contracts/Ownable.sol
 
 pragma solidity ^0.5.0;
 
@@ -944,7 +944,7 @@ contract Ownable {
     }
 }
 
-// File: openzeppelin-solidity/contracts/access/Roles.sol
+// File: contracts/Roles.sol
 
 pragma solidity ^0.5.0;
 
@@ -1183,8 +1183,6 @@ pragma solidity ^0.5.0;
  */
 
 
-
-
 contract FoliaController is Ownable {
 
     event newWork(uint256 workId, address payable artist, uint256 editions, uint256 price, bool paused);
@@ -1342,8 +1340,6 @@ pragma experimental ABIEncoderV2;
 /**
  * The FoliaControllerV2 is an upgradeable endpoint for controlling Folia.sol
  */
-
-
 
 
 

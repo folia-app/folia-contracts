@@ -4,9 +4,9 @@ pragma solidity ^0.5.0;
  */
 
 import "./DotComSeance.sol";
-import "openzeppelin-solidity/contracts/math/SafeMath.sol";
-import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
-import "openzeppelin-solidity/contracts/utils/ReentrancyGuard.sol";
+import "./SafeMath.sol";
+import "./Ownable.sol";
+import "./ReentrancyGuard.sol";
 
 contract DotComSeanceController is Ownable, ReentrancyGuard {
 

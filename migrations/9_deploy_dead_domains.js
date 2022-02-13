@@ -10,7 +10,7 @@ module.exports = (deployer, helper, accounts) => {
     try {
 
       // Deploy DotComSeanceMetadata.sol
-      // await deployer.deploy(DotComSeanceMetadata)
+      await deployer.deploy(DotComSeanceMetadata)
       let dotComSeanceMetadata = await DotComSeanceMetadata.deployed()
       console.log(_ + 'DotComSeanceMetadata deployed at: ' + dotComSeanceMetadata.address)
 

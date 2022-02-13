@@ -1,0 +1,997 @@
+{
+  "contractName": "LTDMetadata",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "x",
+          "type": "uint256"
+        }
+      ],
+      "name": "toBytes",
+      "outputs": [
+        {
+          "name": "b",
+          "type": "bytes"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "tokenURI",
+      "outputs": [
+        {
+          "name": "_infoUrl",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "pure",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.0+commit.1d4f565a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"name\":\"x\",\"type\":\"uint256\"}],\"name\":\"toBytes\",\"outputs\":[{\"name\":\"b\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"tokenURI\",\"outputs\":[{\"name\":\"_infoUrl\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/LTDMetadata.sol\":\"LTDMetadata\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":2000000},\"remappings\":[]},\"sources\":{\"project:/contracts/LTDMetadata.sol\":{\"keccak256\":\"0xcce2cbe139e39664fac6bf47b2d272d3040fb17514ee9e06367b7969f00a5d16\",\"urls\":[\"bzzr://ae8b7f9a550b917fe473e816cb08eb21bedec7b230eb8acf59c2ff9230c90cb2\"]},\"project:/contracts/Metadata.sol\":{\"keccak256\":\"0x1d168cb60d0d7f08ba0cb9ed1b038ccf00dbba0d02b25cdece7c4a460cd19b9d\",\"urls\":[\"bzzr://3d9db79cc1cc61b5cdab47df56ebb2b3cc0e78ade84590f76cf1baf356e31e26\"]},\"project:/contracts/strings.sol\":{\"keccak256\":\"0xcc0392880159cce5f64a840fe81abd1b9a59dab0971019f8a1e86d465e807bd0\",\"urls\":[\"bzzr://2eb9a7bc14d4bdb589daae3108bac97105a1daa6fe31a4cf1b105a99ac7d4f81\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506104a2806100206000396000f3fe60806040526004361061004b5763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663775a8f5e8114610050578063c87b56dd146100ef575b600080fd5b34801561005c57600080fd5b5061007a6004803603602081101561007357600080fd5b5035610119565b6040805160208082528351818301528351919283929083019185019080838360005b838110156100b457818101518382015260200161009c565b50505050905090810190601f1680156100e15780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b3480156100fb57600080fd5b5061007a6004803603602081101561011257600080fd5b5035610143565b60408051602080825281830190925260609160208201818038833950505060208101929092525090565b6040805160608181018352602282527f68747470733a2f2f4c54442e666f6c69612e6170702f76312f6d65746164617460208301527f612f00000000000000000000000000000000000000000000000000000000000092820192909252816101aa846101d7565b90506101cd6101b88261034c565b6101c18461034c565b9063ffffffff61037116565b925050505b919050565b606081151561021a575060408051808201909152600181527f300000000000000000000000000000000000000000000000000000000000000060208201526101d2565b8160005b811561023257600101600a8204915061021e565b6060816040519080825280601f01601f19166020018201604052801561025f576020820181803883390190505b5090507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff82015b8515610343576030600a87060161029c81610119565b8051601f9081106102a957fe5b016020015183517fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8401937f010000000000000000000000000000000000000000000000000000000000000092839004909202918591811061030757fe5b9060200101907effffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916908160001a905350600a8704965050610286565b50949350505050565b61035461045f565b506040805180820190915281518152602082810190820152919050565b60608082600001518460000151016040519080825280601f01601f1916602001820160405280156103a9576020820181803883390190505b50905060006020820190506103c781866020015187600001516103e5565b8451602085015185516103dd92840191906103e5565b509392505050565b5b602081106104235781518352602092830192909101907fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe0016103e6565b905182516020929092036101000a7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0180199091169116179052565b60408051808201909152600080825260208201529056fea165627a7a723058203d75fe05659d294e05f8394f9e53cf9046c6dd8d0f004374e1dba3980f4186300029",
+  "deployedBytecode": "0x60806040526004361061004b5763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663775a8f5e8114610050578063c87b56dd146100ef575b600080fd5b34801561005c57600080fd5b5061007a6004803603602081101561007357600080fd5b5035610119565b6040805160208082528351818301528351919283929083019185019080838360005b838110156100b457818101518382015260200161009c565b50505050905090810190601f1680156100e15780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b3480156100fb57600080fd5b5061007a6004803603602081101561011257600080fd5b5035610143565b60408051602080825281830190925260609160208201818038833950505060208101929092525090565b6040805160608181018352602282527f68747470733a2f2f4c54442e666f6c69612e6170702f76312f6d65746164617460208301527f612f00000000000000000000000000000000000000000000000000000000000092820192909252816101aa846101d7565b90506101cd6101b88261034c565b6101c18461034c565b9063ffffffff61037116565b925050505b919050565b606081151561021a575060408051808201909152600181527f300000000000000000000000000000000000000000000000000000000000000060208201526101d2565b8160005b811561023257600101600a8204915061021e565b6060816040519080825280601f01601f19166020018201604052801561025f576020820181803883390190505b5090507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff82015b8515610343576030600a87060161029c81610119565b8051601f9081106102a957fe5b016020015183517fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8401937f010000000000000000000000000000000000000000000000000000000000000092839004909202918591811061030757fe5b9060200101907effffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916908160001a905350600a8704965050610286565b50949350505050565b61035461045f565b506040805180820190915281518152602082810190820152919050565b60608082600001518460000151016040519080825280601f01601f1916602001820160405280156103a9576020820181803883390190505b50905060006020820190506103c781866020015187600001516103e5565b8451602085015185516103dd92840191906103e5565b509392505050565b5b602081106104235781518352602092830192909101907fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe0016103e6565b905182516020929092036101000a7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0180199091169116179052565b60408051808201909152600080825260208201529056fea165627a7a723058203d75fe05659d294e05f8394f9e53cf9046c6dd8d0f004374e1dba3980f4186300029",
+  "sourceMap": "126:292:20:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;126:292:20;;;;;;;",
+  "deployedSourceMap": "126:292:20:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;897:142:21;;8:9:-1;5:2;;;30:1;27;20:12;5:2;897:142:21;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;897:142:21;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:100:-1;33:3;30:1;27:10;8:100;;;90:11;;;84:18;71:11;;;64:39;52:2;45:10;8:100;;;12:14;897:142:21;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;165:251:20;;8:9:-1;5:2;;;30:1;27;20:12;5:2;165:251:20;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;165:251:20;;;897:142:21;976:13;;;986:2;976:13;;;;;;;;;946:14;;976:13;;;21:6:-1;;104:10;976:13:21;87:34:-1;-1:-1;;;1024:2:21;1017:10;;1010:21;;;;-1:-1:-1;1017:10:21;1008:25::o;165:251:20:-;253:57;;;219:22;253:57;;;;;;;;;;;;;;;;;;;;;219:22;339:18;348:8;339;:18::i;:::-;320:37;;374:35;396:12;:2;:10;:12::i;:::-;374:14;:4;:12;:14::i;:::-;:21;:35;:21;:35;:::i;:::-;367:42;;;;165:251;;;;:::o;427:465:21:-;476:13;505:6;;501:22;;;-1:-1:-1;513:10:21;;;;;;;;;;;;;;;;;;;501:22;542:1;533:6;574:69;581:6;;574:69;;603:8;;630:2;625:7;;;;574:69;;;652:17;682:6;672:17;;;;;;;;;;;;;;;;;;;;;;;;;21:6:-1;;104:10;672:17:21;87:34:-1;135:17;;-1:-1;672:17:21;-1:-1:-1;652:37:21;-1:-1:-1;708:10:21;;;728:129;735:6;;728:129;;770:2;779;775:6;;770:11;807:14;770:11;807:7;:14::i;:::-;:18;;822:2;;807:18;;;;;;;;;;795:9;;800:3;;;;807:18;;;;;;;;;795:4;;:9;;;;;;;;;;:30;;;;;;;;;;-1:-1:-1;844:2:21;839:7;;;;728:129;;;;-1:-1:-1;880:4:21;427:465;-1:-1:-1;;;;427:465:21:o;979:210:27:-;1039:12;;:::i;:::-;-1:-1:-1;1152:30:27;;;;;;;;;1158:18;;1152:30;;1121:4;1111:15;;;1152:30;;;;979:210;;;:::o;1476:375::-;1554:13;1579:17;1622:5;:10;;;1610:4;:9;;;:22;1599:34;;;;;;;;;;;;;;;;;;;;;;;;;21:6:-1;;104:10;1599:34:27;87::-1;135:17;;-1:-1;1599:34:27;;1579:54;;1643:11;1706:2;1701:3;1697:12;1687:22;;1728:36;1735:6;1743:4;:9;;;1754:4;:9;;;1728:6;:36::i;:::-;1790:9;;1801:10;;;;1813;;1774:50;;1781:18;;;1801:10;1774:6;:50::i;:::-;-1:-1:-1;1841:3:27;1476:375;-1:-1:-1;;;1476:375:27:o;230:549::-;350:165;364:2;357:9;;350:165;;433:10;;420:24;;479:2;471:10;;;;495:9;;;;368;;350:165;;;642:10;;697:11;;577:2;:8;;;;569:3;:17;:21;;654:9;;638:26;;;693:22;;741:21;728:35;;609:164::o;126:292:20:-;;;;;;;;;;-1:-1:-1;126:292:20;;;;;;;;:::o",
+  "source": "pragma solidity ^0.5.0;\n/**\n* Metadata contract is upgradeable and returns metadata about Token\n*/\n\nimport \"./Metadata.sol\";\n\ncontract LTDMetadata is Metadata {\n    function tokenURI(uint _tokenId) public pure returns (string memory _infoUrl) {\n        string memory base = \"https://LTD.folia.app/v1/metadata/\";\n        string memory id = uint2str(_tokenId);\n        return base.toSlice().concat(id.toSlice());\n    }\n}\n",
+  "sourcePath": "/Users/billy/GitHub/folia-app/folia-contracts/contracts/LTDMetadata.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/LTDMetadata.sol",
+    "exportedSymbols": {
+      "LTDMetadata": [
+        2376
+      ]
+    },
+    "id": 2377,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 2345,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:20"
+      },
+      {
+        "absolutePath": "project:/contracts/Metadata.sol",
+        "file": "./Metadata.sol",
+        "id": 2346,
+        "nodeType": "ImportDirective",
+        "scope": 2377,
+        "sourceUnit": 2504,
+        "src": "100:24:20",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 2347,
+              "name": "Metadata",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 2503,
+              "src": "150:8:20",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Metadata_$2503",
+                "typeString": "contract Metadata"
+              }
+            },
+            "id": 2348,
+            "nodeType": "InheritanceSpecifier",
+            "src": "150:8:20"
+          }
+        ],
+        "contractDependencies": [
+          2503
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 2376,
+        "linearizedBaseContracts": [
+          2376,
+          2503
+        ],
+        "name": "LTDMetadata",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 2374,
+              "nodeType": "Block",
+              "src": "243:173:20",
+              "statements": [
+                {
+                  "assignments": [
+                    2356
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 2356,
+                      "name": "base",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 2374,
+                      "src": "253:18:20",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string"
+                      },
+                      "typeName": {
+                        "id": 2355,
+                        "name": "string",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "253:6:20",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_storage_ptr",
+                          "typeString": "string"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 2358,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "hexValue": "68747470733a2f2f4c54442e666f6c69612e6170702f76312f6d657461646174612f",
+                    "id": 2357,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "string",
+                    "lValueRequested": false,
+                    "nodeType": "Literal",
+                    "src": "274:36:20",
+                    "subdenomination": null,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_stringliteral_dc090a26f0708138f5fc8326cf14e149f796a26c6d2cc12f94d6a6683973398e",
+                      "typeString": "literal_string \"https://LTD.folia.app/v1/metadata/\""
+                    },
+                    "value": "https://LTD.folia.app/v1/metadata/"
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "253:57:20"
+                },
+                {
+                  "assignments": [
+                    2360
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 2360,
+                      "name": "id",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 2374,
+                      "src": "320:16:20",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string"
+                      },
+                      "typeName": {
+                        "id": 2359,
+                        "name": "string",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "320:6:20",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_storage_ptr",
+                          "typeString": "string"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 2364,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 2362,
+                        "name": "_tokenId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2350,
+                        "src": "348:8:20",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "id": 2361,
+                      "name": "uint2str",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2486,
+                      "src": "339:8:20",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_pure$_t_uint256_$returns$_t_string_memory_ptr_$",
+                        "typeString": "function (uint256) pure returns (string memory)"
+                      }
+                    },
+                    "id": 2363,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "339:18:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_memory_ptr",
+                      "typeString": "string memory"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "320:37:20"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [],
+                        "expression": {
+                          "argumentTypes": [],
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 2369,
+                            "name": "id",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 2360,
+                            "src": "396:2:20",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_string_memory_ptr",
+                              "typeString": "string memory"
+                            }
+                          },
+                          "id": 2370,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "toSlice",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 3775,
+                          "src": "396:10:20",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_internal_pure$_t_string_memory_ptr_$returns$_t_struct$_slice_$3715_memory_ptr_$bound_to$_t_string_memory_ptr_$",
+                            "typeString": "function (string memory) pure returns (struct strings.slice memory)"
+                          }
+                        },
+                        "id": 2371,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "396:12:20",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_slice_$3715_memory_ptr",
+                          "typeString": "struct strings.slice memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_slice_$3715_memory_ptr",
+                          "typeString": "struct strings.slice memory"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "arguments": [],
+                        "expression": {
+                          "argumentTypes": [],
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 2365,
+                            "name": "base",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 2356,
+                            "src": "374:4:20",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_string_memory_ptr",
+                              "typeString": "string memory"
+                            }
+                          },
+                          "id": 2366,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "toSlice",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 3775,
+                          "src": "374:12:20",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_internal_pure$_t_string_memory_ptr_$returns$_t_struct$_slice_$3715_memory_ptr_$bound_to$_t_string_memory_ptr_$",
+                            "typeString": "function (string memory) pure returns (struct strings.slice memory)"
+                          }
+                        },
+                        "id": 2367,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "374:14:20",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_slice_$3715_memory_ptr",
+                          "typeString": "struct strings.slice memory"
+                        }
+                      },
+                      "id": 2368,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "concat",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 3821,
+                      "src": "374:21:20",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_pure$_t_struct$_slice_$3715_memory_ptr_$_t_struct$_slice_$3715_memory_ptr_$returns$_t_string_memory_ptr_$bound_to$_t_struct$_slice_$3715_memory_ptr_$",
+                        "typeString": "function (struct strings.slice memory,struct strings.slice memory) pure returns (string memory)"
+                      }
+                    },
+                    "id": 2372,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "374:35:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_memory_ptr",
+                      "typeString": "string memory"
+                    }
+                  },
+                  "functionReturnParameters": 2354,
+                  "id": 2373,
+                  "nodeType": "Return",
+                  "src": "367:42:20"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 2375,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "tokenURI",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2351,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2350,
+                  "name": "_tokenId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2375,
+                  "src": "183:13:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2349,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "183:4:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "182:15:20"
+            },
+            "returnParameters": {
+              "id": 2354,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2353,
+                  "name": "_infoUrl",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2375,
+                  "src": "219:22:20",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 2352,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "219:6:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "218:24:20"
+            },
+            "scope": 2376,
+            "src": "165:251:20",
+            "stateMutability": "pure",
+            "superFunction": 2408,
+            "visibility": "public"
+          }
+        ],
+        "scope": 2377,
+        "src": "126:292:20"
+      }
+    ],
+    "src": "0:419:20"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/LTDMetadata.sol",
+      "exportedSymbols": {
+        "LTDMetadata": [
+          2376
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".0"
+          ]
+        },
+        "id": 2345,
+        "name": "PragmaDirective",
+        "src": "0:23:20"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 2504,
+          "absolutePath": "project:/contracts/Metadata.sol",
+          "file": "./Metadata.sol",
+          "scope": 2377,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 2346,
+        "name": "ImportDirective",
+        "src": "100:24:20"
+      },
+      {
+        "attributes": {
+          "contractDependencies": [
+            2503
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            2376,
+            2503
+          ],
+          "name": "LTDMetadata",
+          "scope": 2377
+        },
+        "children": [
+          {
+            "attributes": {
+              "arguments": null
+            },
+            "children": [
+              {
+                "attributes": {
+                  "contractScope": null,
+                  "name": "Metadata",
+                  "referencedDeclaration": 2503,
+                  "type": "contract Metadata"
+                },
+                "id": 2347,
+                "name": "UserDefinedTypeName",
+                "src": "150:8:20"
+              }
+            ],
+            "id": 2348,
+            "name": "InheritanceSpecifier",
+            "src": "150:8:20"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "tokenURI",
+              "scope": 2376,
+              "stateMutability": "pure",
+              "superFunction": 2408,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_tokenId",
+                      "scope": 2375,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 2349,
+                        "name": "ElementaryTypeName",
+                        "src": "183:4:20"
+                      }
+                    ],
+                    "id": 2350,
+                    "name": "VariableDeclaration",
+                    "src": "183:13:20"
+                  }
+                ],
+                "id": 2351,
+                "name": "ParameterList",
+                "src": "182:15:20"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_infoUrl",
+                      "scope": 2375,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "string",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "string",
+                          "type": "string"
+                        },
+                        "id": 2352,
+                        "name": "ElementaryTypeName",
+                        "src": "219:6:20"
+                      }
+                    ],
+                    "id": 2353,
+                    "name": "VariableDeclaration",
+                    "src": "219:22:20"
+                  }
+                ],
+                "id": 2354,
+                "name": "ParameterList",
+                "src": "218:24:20"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "assignments": [
+                        2356
+                      ]
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "constant": false,
+                          "name": "base",
+                          "scope": 2374,
+                          "stateVariable": false,
+                          "storageLocation": "memory",
+                          "type": "string",
+                          "value": null,
+                          "visibility": "internal"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "name": "string",
+                              "type": "string"
+                            },
+                            "id": 2355,
+                            "name": "ElementaryTypeName",
+                            "src": "253:6:20"
+                          }
+                        ],
+                        "id": 2356,
+                        "name": "VariableDeclaration",
+                        "src": "253:18:20"
+                      },
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "hexvalue": "68747470733a2f2f4c54442e666f6c69612e6170702f76312f6d657461646174612f",
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "subdenomination": null,
+                          "token": "string",
+                          "type": "literal_string \"https://LTD.folia.app/v1/metadata/\"",
+                          "value": "https://LTD.folia.app/v1/metadata/"
+                        },
+                        "id": 2357,
+                        "name": "Literal",
+                        "src": "274:36:20"
+                      }
+                    ],
+                    "id": 2358,
+                    "name": "VariableDeclarationStatement",
+                    "src": "253:57:20"
+                  },
+                  {
+                    "attributes": {
+                      "assignments": [
+                        2360
+                      ]
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "constant": false,
+                          "name": "id",
+                          "scope": 2374,
+                          "stateVariable": false,
+                          "storageLocation": "memory",
+                          "type": "string",
+                          "value": null,
+                          "visibility": "internal"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "name": "string",
+                              "type": "string"
+                            },
+                            "id": 2359,
+                            "name": "ElementaryTypeName",
+                            "src": "320:6:20"
+                          }
+                        ],
+                        "id": 2360,
+                        "name": "VariableDeclaration",
+                        "src": "320:16:20"
+                      },
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "string memory",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 2486,
+                              "type": "function (uint256) pure returns (string memory)",
+                              "value": "uint2str"
+                            },
+                            "id": 2361,
+                            "name": "Identifier",
+                            "src": "339:8:20"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 2350,
+                              "type": "uint256",
+                              "value": "_tokenId"
+                            },
+                            "id": 2362,
+                            "name": "Identifier",
+                            "src": "348:8:20"
+                          }
+                        ],
+                        "id": 2363,
+                        "name": "FunctionCall",
+                        "src": "339:18:20"
+                      }
+                    ],
+                    "id": 2364,
+                    "name": "VariableDeclarationStatement",
+                    "src": "320:37:20"
+                  },
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 2354
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "string memory",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_struct$_slice_$3715_memory_ptr",
+                                  "typeString": "struct strings.slice memory"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "concat",
+                              "referencedDeclaration": 3821,
+                              "type": "function (struct strings.slice memory,struct strings.slice memory) pure returns (string memory)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "arguments": [
+                                    null
+                                  ],
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "isStructConstructorCall": false,
+                                  "lValueRequested": false,
+                                  "names": [
+                                    null
+                                  ],
+                                  "type": "struct strings.slice memory",
+                                  "type_conversion": false
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": [
+                                        null
+                                      ],
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "toSlice",
+                                      "referencedDeclaration": 3775,
+                                      "type": "function (string memory) pure returns (struct strings.slice memory)"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 2356,
+                                          "type": "string memory",
+                                          "value": "base"
+                                        },
+                                        "id": 2365,
+                                        "name": "Identifier",
+                                        "src": "374:4:20"
+                                      }
+                                    ],
+                                    "id": 2366,
+                                    "name": "MemberAccess",
+                                    "src": "374:12:20"
+                                  }
+                                ],
+                                "id": 2367,
+                                "name": "FunctionCall",
+                                "src": "374:14:20"
+                              }
+                            ],
+                            "id": 2368,
+                            "name": "MemberAccess",
+                            "src": "374:21:20"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "arguments": [
+                                null
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": false,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "struct strings.slice memory",
+                              "type_conversion": false
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    null
+                                  ],
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "toSlice",
+                                  "referencedDeclaration": 3775,
+                                  "type": "function (string memory) pure returns (struct strings.slice memory)"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 2360,
+                                      "type": "string memory",
+                                      "value": "id"
+                                    },
+                                    "id": 2369,
+                                    "name": "Identifier",
+                                    "src": "396:2:20"
+                                  }
+                                ],
+                                "id": 2370,
+                                "name": "MemberAccess",
+                                "src": "396:10:20"
+                              }
+                            ],
+                            "id": 2371,
+                            "name": "FunctionCall",
+                            "src": "396:12:20"
+                          }
+                        ],
+                        "id": 2372,
+                        "name": "FunctionCall",
+                        "src": "374:35:20"
+                      }
+                    ],
+                    "id": 2373,
+                    "name": "Return",
+                    "src": "367:42:20"
+                  }
+                ],
+                "id": 2374,
+                "name": "Block",
+                "src": "243:173:20"
+              }
+            ],
+            "id": 2375,
+            "name": "FunctionDefinition",
+            "src": "165:251:20"
+          }
+        ],
+        "id": 2376,
+        "name": "ContractDefinition",
+        "src": "126:292:20"
+      }
+    ],
+    "id": 2377,
+    "name": "SourceUnit",
+    "src": "0:419:20"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
+  },
+  "networks": {
+    "4": {
+      "events": {},
+      "links": {},
+      "address": "0xc33197495396858D14be3638D8c65c67855CA031",
+      "transactionHash": "0x2dec8e8c67d294ac905abcc0c8c1537f28963767eb3cba1886900bf30438357c"
+    }
+  },
+  "schemaVersion": "3.4.3",
+  "updatedAt": "2022-02-13T20:00:08.690Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

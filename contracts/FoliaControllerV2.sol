@@ -6,9 +6,7 @@ pragma experimental ABIEncoderV2;
 
 import "./Folia.sol";
 import "./FoliaController.sol";
-import "openzeppelin-solidity/contracts/math/SafeMath.sol";
-import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
-import "openzeppelin-solidity/contracts/utils/ReentrancyGuard.sol";
+import "./ReentrancyGuard.sol";
 
 contract FoliaControllerV2 is Ownable, ReentrancyGuard {
 
