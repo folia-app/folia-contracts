@@ -10,9 +10,9 @@ var FoliaAuction = require('./build/contracts/FoliaAuction.json')
 var DotComSeance = require('./build/contracts/DotComSeance.json')
 var DotComSeanceMetadata = require('./build/contracts/DotComSeanceMetadata.json')
 var DotComSeanceController = require('./build/contracts/DotComSeanceController.json')
-var LTD = require('./build/contracts/LTD.json')
-var LTDMetadata = require('./build/contracts/LTDMetadata.json')
-var LTDController = require('./build/contracts/LTDController.json')
+var Decomposer = require('./build/contracts/Decomposer.json')
+var DecomposerMetadata = require('./build/contracts/DecomposerMetadata.json')
+var DecomposerController = require('./build/contracts/DecomposerController.json')
 
 module.exports = {
   Folia,
@@ -24,7 +24,7 @@ module.exports = {
   DotComSeance,
   DotComSeanceMetadata,
   DotComSeanceController,
-  LTD,
-  LTDMetadata,
-  LTDController
+  Decomposer,
+  DecomposerMetadata,
+  DecomposerController
 }
