@@ -88,7 +88,7 @@ module.exports = (deployer, helper, accounts) => {
       }
 
       // Deploy DecomposerMetadata.sol
-      await deployer.deploy(DecomposerMetadata)
+      // await deployer.deploy(DecomposerMetadata)
       let _DecomposerMetadata = await DecomposerMetadata.deployed()
       console.log(_ + 'DecomposerMetadata deployed at: ' + _DecomposerMetadata.address)
 

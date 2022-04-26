@@ -24,7 +24,6 @@ contract DecomposerController is Ownable, ReentrancyGuard {
     event editionBought(address contractAddress, uint256 tokenId, uint256 newTokenId);
     uint256 public price = 8 * (10**16); // 0.08 Eth
     uint256 public totalMax = 888;
-    mapping(address => uint256) public editionsLeft;
 
     Decomposer public decomposer;
 
