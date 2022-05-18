@@ -94,6 +94,7 @@ contract DecomposerController is Ownable, ReentrancyGuard {
         addContract(0x51Ae5e2533854495f6c587865Af64119db8F59b4, _maxEditions, uint8(cT.ERC721)); // PunkScapes
         addContract(0x29b7315fc83172CFcb45c2Fb415E91A265fb73f2, _maxEditions, uint8(cT.ERC721)); // Realiti
         addContract(0x8CD3cEA52a45f30Ed7c93a63FB2b5C13B453d5A1, _maxEditions, uint8(cT.ERC721)); // Rebel Society
+        addContract(0x4e2A87743368484eD798033E8FdC7caE442064b8, _maxEditions, uint8(cT.ERC721)); // SCAMMER MARKET
         addContract(0x3Fe1a4c1481c8351E91B64D5c398b159dE07cbc5, _maxEditions, uint8(cT.ERC721)); // SupDucks
         addContract(0xF4ee95274741437636e748DdAc70818B4ED7d043, _maxEditions, uint8(cT.ERC721)); // The Doge Pound
         addContract(0x5CC5B05a8A13E3fBDB0BB9FcCd98D38e50F90c38, _maxEditions, uint8(cT.ERC721)); // The Sandbox
