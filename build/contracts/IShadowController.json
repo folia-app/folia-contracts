@@ -1,0 +1,422 @@
+{
+  "contractName": "IShadowController",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "isLocked",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.5.0;\n/**\n * The Controller is an upgradeable endpoint for controlling Folia.sol\n */\n\n\ninterface IShadowController {\n    function isLocked(address from, address to, uint256 tokenId) external view returns (bool);\n}\n",
+  "sourcePath": "/Users/billy/GitHub/folia-app/folia-contracts/contracts/IShadowController.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/IShadowController.sol",
+    "exportedSymbols": {
+      "IShadowController": [
+        5585
+      ]
+    },
+    "id": 5586,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 5573,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:27"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": "The Controller is an upgradeable endpoint for controlling Folia.sol",
+        "fullyImplemented": false,
+        "id": 5585,
+        "linearizedBaseContracts": [
+          5585
+        ],
+        "name": "IShadowController",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 5584,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "isLocked",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 5580,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 5575,
+                  "name": "from",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 5584,
+                  "src": "157:12:27",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 5574,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "157:7:27",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 5577,
+                  "name": "to",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 5584,
+                  "src": "171:10:27",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 5576,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "171:7:27",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 5579,
+                  "name": "tokenId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 5584,
+                  "src": "183:15:27",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 5578,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "183:7:27",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "156:43:27"
+            },
+            "returnParameters": {
+              "id": 5583,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 5582,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 5584,
+                  "src": "223:4:27",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 5581,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "223:4:27",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "222:6:27"
+            },
+            "scope": 5585,
+            "src": "139:90:27",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 5586,
+        "src": "105:126:27"
+      }
+    ],
+    "src": "0:232:27"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/IShadowController.sol",
+      "exportedSymbols": {
+        "IShadowController": [
+          5585
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".0"
+          ]
+        },
+        "id": 5573,
+        "name": "PragmaDirective",
+        "src": "0:23:27"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "interface",
+          "documentation": "The Controller is an upgradeable endpoint for controlling Folia.sol",
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            5585
+          ],
+          "name": "IShadowController",
+          "scope": 5586
+        },
+        "children": [
+          {
+            "attributes": {
+              "body": null,
+              "documentation": null,
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "isLocked",
+              "scope": 5585,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "from",
+                      "scope": 5584,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 5574,
+                        "name": "ElementaryTypeName",
+                        "src": "157:7:27"
+                      }
+                    ],
+                    "id": 5575,
+                    "name": "VariableDeclaration",
+                    "src": "157:12:27"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "to",
+                      "scope": 5584,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 5576,
+                        "name": "ElementaryTypeName",
+                        "src": "171:7:27"
+                      }
+                    ],
+                    "id": 5577,
+                    "name": "VariableDeclaration",
+                    "src": "171:10:27"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "tokenId",
+                      "scope": 5584,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 5578,
+                        "name": "ElementaryTypeName",
+                        "src": "183:7:27"
+                      }
+                    ],
+                    "id": 5579,
+                    "name": "VariableDeclaration",
+                    "src": "183:15:27"
+                  }
+                ],
+                "id": 5580,
+                "name": "ParameterList",
+                "src": "156:43:27"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 5584,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "bool",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bool",
+                          "type": "bool"
+                        },
+                        "id": 5581,
+                        "name": "ElementaryTypeName",
+                        "src": "223:4:27"
+                      }
+                    ],
+                    "id": 5582,
+                    "name": "VariableDeclaration",
+                    "src": "223:4:27"
+                  }
+                ],
+                "id": 5583,
+                "name": "ParameterList",
+                "src": "222:6:27"
+              }
+            ],
+            "id": 5584,
+            "name": "FunctionDefinition",
+            "src": "139:90:27"
+          }
+        ],
+        "id": 5585,
+        "name": "ContractDefinition",
+        "src": "105:126:27"
+      }
+    ],
+    "id": 5586,
+    "name": "SourceUnit",
+    "src": "0:232:27"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.3",
+  "updatedAt": "2022-09-06T12:49:38.878Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {},
+    "notice": "The Controller is an upgradeable endpoint for controlling Folia.sol"
+  }
+}

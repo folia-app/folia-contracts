@@ -4,8 +4,9 @@ pragma solidity ^0.5.0;
  */
 
 import "./Lux.sol";
-import "./SafeMath.sol";
+import "./LuxERC20.sol";
 import "./Ownable.sol";
+import "./SafeMath.sol";
 import "./ReentrancyGuard.sol";
 import "./IERC721.sol";
 import "./IERC165.sol";
@@ -14,29 +15,34 @@ contract LuxController is Ownable, ReentrancyGuard {
 
     using SafeMath for uint256;
     Lux public lux;
+    LuxERC20 public luxERC20;
 
     uint256 public adminSplit = 20;
     address payable public adminWallet;
     address payable public artistWallet;
     bool public paused;
 
+    uint256 constant DAY = 24 * 60 * 60;
+    uint256 constant WEEK = 7 * DAY;
+    uint256 constant MONTH = 30 * DAY;
+
     uint256[] public tokenIntervals = [
-      24 * 60 * 60, // every 24 hours
-      7 * 24 * 60 * 60, // every 7 days
-      30.436875 * 24 * 60 * 60, // every 1 month
-      2 * 30.436875 * 24 * 60 * 60, // every 2 months
-      3 * 30.436875 * 24 * 60 * 60 // every 3 months
+      DAY, // every 24 hours
+      WEEK, // every 7 days
+      MONTH, // every 1 month
+      2 * MONTH, // every 2 months
+      3 * MONTH // every 3 months
     ];
 
     uint256[] public tokenPriceIntervals = [
-      1_000_000_000_000_000_000, // every 24 hours
-      1_000_000_000_000_000, // every 7 days
-      1_000_000_000_000, // every 1 month
-      1_000_000_000, // every 2 months
-      1_000_000 // every 3 months
+      102_000_000_000_000_000_000, // minimum 102 Eth
+      73_000_000_000_000_000_000, // minimum 73 Eth
+      42_000_000_000_000_000_000, // minimum 42 Eth
+      12_000_000_000_000_000_000, // minimum 12 Eth
+      2_000_000_000_000_000_000 // minimum 2 Eth
     ];
 
-    bool[] public claimed = [];
+    bool[] public claimed;
 
     uint256 contractStart;
 
@@ -47,9 +53,11 @@ contract LuxController is Ownable, ReentrancyGuard {
 
     constructor(
         Lux _lux,
+        LuxERC20 _luxERC20,
         address payable _adminWallet
     ) public {
         lux = _lux;
+        luxERC20 = _luxERC20;
         adminWallet = _adminWallet;
         contractStart = now;
     }
@@ -67,6 +75,8 @@ contract LuxController is Ownable, ReentrancyGuard {
       require(claimed[interval] == false, "already claimed");
       claimed[interval] = true;
       lux.mint(msg.sender, interval);
+      uint256 diffInHours = diff.mul(10^18).div(60).div(60); // add 18 decimals then convert seconds / 60 = minutes / 60 = hours
+      luxERC20.mint(msg.sender, diffInHours);
     }
 
     function updateArtistWallet(address payable _artistWallet) public onlyOwner {

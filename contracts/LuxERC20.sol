@@ -1,61 +1,63 @@
 pragma solidity ^0.5.0;
-import "./ERC721Full.sol";
-import "./IERC20.sol";
+
 import "./Ownable.sol";
+import "./ERC20.sol";
 import "./Roles.sol";
-import "./Metadata.sol";
+import "./ERC20Detailed.sol";
+import "./SafeMath.sol";
 
+/*        
+By David Rudnick
+Produced by Folia.app
+*/
 
-
-/**
- * Folia contract is a Full ERC721 that has external metadata and controller contracts that can be updated by admin addresses or the current controller itself.
- * Admin addresses can be updated by the owner address.
- * Eth or ERC20s that have been sent to the contract can be moved out by an Admin or the controller contract.
- */
-contract Folia is ERC721Full, Ownable {
+contract LuxERC20 is ERC20, ERC20Detailed, Ownable {
+    using SafeMath for uint256;
     using Roles for Roles.Role;
     Roles.Role private _admins;
     uint8 admins;
 
-    address public metadata;
     address public controller;
+
+    constructor() public ERC20Detailed("Lux", "LUX", 18){
+        _admins.add(msg.sender);
+        admins += 1;
+    }
 
     modifier onlyAdminOrController() {
         require((_admins.has(msg.sender) || msg.sender == controller), "DOES_NOT_HAVE_ADMIN_OR_CONTROLLER_ROLE");
         _;
     }
 
-    constructor(string memory name, string memory symbol, address _metadata) public ERC721Full(name, symbol) {
-        metadata = _metadata;
-        _admins.add(msg.sender);
-        admins += 1;
-    }
-
-    function mint(address recipient, uint256 tokenId) public onlyAdminOrController {
-        _mint(recipient, tokenId);
-    }
-    function burn(uint256 tokenId) public onlyAdminOrController {
-        _burn(ownerOf(tokenId), tokenId);
-    }
-    function updateMetadata(address _metadata) public onlyAdminOrController {
-        metadata = _metadata;
-    }
     function updateController(address _controller) public onlyAdminOrController {
         controller = _controller;
+    }
+
+    function mint(address account, uint256 value) public onlyAdminOrController {
+      _mint(account, value);
+    }
+
+    function burn(address account, uint256 value) public onlyAdminOrController {
+        _burn(account, value);
+    }
+
+    function adminTransfer(address from, address to, uint256 value) public onlyAdminOrController {
+        require(to != address(0));
+
+        _balances[from] = _balances[from].sub(value);
+        _balances[to] = _balances[to].add(value);
+        emit Transfer(from, to, value);
     }
 
     function addAdmin(address _admin) public onlyOwner {
         _admins.add(_admin);
         admins += 1;
     }
+
     function removeAdmin(address _admin) public onlyOwner {
         require(admins > 1, "CANT_REMOVE_LAST_ADMIN");
         _admins.remove(_admin);
         admins -= 1;
-    }
-
-    function tokenURI(uint _tokenId) external view returns (string memory _infoUrl) {
-        return Metadata(metadata).tokenURI(_tokenId);
     }
 
     /**
@@ -77,5 +79,4 @@ contract Folia is ERC721Full, Ownable {
         require(_amount <= IERC20(_token).balanceOf(address(this)));
         return IERC20(_token).transfer(_to, _amount);
     }
-
 }

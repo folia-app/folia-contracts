@@ -5,7 +5,7 @@ pragma solidity ^0.5.0;
 
 import "./MetadataUpdate.sol";
 
-contract LuxMetadata is MetadataUpdate {
+contract ShieldMetadata is MetadataUpdate {
     constructor(address _deployer, string memory _base) public {
         deployer = _deployer;
         base = _base;
