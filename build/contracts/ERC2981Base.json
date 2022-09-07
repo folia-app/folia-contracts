@@ -1,0 +1,733 @@
+{
+  "contractName": "ERC2981Base",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "interfaceId",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_tokenId",
+          "type": "uint256"
+        },
+        {
+          "name": "_value",
+          "type": "uint256"
+        }
+      ],
+      "name": "royaltyInfo",
+      "outputs": [
+        {
+          "name": "_receiver",
+          "type": "address"
+        },
+        {
+          "name": "_royaltyAmount",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "metadata": "",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.5.0;\n\nimport './ERC165.sol';\nimport './IERC2981Royalties.sol';\n\n/// @dev This is a contract used to add ERC2981 support to ERC721 and 1155\ncontract ERC2981Base is ERC165, IERC2981Royalties {\n    struct RoyaltyInfo {\n        address recipient;\n        uint24 amount;\n    }\n\n    /// bytes4(keccak256(\"royaltyInfo(uint256,uint256)\")) == 0x2a55205a\n    bytes4 private constant _INTERFACE_ID_ERC2981 = 0x2a55205a;\n\n    constructor() public {\n      _registerInterface(_INTERFACE_ID_ERC2981);\n    }\n}",
+  "sourcePath": "/Users/billy/GitHub/folia-app/folia-contracts/contracts/ERC2981Base.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/ERC2981Base.sol",
+    "exportedSymbols": {
+      "ERC2981Base": [
+        965
+      ]
+    },
+    "id": 966,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 942,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:9"
+      },
+      {
+        "absolutePath": "project:/contracts/ERC165.sol",
+        "file": "./ERC165.sol",
+        "id": 943,
+        "nodeType": "ImportDirective",
+        "scope": 966,
+        "sourceUnit": 451,
+        "src": "57:22:9",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "project:/contracts/IERC2981Royalties.sol",
+        "file": "./IERC2981Royalties.sol",
+        "id": 944,
+        "nodeType": "ImportDirective",
+        "scope": 966,
+        "sourceUnit": 2411,
+        "src": "80:33:9",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 945,
+              "name": "ERC165",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 450,
+              "src": "214:6:9",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_ERC165_$450",
+                "typeString": "contract ERC165"
+              }
+            },
+            "id": 946,
+            "nodeType": "InheritanceSpecifier",
+            "src": "214:6:9"
+          },
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 947,
+              "name": "IERC2981Royalties",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 2410,
+              "src": "222:17:9",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_IERC2981Royalties_$2410",
+                "typeString": "contract IERC2981Royalties"
+              }
+            },
+            "id": 948,
+            "nodeType": "InheritanceSpecifier",
+            "src": "222:17:9"
+          }
+        ],
+        "contractDependencies": [
+          450,
+          2327,
+          2410
+        ],
+        "contractKind": "contract",
+        "documentation": "@dev This is a contract used to add ERC2981 support to ERC721 and 1155",
+        "fullyImplemented": false,
+        "id": 965,
+        "linearizedBaseContracts": [
+          965,
+          2410,
+          450,
+          2327
+        ],
+        "name": "ERC2981Base",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "ERC2981Base.RoyaltyInfo",
+            "id": 953,
+            "members": [
+              {
+                "constant": false,
+                "id": 950,
+                "name": "recipient",
+                "nodeType": "VariableDeclaration",
+                "scope": 953,
+                "src": "275:17:9",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 949,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "275:7:9",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 952,
+                "name": "amount",
+                "nodeType": "VariableDeclaration",
+                "scope": 953,
+                "src": "302:13:9",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint24",
+                  "typeString": "uint24"
+                },
+                "typeName": {
+                  "id": 951,
+                  "name": "uint24",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "302:6:9",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint24",
+                    "typeString": "uint24"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "RoyaltyInfo",
+            "nodeType": "StructDefinition",
+            "scope": 965,
+            "src": "246:76:9",
+            "visibility": "public"
+          },
+          {
+            "constant": true,
+            "id": 956,
+            "name": "_INTERFACE_ID_ERC2981",
+            "nodeType": "VariableDeclaration",
+            "scope": 965,
+            "src": "400:58:9",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bytes4",
+              "typeString": "bytes4"
+            },
+            "typeName": {
+              "id": 954,
+              "name": "bytes4",
+              "nodeType": "ElementaryTypeName",
+              "src": "400:6:9",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes4",
+                "typeString": "bytes4"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "30783261353532303561",
+              "id": 955,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "448:10:9",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_710221914_by_1",
+                "typeString": "int_const 710221914"
+              },
+              "value": "0x2a55205a"
+            },
+            "visibility": "private"
+          },
+          {
+            "body": {
+              "id": 963,
+              "nodeType": "Block",
+              "src": "486:56:9",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 960,
+                        "name": "_INTERFACE_ID_ERC2981",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 956,
+                        "src": "513:21:9",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes4",
+                          "typeString": "bytes4"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bytes4",
+                          "typeString": "bytes4"
+                        }
+                      ],
+                      "id": 959,
+                      "name": "_registerInterface",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 449,
+                      "src": "494:18:9",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_bytes4_$returns$__$",
+                        "typeString": "function (bytes4)"
+                      }
+                    },
+                    "id": 961,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "494:41:9",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 962,
+                  "nodeType": "ExpressionStatement",
+                  "src": "494:41:9"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 964,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 957,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "476:2:9"
+            },
+            "returnParameters": {
+              "id": 958,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "486:0:9"
+            },
+            "scope": 965,
+            "src": "465:77:9",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 966,
+        "src": "190:354:9"
+      }
+    ],
+    "src": "32:512:9"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/ERC2981Base.sol",
+      "exportedSymbols": {
+        "ERC2981Base": [
+          965
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".0"
+          ]
+        },
+        "id": 942,
+        "name": "PragmaDirective",
+        "src": "32:23:9"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 451,
+          "absolutePath": "project:/contracts/ERC165.sol",
+          "file": "./ERC165.sol",
+          "scope": 966,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 943,
+        "name": "ImportDirective",
+        "src": "57:22:9"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 2411,
+          "absolutePath": "project:/contracts/IERC2981Royalties.sol",
+          "file": "./IERC2981Royalties.sol",
+          "scope": 966,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 944,
+        "name": "ImportDirective",
+        "src": "80:33:9"
+      },
+      {
+        "attributes": {
+          "contractDependencies": [
+            450,
+            2327,
+            2410
+          ],
+          "contractKind": "contract",
+          "documentation": "@dev This is a contract used to add ERC2981 support to ERC721 and 1155",
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            965,
+            2410,
+            450,
+            2327
+          ],
+          "name": "ERC2981Base",
+          "scope": 966
+        },
+        "children": [
+          {
+            "attributes": {
+              "arguments": null
+            },
+            "children": [
+              {
+                "attributes": {
+                  "contractScope": null,
+                  "name": "ERC165",
+                  "referencedDeclaration": 450,
+                  "type": "contract ERC165"
+                },
+                "id": 945,
+                "name": "UserDefinedTypeName",
+                "src": "214:6:9"
+              }
+            ],
+            "id": 946,
+            "name": "InheritanceSpecifier",
+            "src": "214:6:9"
+          },
+          {
+            "attributes": {
+              "arguments": null
+            },
+            "children": [
+              {
+                "attributes": {
+                  "contractScope": null,
+                  "name": "IERC2981Royalties",
+                  "referencedDeclaration": 2410,
+                  "type": "contract IERC2981Royalties"
+                },
+                "id": 947,
+                "name": "UserDefinedTypeName",
+                "src": "222:17:9"
+              }
+            ],
+            "id": 948,
+            "name": "InheritanceSpecifier",
+            "src": "222:17:9"
+          },
+          {
+            "attributes": {
+              "canonicalName": "ERC2981Base.RoyaltyInfo",
+              "name": "RoyaltyInfo",
+              "scope": 965,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "recipient",
+                  "scope": 953,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "address",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "address",
+                      "stateMutability": "nonpayable",
+                      "type": "address"
+                    },
+                    "id": 949,
+                    "name": "ElementaryTypeName",
+                    "src": "275:7:9"
+                  }
+                ],
+                "id": 950,
+                "name": "VariableDeclaration",
+                "src": "275:17:9"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "amount",
+                  "scope": 953,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "uint24",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint24",
+                      "type": "uint24"
+                    },
+                    "id": 951,
+                    "name": "ElementaryTypeName",
+                    "src": "302:6:9"
+                  }
+                ],
+                "id": 952,
+                "name": "VariableDeclaration",
+                "src": "302:13:9"
+              }
+            ],
+            "id": 953,
+            "name": "StructDefinition",
+            "src": "246:76:9"
+          },
+          {
+            "attributes": {
+              "constant": true,
+              "name": "_INTERFACE_ID_ERC2981",
+              "scope": 965,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "bytes4",
+              "visibility": "private"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "name": "bytes4",
+                  "type": "bytes4"
+                },
+                "id": 954,
+                "name": "ElementaryTypeName",
+                "src": "400:6:9"
+              },
+              {
+                "attributes": {
+                  "argumentTypes": null,
+                  "hexvalue": "30783261353532303561",
+                  "isConstant": false,
+                  "isLValue": false,
+                  "isPure": true,
+                  "lValueRequested": false,
+                  "subdenomination": null,
+                  "token": "number",
+                  "type": "int_const 710221914",
+                  "value": "0x2a55205a"
+                },
+                "id": 955,
+                "name": "Literal",
+                "src": "448:10:9"
+              }
+            ],
+            "id": 956,
+            "name": "VariableDeclaration",
+            "src": "400:58:9"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": true,
+              "kind": "constructor",
+              "modifiers": [
+                null
+              ],
+              "name": "",
+              "scope": 965,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 957,
+                "name": "ParameterList",
+                "src": "476:2:9"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 958,
+                "name": "ParameterList",
+                "src": "486:0:9"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_bytes4",
+                                  "typeString": "bytes4"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 449,
+                              "type": "function (bytes4)",
+                              "value": "_registerInterface"
+                            },
+                            "id": 959,
+                            "name": "Identifier",
+                            "src": "494:18:9"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 956,
+                              "type": "bytes4",
+                              "value": "_INTERFACE_ID_ERC2981"
+                            },
+                            "id": 960,
+                            "name": "Identifier",
+                            "src": "513:21:9"
+                          }
+                        ],
+                        "id": 961,
+                        "name": "FunctionCall",
+                        "src": "494:41:9"
+                      }
+                    ],
+                    "id": 962,
+                    "name": "ExpressionStatement",
+                    "src": "494:41:9"
+                  }
+                ],
+                "id": 963,
+                "name": "Block",
+                "src": "486:56:9"
+              }
+            ],
+            "id": 964,
+            "name": "FunctionDefinition",
+            "src": "465:77:9"
+          }
+        ],
+        "id": 965,
+        "name": "ContractDefinition",
+        "src": "190:354:9"
+      }
+    ],
+    "id": 966,
+    "name": "SourceUnit",
+    "src": "32:512:9"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.3",
+  "updatedAt": "2022-09-07T13:02:25.574Z",
+  "devdoc": {
+    "details": "This is a contract used to add ERC2981 support to ERC721 and 1155",
+    "methods": {
+      "royaltyInfo(uint256,uint256)": {
+        "params": {
+          "_tokenId": "- the NFT asset queried for royalty information",
+          "_value": "- the sale price of the NFT asset specified by _tokenId"
+        },
+        "return": "_receiver - address of who should be sent the royalty payment_royaltyAmount - the royalty payment amount for value sale price"
+      },
+      "supportsInterface(bytes4)": {
+        "details": "implement supportsInterface(bytes4) using a lookup table"
+      }
+    }
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

@@ -20,7 +20,6 @@ interface IERC165 {
 
 pragma solidity ^0.5.0;
 
-
 /**
  * @title ERC721 Non-Fungible Token Standard basic interface
  * @dev see https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
@@ -174,7 +173,6 @@ library Address {
 
 pragma solidity ^0.5.0;
 
-
 /**
  * @title ERC165
  * @author Matt Condon (@shrugs)
@@ -219,7 +217,6 @@ contract ERC165 is IERC165 {
 // File: contracts/ERC721.sol
 
 pragma solidity ^0.5.0;
-
 
 
 
@@ -507,7 +504,6 @@ contract ERC721 is ERC165, IERC721 {
 
 pragma solidity ^0.5.0;
 
-
 /**
  * @title ERC-721 Non-Fungible Token Standard, optional enumeration extension
  * @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
@@ -522,7 +518,6 @@ contract IERC721Enumerable is IERC721 {
 // File: contracts/ERC721Enumerable.sol
 
 pragma solidity ^0.5.0;
-
 
 
 
@@ -723,7 +718,6 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
 
 pragma solidity ^0.5.0;
 
-
 /**
  * @title ERC-721 Non-Fungible Token Standard, optional metadata extension
  * @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
@@ -737,7 +731,6 @@ contract IERC721Metadata is IERC721 {
 // File: contracts/ERC721Metadata.sol
 
 pragma solidity ^0.5.0;
-
 
 
 
@@ -827,7 +820,6 @@ contract ERC721Metadata is ERC165, ERC721, IERC721Metadata {
 // File: contracts/ERC721Full.sol
 
 pragma solidity ^0.5.0;
-
 
 
 
@@ -1060,7 +1052,6 @@ pragma solidity ^0.5.0;
 * Metadata contract is upgradeable and returns metadata about Token
 */
 
-
 contract Metadata {
     using strings for *;
 
@@ -1100,11 +1091,10 @@ pragma solidity ^0.5.0;
 
 
 
-
-
-
 /**
- * The Token contract does this and that...
+ * Folia contract is a Full ERC721 that has external metadata and controller contracts that can be updated by admin addresses or the current controller itself.
+ * Admin addresses can be updated by the owner address.
+ * Eth or ERC20s that have been sent to the contract can be moved out by an Admin or the controller contract.
  */
 contract Folia is ERC721Full, Ownable {
     using Roles for Roles.Role;
@@ -1125,8 +1115,8 @@ contract Folia is ERC721Full, Ownable {
         admins += 1;
     }
 
-    function mint(address recepient, uint256 tokenId) public onlyAdminOrController {
-        _mint(recepient, tokenId);
+    function mint(address recipient, uint256 tokenId) public onlyAdminOrController {
+        _mint(recipient, tokenId);
     }
     function burn(uint256 tokenId) public onlyAdminOrController {
         _burn(ownerOf(tokenId), tokenId);
@@ -1177,7 +1167,6 @@ contract Folia is ERC721Full, Ownable {
 // File: contracts/DotComSeance.sol
 
 pragma solidity ^0.5.0;
-
 
 /*
  ______   _______ _________ _______  _______  _______ 
@@ -1251,7 +1240,6 @@ pragma solidity ^0.5.0;
 /**
  * The FoliaControllerV2 is an upgradeable endpoint for controlling Folia.sol
  */
-
 
 
 

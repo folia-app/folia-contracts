@@ -20,7 +20,6 @@ interface IERC165 {
 
 pragma solidity ^0.5.0;
 
-
 /**
  * @title ERC721 Non-Fungible Token Standard basic interface
  * @dev see https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
@@ -48,7 +47,6 @@ contract IERC721 is IERC165 {
 // File: contracts/IERC721Enumerable.sol
 
 pragma solidity ^0.5.0;
-
 
 /**
  * @title ERC-721 Non-Fungible Token Standard, optional enumeration extension
@@ -190,7 +188,6 @@ library Address {
 
 pragma solidity ^0.5.0;
 
-
 /**
  * @title ERC165
  * @author Matt Condon (@shrugs)
@@ -235,7 +232,6 @@ contract ERC165 is IERC165 {
 // File: contracts/ERC721.sol
 
 pragma solidity ^0.5.0;
-
 
 
 
@@ -522,7 +518,6 @@ contract ERC721 is ERC165, IERC721 {
 // File: contracts/ERC721Enumerable.sol
 
 pragma solidity ^0.5.0;
-
 
 
 

@@ -20,7 +20,6 @@ interface IERC165 {
 
 pragma solidity ^0.5.0;
 
-
 /**
  * @title ERC165
  * @author Matt Condon (@shrugs)

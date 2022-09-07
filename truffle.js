@@ -126,14 +126,15 @@ module.exports = {
       gasPrice: 1000000000, // 1 GWEI
       network_id: 80001
     },
-    matic: {
+    polygon: {
       provider() {
         return new HDWalletProvider(
           process.env.TESTNET_MNEMONIC,
-          'https://rpc-mainnet.maticvigil.com/'
+          'https://polygon-rpc.com'
         )
       },
-      gasPrice: 1000000000, // 1 GWEI
+      gasPrice: 100000000000, // 100 GWEI
+      gas: 3000000,
       network_id: 137
     }
   }
