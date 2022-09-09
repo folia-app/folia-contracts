@@ -123,8 +123,8 @@ describe('ReserveAuction', () => {
   }
 
   // Trade a token a few times and create some open bids
-  async function setupAuction(tokenId, currentOwnerWallet, firstTimeBid = 0, reservePrice_ = null) { // 0.5 eth
-    reservePrice = reservePrice_ || BigNumber.from(10).pow(18).div(2)
+  async function setupAuction(tokenId, currentOwnerWallet, firstTimeBid = 0, reservePrice = BigNumber.from(10).pow(18).div(2)) { // 0.5 eth
+    // reservePrice = reservePrice_ || BigNumber.from(10).pow(18).div(2)
     const asCurrentOwnerToken = await tokenAs(currentOwnerWallet);
     // const asPrevOwner = await tokenAs(prevOwnerWallet);
     // const asOwner = await tokenAs(ownerWallet);

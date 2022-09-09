@@ -8,7 +8,9 @@ import "./Metadata.sol";
 
 
 /**
- * The Token contract does this and that...
+ * Folia contract is a Full ERC721 that has external metadata and controller contracts that can be updated by admin addresses or the current controller itself.
+ * Admin addresses can be updated by the owner address.
+ * Eth or ERC20s that have been sent to the contract can be moved out by an Admin or the controller contract.
  */
 contract Folia is ERC721Full, Ownable {
     using Roles for Roles.Role;
@@ -29,8 +31,8 @@ contract Folia is ERC721Full, Ownable {
         admins += 1;
     }
 
-    function mint(address recepient, uint256 tokenId) public onlyAdminOrController {
-        _mint(recepient, tokenId);
+    function mint(address recipient, uint256 tokenId) public onlyAdminOrController {
+        _mint(recipient, tokenId);
     }
     function burn(uint256 tokenId) public onlyAdminOrController {
         _burn(ownerOf(tokenId), tokenId);

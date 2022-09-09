@@ -71,7 +71,6 @@ pragma solidity ^0.5.0;
 * Metadata contract is upgradeable and returns metadata about Token
 */
 
-
 contract Metadata {
     using strings for *;
 
@@ -109,7 +108,6 @@ pragma solidity ^0.5.0;
 /**
 * Metadata contract is upgradeable and returns metadata about Token
 */
-
 
 contract DotComSeanceMetadata is Metadata {
     function tokenURI(uint _tokenId) public pure returns (string memory _infoUrl) {

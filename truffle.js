@@ -1,6 +1,8 @@
 require('dotenv').config()
 
-const HDWalletProvider = require('truffle-hdwallet-provider')
+// const HDWalletProvider = require('truffle-hdwallet-provider')
+const HDWalletProvider = require("@truffle/hdwallet-provider")
+
 
 module.exports = {
   compilers: {
@@ -31,12 +33,12 @@ module.exports = {
       provider() {
         return new HDWalletProvider(
           process.env.GANACHE_MNEMONIC,
-          'http://localhost:7545',
+          'http://127.0.0.1:7545',
           0,
           10
         )
       },
-      host: 'localhost',
+      host: '127.0.0.1',
       port: 7545,
       network_id: 5777,
       // gas: 10000000,
@@ -101,7 +103,7 @@ module.exports = {
           'https://sokol.poa.network'
         )
       },
-      gasPrice: 1000000000,
+      gasPrice: 1000000000, // 1 GWEI
       network_id: 77
     },
     poa: {
@@ -111,8 +113,29 @@ module.exports = {
           'https://core.poa.network'
         )
       },
-      gasPrice: 1000000000,
+      gasPrice: 1000000000, // 1 GWEI
       network_id: 99
+    },
+    mumbai: {
+      provider() {
+        return new HDWalletProvider(
+          process.env.TESTNET_MNEMONIC,
+          'https://matic-mumbai.chainstacklabs.com'
+        )
+      },
+      gasPrice: 1000000000, // 1 GWEI
+      network_id: 80001
+    },
+    polygon: {
+      provider() {
+        return new HDWalletProvider(
+          process.env.TESTNET_MNEMONIC,
+          'https://polygon-rpc.com'
+        )
+      },
+      gasPrice: 100000000000, // 100 GWEI
+      gas: 3000000,
+      network_id: 137
     }
   }
 }
