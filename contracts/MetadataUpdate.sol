@@ -41,3 +41,4 @@ contract MetadataUpdate {
         assembly { mstore(add(b, 32), x) }
     }
 }
+

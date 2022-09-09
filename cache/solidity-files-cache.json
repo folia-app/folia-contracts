@@ -485,58 +485,9 @@
         "IERC721Enumerable"
       ]
     },
-    "/Users/billy/GitHub/folia-app/folia-contracts/contracts/X2Controller.sol": {
-      "lastModificationDate": 1662395738392,
-      "contentHash": "9fd5ecf88149df512e6bd970fc82ef28",
-      "sourceName": "contracts/X2Controller.sol",
-      "solcConfig": {
-        "version": "0.5.0",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 2000000
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./X2.sol",
-        "./SafeMath.sol",
-        "./Ownable.sol",
-        "./ReentrancyGuard.sol",
-        "./IERC721.sol",
-        "./IERC165.sol"
-      ],
-      "versionPragmas": [
-        "^0.5.0"
-      ],
-      "artifacts": [
-        "X2Controller"
-      ]
-    },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/X2.sol": {
-      "lastModificationDate": 1662033049060,
-      "contentHash": "6a1bd3f3843743b25f0e900d1b7705a0",
+      "lastModificationDate": 1662482596643,
+      "contentHash": "f0138ae49fb4df1dc5e482b78c18f3ca",
       "sourceName": "contracts/X2.sol",
       "solcConfig": {
         "version": "0.5.0",
@@ -569,7 +520,8 @@
         }
       },
       "imports": [
-        "./Folia.sol"
+        "./Folia.sol",
+        "./MetadataUpdate.sol"
       ],
       "versionPragmas": [
         "^0.5.0"
@@ -885,7 +837,7 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/strings.sol": {
-      "lastModificationDate": 1622663343670,
+      "lastModificationDate": 1662608594277,
       "contentHash": "a58f3be1dc8c1f28b254598769c0448d",
       "sourceName": "contracts/strings.sol",
       "solcConfig": {
@@ -927,8 +879,8 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/SimpleShadowController.sol": {
-      "lastModificationDate": 1662466039078,
-      "contentHash": "a31ce3f43d3d2b128e5eb4f2e0bb6fd7",
+      "lastModificationDate": 1662484151689,
+      "contentHash": "e6684e8565ee57cfeec8c19edbae2e97",
       "sourceName": "contracts/SimpleShadowController.sol",
       "solcConfig": {
         "version": "0.5.0",
@@ -961,11 +913,8 @@
         }
       },
       "imports": [
-        "./IERC20.sol",
         "./IShadowController.sol",
-        "./Ownable.sol",
-        "./IERC721.sol",
-        "./IERC165.sol"
+        "./Ownable.sol"
       ],
       "versionPragmas": [
         "^0.5.0"
@@ -1017,8 +966,8 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/ShieldController.sol": {
-      "lastModificationDate": 1662395805240,
-      "contentHash": "17efb4fc6842a888a6b3a720ad2b2d7b",
+      "lastModificationDate": 1662483690820,
+      "contentHash": "c3d81b6ad33781ccf19c55c8d171d76d",
       "sourceName": "contracts/ShieldController.sol",
       "solcConfig": {
         "version": "0.5.0",
@@ -1052,11 +1001,10 @@
       },
       "imports": [
         "./Shield.sol",
+        "./IERC721.sol",
         "./SafeMath.sol",
         "./Ownable.sol",
-        "./ReentrancyGuard.sol",
-        "./IERC721.sol",
-        "./IERC165.sol"
+        "./ReentrancyGuard.sol"
       ],
       "versionPragmas": [
         "^0.5.0"
@@ -1066,8 +1014,8 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/Shield.sol": {
-      "lastModificationDate": 1662395776428,
-      "contentHash": "13fb55645bd3dc0a5bde9ea4b73237d8",
+      "lastModificationDate": 1662482609696,
+      "contentHash": "c9171a1df814b3befeee0508c0385928",
       "sourceName": "contracts/Shield.sol",
       "solcConfig": {
         "version": "0.5.0",
@@ -1100,7 +1048,8 @@
         }
       },
       "imports": [
-        "./Folia.sol"
+        "./Folia.sol",
+        "./MetadataUpdate.sol"
       ],
       "versionPragmas": [
         "^0.5.0"
@@ -1110,8 +1059,8 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/ShadowController.sol": {
-      "lastModificationDate": 1662466027165,
-      "contentHash": "88cd86924e4f8c5e0aa2895f61978af7",
+      "lastModificationDate": 1662483878866,
+      "contentHash": "7e5861c01dfa787f3496b679649e04bb",
       "sourceName": "contracts/ShadowController.sol",
       "solcConfig": {
         "version": "0.5.0",
@@ -1144,7 +1093,8 @@
         }
       },
       "imports": [
-        "./IERC20.sol",
+        "./LuxChildERC20.sol",
+        "./ShieldChild.sol",
         "./Shadow.sol",
         "./IShadowController.sol",
         "./SafeMath.sol",
@@ -1161,8 +1111,8 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/Shadow.sol": {
-      "lastModificationDate": 1662466734018,
-      "contentHash": "a32e0654f8c5861be2f5e3c25b0cd2ba",
+      "lastModificationDate": 1662556048162,
+      "contentHash": "8b15124a7a193fe420fe956dd29925ac",
       "sourceName": "contracts/Shadow.sol",
       "solcConfig": {
         "version": "0.5.0",
@@ -1196,7 +1146,9 @@
       },
       "imports": [
         "./Folia.sol",
-        "./IShadowController.sol"
+        "./IShadowController.sol",
+        "./ERC2981ContractWideRoyalties.sol",
+        "./MetadataUpdate.sol"
       ],
       "versionPragmas": [
         "^0.5.0"
@@ -1206,8 +1158,8 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/LuxController.sol": {
-      "lastModificationDate": 1662034227782,
-      "contentHash": "a14c74abb807ef38dc4d06d30e0ec8c2",
+      "lastModificationDate": 1662483145832,
+      "contentHash": "daefec30524200bd43e01bb4b89bf631",
       "sourceName": "contracts/LuxController.sol",
       "solcConfig": {
         "version": "0.5.0",
@@ -1256,8 +1208,8 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/Lux.sol": {
-      "lastModificationDate": 1661765366747,
-      "contentHash": "18baa851a799bc985316ef25e5bb9e80",
+      "lastModificationDate": 1662482703626,
+      "contentHash": "37150db803458e7198039ba6b27ff561",
       "sourceName": "contracts/Lux.sol",
       "solcConfig": {
         "version": "0.5.0",
@@ -1290,7 +1242,8 @@
         }
       },
       "imports": [
-        "./Folia.sol"
+        "./Folia.sol",
+        "./MetadataUpdate.sol"
       ],
       "versionPragmas": [
         "^0.5.0"
@@ -1300,8 +1253,8 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/LuxERC20.sol": {
-      "lastModificationDate": 1662034219549,
-      "contentHash": "aaad6b22bc58bbfdb09265fe0523cfd8",
+      "lastModificationDate": 1662483926167,
+      "contentHash": "a08d485e22f7f4d7aa6b2125321e9af8",
       "sourceName": "contracts/LuxERC20.sol",
       "solcConfig": {
         "version": "0.5.0",
@@ -1337,7 +1290,8 @@
         "./Ownable.sol",
         "./ERC20.sol",
         "./Roles.sol",
-        "./ERC20Detailed.sol"
+        "./ERC20Detailed.sol",
+        "./SafeMath.sol"
       ],
       "versionPragmas": [
         "^0.5.0"
@@ -1347,8 +1301,8 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/ERC20.sol": {
-      "lastModificationDate": 1662033205325,
-      "contentHash": "38f48ffa4f7efa4c53e4a11beb48e5aa",
+      "lastModificationDate": 1662483797979,
+      "contentHash": "f6748061fd4539daaa137fb85967d777",
       "sourceName": "contracts/ERC20.sol",
       "solcConfig": {
         "version": "0.5.0",
@@ -1617,8 +1571,8 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/X2Metadata.sol": {
-      "lastModificationDate": 1662033027616,
-      "contentHash": "3b8a5d3d34f823455c5b81d79393f4db",
+      "lastModificationDate": 1662483594930,
+      "contentHash": "dfdb384fefdb9081b4986d623bcd8c9e",
       "sourceName": "contracts/X2Metadata.sol",
       "solcConfig": {
         "version": "0.5.0",
@@ -1651,7 +1605,7 @@
         }
       },
       "imports": [
-        "./Metadata.sol"
+        "./MetadataUpdate.sol"
       ],
       "versionPragmas": [
         "^0.5.0"
@@ -1661,8 +1615,8 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/ShieldMetadata.sol": {
-      "lastModificationDate": 1662395812786,
-      "contentHash": "8a8f7d9ddf24f90c92abab58312ebe0f",
+      "lastModificationDate": 1662482533244,
+      "contentHash": "87f3725d399c48d977bd05ebafde71f6",
       "sourceName": "contracts/ShieldMetadata.sol",
       "solcConfig": {
         "version": "0.5.0",
@@ -1695,7 +1649,7 @@
         }
       },
       "imports": [
-        "./Metadata.sol"
+        "./MetadataUpdate.sol"
       ],
       "versionPragmas": [
         "^0.5.0"
@@ -1705,8 +1659,8 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/ShadowMetadata.sol": {
-      "lastModificationDate": 1662030217464,
-      "contentHash": "e166a62159f5fce541b202c0931fe833",
+      "lastModificationDate": 1662483476994,
+      "contentHash": "ae43df24a2fbf84e81bc18fa4a7e092b",
       "sourceName": "contracts/ShadowMetadata.sol",
       "solcConfig": {
         "version": "0.5.0",
@@ -1739,7 +1693,7 @@
         }
       },
       "imports": [
-        "./Metadata.sol"
+        "./MetadataUpdate.sol"
       ],
       "versionPragmas": [
         "^0.5.0"
@@ -1749,8 +1703,8 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/contracts/LuxMetadata.sol": {
-      "lastModificationDate": 1661765156310,
-      "contentHash": "0981c6b75f84111ec294ebbc0e6c25cd",
+      "lastModificationDate": 1662482729679,
+      "contentHash": "51c0eef9d3bf9e779dc34e591175a7e2",
       "sourceName": "contracts/LuxMetadata.sol",
       "solcConfig": {
         "version": "0.5.0",
@@ -1783,7 +1737,7 @@
         }
       },
       "imports": [
-        "./Metadata.sol"
+        "./MetadataUpdate.sol"
       ],
       "versionPragmas": [
         "^0.5.0"
@@ -1926,7 +1880,7 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/node_modules/openzeppelin-solidity/contracts/token/ERC721/ERC721Full.sol": {
-      "lastModificationDate": 1622405483652,
+      "lastModificationDate": 1662471002486,
       "contentHash": "b9b0e656235522df5bcad0c9165619ee",
       "sourceName": "openzeppelin-solidity/contracts/token/ERC721/ERC721Full.sol",
       "solcConfig": {
@@ -1972,7 +1926,7 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/node_modules/openzeppelin-solidity/contracts/token/ERC721/ERC721.sol": {
-      "lastModificationDate": 1622924876834,
+      "lastModificationDate": 1662471002486,
       "contentHash": "bb89d80bdd128953aeeed7e0d7f82131",
       "sourceName": "openzeppelin-solidity/contracts/token/ERC721/ERC721.sol",
       "solcConfig": {
@@ -2020,7 +1974,7 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/node_modules/openzeppelin-solidity/contracts/token/ERC721/ERC721Enumerable.sol": {
-      "lastModificationDate": 1622405483656,
+      "lastModificationDate": 1662471002486,
       "contentHash": "8cd5caac04f5e5ef7d3460d6a8937d52",
       "sourceName": "openzeppelin-solidity/contracts/token/ERC721/ERC721Enumerable.sol",
       "solcConfig": {
@@ -2066,7 +2020,7 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/node_modules/openzeppelin-solidity/contracts/token/ERC721/ERC721Metadata.sol": {
-      "lastModificationDate": 1622405483656,
+      "lastModificationDate": 1662471002486,
       "contentHash": "b91f4da0fc8e57a7bb8b524a876f3cb1",
       "sourceName": "openzeppelin-solidity/contracts/token/ERC721/ERC721Metadata.sol",
       "solcConfig": {
@@ -2112,7 +2066,7 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/node_modules/openzeppelin-solidity/contracts/token/ERC721/IERC721.sol": {
-      "lastModificationDate": 1622405483656,
+      "lastModificationDate": 1662471002487,
       "contentHash": "1b29aca695b738547d7eeff0e0b0e7a0",
       "sourceName": "openzeppelin-solidity/contracts/token/ERC721/IERC721.sol",
       "solcConfig": {
@@ -2156,7 +2110,7 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/node_modules/openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol": {
-      "lastModificationDate": 1622405483656,
+      "lastModificationDate": 1662471002489,
       "contentHash": "420df701702c6d85d91165c3c1868ab6",
       "sourceName": "openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol",
       "solcConfig": {
@@ -2198,7 +2152,7 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol": {
-      "lastModificationDate": 1622405483651,
+      "lastModificationDate": 1662471001949,
       "contentHash": "f70c81f7e3549071dd1443365d107379",
       "sourceName": "openzeppelin-solidity/contracts/math/SafeMath.sol",
       "solcConfig": {
@@ -2240,7 +2194,7 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/node_modules/openzeppelin-solidity/contracts/utils/Address.sol": {
-      "lastModificationDate": 1622405483651,
+      "lastModificationDate": 1662471001953,
       "contentHash": "09c56be14609fb51ea5d8073d242ed28",
       "sourceName": "openzeppelin-solidity/contracts/utils/Address.sol",
       "solcConfig": {
@@ -2282,7 +2236,7 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/node_modules/openzeppelin-solidity/contracts/introspection/ERC165.sol": {
-      "lastModificationDate": 1622405483651,
+      "lastModificationDate": 1662471001930,
       "contentHash": "a360c383dc5471b011aceb5d9c7aa4ee",
       "sourceName": "openzeppelin-solidity/contracts/introspection/ERC165.sol",
       "solcConfig": {
@@ -2326,7 +2280,7 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/node_modules/openzeppelin-solidity/contracts/introspection/IERC165.sol": {
-      "lastModificationDate": 1622405483651,
+      "lastModificationDate": 1662471001930,
       "contentHash": "019b992c193edf1638276eb9ba1611ff",
       "sourceName": "openzeppelin-solidity/contracts/introspection/IERC165.sol",
       "solcConfig": {
@@ -2368,7 +2322,7 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/node_modules/openzeppelin-solidity/contracts/token/ERC721/IERC721Enumerable.sol": {
-      "lastModificationDate": 1622405483656,
+      "lastModificationDate": 1662471002488,
       "contentHash": "edc4036f86085655deb85be92be172af",
       "sourceName": "openzeppelin-solidity/contracts/token/ERC721/IERC721Enumerable.sol",
       "solcConfig": {
@@ -2412,7 +2366,7 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/node_modules/openzeppelin-solidity/contracts/token/ERC721/IERC721Metadata.sol": {
-      "lastModificationDate": 1622405483656,
+      "lastModificationDate": 1662471002488,
       "contentHash": "c25117e3d80e2e0393c3645b9ba23c84",
       "sourceName": "openzeppelin-solidity/contracts/token/ERC721/IERC721Metadata.sol",
       "solcConfig": {
@@ -2504,7 +2458,7 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol": {
-      "lastModificationDate": 1622405483651,
+      "lastModificationDate": 1662471001950,
       "contentHash": "e1bc392b03129cad5bfe90f8003141b8",
       "sourceName": "openzeppelin-solidity/contracts/ownership/Ownable.sol",
       "solcConfig": {
@@ -2546,7 +2500,7 @@
       ]
     },
     "/Users/billy/GitHub/folia-app/folia-contracts/node_modules/openzeppelin-solidity/contracts/utils/ReentrancyGuard.sol": {
-      "lastModificationDate": 1622405483651,
+      "lastModificationDate": 1662471001953,
       "contentHash": "163348386e395cd9d65de7a00ee83df8",
       "sourceName": "openzeppelin-solidity/contracts/utils/ReentrancyGuard.sol",
       "solcConfig": {
@@ -2855,6 +2809,271 @@
       ],
       "artifacts": [
         "Migrations"
+      ]
+    },
+    "/Users/billy/GitHub/folia-app/folia-contracts/contracts/MetadataUpdate.sol": {
+      "lastModificationDate": 1662607071942,
+      "contentHash": "57f042733ccfd34d9a71ccf5599603c8",
+      "sourceName": "contracts/MetadataUpdate.sol",
+      "solcConfig": {
+        "version": "0.5.0",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 2000000
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./strings.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "MetadataUpdate"
+      ]
+    },
+    "/Users/billy/GitHub/folia-app/folia-contracts/contracts/ShieldChild.sol": {
+      "lastModificationDate": 1662483978797,
+      "contentHash": "af9d88d4a6482c3ca2a7743fda049f83",
+      "sourceName": "contracts/ShieldChild.sol",
+      "solcConfig": {
+        "version": "0.5.0",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 2000000
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./Folia.sol",
+        "./MetadataUpdate.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "ShieldChild"
+      ]
+    },
+    "/Users/billy/GitHub/folia-app/folia-contracts/contracts/LuxChildERC20.sol": {
+      "lastModificationDate": 1662483960731,
+      "contentHash": "59cbd6ca2c0189d9292a83c9b9d9735e",
+      "sourceName": "contracts/LuxChildERC20.sol",
+      "solcConfig": {
+        "version": "0.5.0",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 2000000
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./LuxERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "LuxChildERC20"
+      ]
+    },
+    "/Users/billy/GitHub/folia-app/folia-contracts/contracts/ERC2981ContractWideRoyalties.sol": {
+      "lastModificationDate": 1662555730270,
+      "contentHash": "d9313420bbc34f5b1b63d31d686ca3b6",
+      "sourceName": "contracts/ERC2981ContractWideRoyalties.sol",
+      "solcConfig": {
+        "version": "0.5.0",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 2000000
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./ERC165.sol",
+        "./ERC2981Base.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "ERC2981ContractWideRoyalties"
+      ]
+    },
+    "/Users/billy/GitHub/folia-app/folia-contracts/contracts/ERC2981Base.sol": {
+      "lastModificationDate": 1662555072557,
+      "contentHash": "19c28b657fd8a19e9e1362d0bfdf3291",
+      "sourceName": "contracts/ERC2981Base.sol",
+      "solcConfig": {
+        "version": "0.5.0",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 2000000
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./ERC165.sol",
+        "./IERC2981Royalties.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "ERC2981Base"
+      ]
+    },
+    "/Users/billy/GitHub/folia-app/folia-contracts/contracts/IERC2981Royalties.sol": {
+      "lastModificationDate": 1662554186120,
+      "contentHash": "7eb6999b95ec72e2eaf2c2fd44c75fb0",
+      "sourceName": "contracts/IERC2981Royalties.sol",
+      "solcConfig": {
+        "version": "0.5.0",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 2000000
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "IERC2981Royalties"
       ]
     }
   }
